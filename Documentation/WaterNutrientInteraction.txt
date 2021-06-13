@@ -1,0 +1,241 @@
+
+VolumeObjects, being located in the same 3D space as Scoreboards, may impede or restrict transfer of nutrients and water between Scoreboard boxes. VO surfaces may be completely permeable, semi-permeable or impermeable. While defining fully permeable VolumeObjects is possible, it is redundant as no transfer restriction or root deflection will take place.
+
+Each Scoreboard box is divided into n+1 subsections, where n is the number of VolumeObjects in the simulation. Each subsection defines the volume of the Scoreboard box that is spatially coincident with one VolumeObject (or with no VolumeObject). The volumes of all a box's subsections sum to the volume of the box. Subsections may be of zero volume, if there is no spatial overlap between the Scoreboard box and the relevant VolumeObject.
+
+When each VolumeObject is initially constructed, it is passed to the method ScoreboardCoordinator::RegisterVolumeObject(). For each Scoreboard, all Scoreboard boxes are iterated over, and the interaction relationship between the VolumeObject and the Scoreboard box is calculated. This is a computationally intensive process, but only needs to be performed once at the initialisation of a simulation, because neither Scoreboards nor VolumeObjects may be modified during a simulation run.
+
+The function VolumeObject::GetCoincidentProportion() is used to determine the two important characteristics of VO-Scoreboard interaction. Each Scoreboard box has a proportion of its volume coincident with the given VolumeObject, and may be completely obstructed by the VO's surface(s) in one or more dimensions. The interactions between VOs and Scoreboard boxes are time-independent, as neither Scoreboard dimensions or VOs are modifiable during simulation runtime. The effect on transfer between each pair of Scoreboard boxes is derived from the interaction data, and also needs to be calculated once only.
+
+
+* BoundingCylinder::GetCoincidentProportion()
+
+This method uses a combination of custom code and the Boost::Geometry computational geometry library to determine the proportion of a given Scoreboard box's volume which is coincident with the BoundingCylinder.
+
+Firstly, a Boost::Geometry 2D box is created from the Scoreboard box's cross-section in the XY-plane. A Boost::Geometry polygon approximating a circle is created by substituting an incrementing angle value into the trigonometric equation of the BoundingCylinder's cross-sectional circle. The angle value ranges from 0 to 2*PI in 1000 increments, giving a reasonably close approximation to a circle. The Boost::Geometry intersection_inserter() method is used to obtain the polygon of intersection between the rectangle and the circle.
+
+The area of this polygon is now calculated. If the polygon does not exist (i.e. if there is no overlap between the two shapes), the function returns zero, meaning the BoundingCylinder does not coincide with the given Scoreboard box. If the polygon is equal to the rectangle, the rectangle is located entirely within the circle, and the area is equal to the rectangle's area. Otherwise, the Boost::Geometry area() function is used to obtain the polygon's area.
+
+If the polygon's area is nonzero, the polygon is examined to determine in which directions, if any, it completely obstructs transfer. See DirectionalObstruction.png for an explanatory diagram. The lines making up the polygon are each compared to the lines making up the rectangle; if any X-direction lines exactly match, the Y-direction is determined to be obstructed and vice versa.
+
+Next, the proportion of the Scoreboard box which is coincident with the BoundingCylinder in the Z-direction must be calculated. This is done by comparing the top and bottom coordinates of the Scoreboard box with the top and bottom coordinates of the BoundingCylinder (using simple inequality operators; no Boost::Geometry functions are required). If the XY-plane polygon was equal to the rectangle and the coincident Z proportion is >0, the Z-direction is considered to be obstructed.
+
+The volume occupied by both the Scoreboard box and the BoundingCylinder is now calculated by multiplying the Z-axis length of the Box by the coincident Z proportion and the coincident cross-sectional polygon's area.
+
+This volume is divided by the Scoreboard box's total volume and the function returns this as the coincident proportion. Also returned is a collection (a C++ STL vector, to be specific) of all transfer obstructions due to the VO's surfaces. An obstruction is represented by an ObstructedDimension object, defined as a Dimension (X, Y or Z) and a boolean (where true = positive direction and false = negative direction). Thus an ObstructedDimension of (X,true) means that transfer out of the box through its right face (along the positive direction of the X-axis) is obstructed, and so on. 
+
+
+* BoundingRectangularPrism::GetCoincidentProportion()
+
+This method uses a combination of custom code and the Boost::Geometry computational geometry library to determine the proportion of a given Scoreboard box's volume which is coincident with the BoundingRectangularPrism.
+
+The Scoreboard box parameter is of type DoubleBox, and BoundingRectangularPrism is a derived class of DoubleBox (and VolumeObject, of course). Thus, firstly the BoundingRectangularPrism is cast to a DoubleBox and compared to the Scoreboard box. If they are spatially equal, the method returns a coincident proportion of 1.0 and all three Dimensions obstructed.
+
+Boost::Geometry 2D boxes are created from the cross-sections of both the Scoreboard box and the BoundingRectangularPrism in the XY-plane. The Boost::Geometry overlaps() method is used to ensure there is at least some overlap between the two cross-sections. If there is not, the method returns a coincident proportion of 0.0. Boxes are then created again, this time in the XZ-plane, and again checked for overlapping.
+
+At this point, if the function has not returned, there is at least some overlap between the two DoubleBoxes. The Boost::Geometry intersection_inserter() method is used to obtain the polygon of intersection between the Scoreboard box's and the BoundingRectangularPrism's XY-plane cross-section rectangles.
+
+The area of the polygon of XY-plane intersection is now calculated. If the polygon is equal to the Scoreboard box's cross-section, the Scoreboard box is located (in the X and Y directions) entirely within the BoundingRectangularPrism, and the area is equal to the Scoreboard box's cross-sectional area. Otherwise, the Boost::Geometry area() function is used to obtain the polygon's area.
+
+If the polygon's area is nonzero, the polygon is examined to determine in which directions, if any, it completely obstructs transfer. Note that the polygon must, logically, be a rectangle here (as the intersection of two rectangles). If any edges of the polygon and the ScoreboardBox's XY-plane cross-section match, the axis that edge is perpendicular to is determined to be obstructed. This is the same logic as in BoundingCylinder::GetCoincidentProportion(), but a bit simpler.
+
+Next, the proportion of the Scoreboard box which is coincident with the BoundingRectangularPrism in the Z-direction must be calculated. This is done by comparing the top and bottom coordinates of the Scoreboard box with the top and bottom coordinates of the BoundingRectangularPrism (using simple inequality operators; no Boost::Geometry functions are required). If the XY-plane polygon was equal to the ScoreboardBox's XY-plane cross-section and the coincident Z proportion is >0, the Z-direction is considered to be obstructed.
+
+The volume occupied by both the Scoreboard box and the BoundingRectangularPrism is now calculated by multiplying the Z-axis length of the Box by the coincident Z proportion and the coincident cross-sectional polygon's area.
+
+This volume is divided by the Scoreboard box's total volume and the function returns this as the coincident proportion. Also returned is a collection (a C++ STL vector, to be specific) of all transfer obstructions due to the VO's surfaces. An obstruction is represented by an ObstructedDimension object, defined as a Dimension (X, Y or Z) and a boolean (where true = positive direction and false = negative direction). Thus an ObstructedDimension of (X,true) means that transfer out of the box through its right face (along the positive direction of the X-axis) is obstructed, and so on. 
+
+
+
+When control returns to ScoreboardCoordinator::RegisterVolumeObject(), if the coincident proportion returned is >0, a VolumeObjectScoreboardBoxInteraction object (henceforth: VOSBI) is created. This object encapsulates the Scoreboard box index, a pointer to the VO, the coincident proportion, a pointer to the background VO, the collection of ObstructedDimensions and a collection of permeabilities of each ObstructedDimension. The VOSBI is then stored in the Scoreboard which is currently being iterated over, indexed by the Box index. There may be zero or one VOSBIs for a given Scoreboard box. This is to keep the interactions between Scoreboard boxes and VolumeObjects from becoming overly complicated. 
+
+If more than one VOSBI is generated for one Scoreboard box, then there are parts of two different VOs located in that box. This is only allowed if two caveats are met:
+1) One VolumeObject MUST BE 100% coincident with the box, with none of its surfaces are located in the box, and
+2) The other VO may also meet condition 1), or it may be partially coincident with the box and have surfaces located within the box.
+When this happens, the VOSBI's background VO pointer is set to the VolumeObject meeting condition 1). If both VOs meet condition 1), the VO which is innermost (i.e. inside the other) is the foreground VO and the outermost is the background VO.
+This may happen as many times as necessarily, provided conditions 1) and 2) are always met. As an example of how this might happen, consider a series of VolumeObjects stacked inside one another like Matrioshka dolls: provided the surfaces of each subsequent VO do not occupy the same boxes as existing VO's surfaces, there is no limit to the stacking depth.
+
+
+Once all Boxes of all Scoreboards have been iterated over, the normal simulation construction continues. VOSBIs are not referenced again until the first call of a method which causes the transfer of nutrients or water between Scoreboard boxes. The order in which these methods are called is variable, dependent on which Process modules are in use and in what order, as well as other factors such as rainfall timing.
+
+
+The method Scoreboard::GetTransferRestrictionData() is called by all Processes which wish to transfer water/nutrients between adjacent Scoreboard boxes. It takes "from" (source) and "to" (destination) Scoreboard boxIndexes as parameters, as well as the ObstructedDimension (-X, +X, -Y, +Y, -Z or +Z) of the plane in which the transfer is to take place. Note that the boxes must be adjacent, and the ObstructedDimension parameter is provided for convenience and clarity (it could, alternatively, be recalculated by determining the location of each box in relation to the other).
+It returns a TransferRestrictionData object, a struct of eleven values: 
+* unrestricted proportion of source box,
+* restricted proportion of source box,
+* unrestricted proportion of destination box,
+* restricted proportion of destination box,
+* pointer to VolumeObject obstructing source box,
+* pointer to VolumeObject obstructing destination box,
+* water/nutrient permeability of VolumeObject obstructing source box,
+* water/nutrient permeability of VolumeObject obstructing destination box,
+* pointer to background VolumeObject of source box,
+* pointer to background VolumeObject of destination box, and
+* a boolean stating whether the unrestricted portion of transfer between the two boxes is inside the obstructing VO (true) or outside it (false). 
+
+If there are no VOSBIs found for this Scoreboard, the method returns both unrestricted proportions as 1.0, both restricted proportions as 0.0, and all VO pointers as null. This will be henceforth referred to as "Unrestricted TransferRestrictionData" (UTRD).
+The TransferRestrictionData object is initialised to UTRD, so if no restriction conditions are met the function will return UTRD.
+
+Next the map of pre-calculated TransferRestrictionData objects in Scoreboard is searched. If an existing value for the pair of BoxIndices is found, it is returned.
+
+If no pre-calculated value was found, this is the first time this pair of BoxIndices have been examined (in their specific order). A TransferRestrictionData struct will be calculated, stored in the map, and returned to the caller.
+If both the source box and the destination box have no associated VOSBIs (i.e. they do not interact with VolumeObject surfaces), the function returns UTRD.
+
+If the source and destination boxes are different, at least one box must have an associated VOSBI. 
+First to be determined is whether the unrestricted portion of transfer between the two boxes is within their foreground VOs. If both boxes have VOSBIs and their VO members match, this value is set to true; otherwise it is set to false.
+
+Secondly, the source box VOSBI is examined, if it exists. In all cases, the TRD's source box background VO is set to the VOSBI's background VO. If the parameter ObstructedDimension is obstructed in this VOSBI, then there is a transfer restriction on the source box and the TRD's variables are set as follows:
+* TRD::volumeObjectFrom = VOSBI::volumeObject
+* TRD::unrestrictedProportionFrom = VOSBI::coincidentProportion
+* TRD::restrictedProportionFrom = 1.0 - VOSBI::coincidentProportion
+* TRD::voFromPermeability = VOSBI::transferRestrictedDimensionPermeabilities(parameter ObstructedDimension)
+A check is also performed here to make sure the VolumeObjects involved are configured correctly: if the source box VOSBI has a background VO, it must be the same as the destination box's foreground or background VO.
+
+Finally, the destination box VOSBI is examined, if it exists. This is the same process as for the source box VOSBI with one significant difference: the direction of the parameter ObstructedDimension is inverted. This is because transfer out of the source box (+ve direction) results in transfer into the destination box (-ve direction) and vice versa. In all cases, the TRD's destination box background VO is set to the VOSBI's background VO. If the inverted parameter ObstructedDimension is obstructed in this VOSBI, then there is a transfer restriction on the destination box and the TRD's variables are set as follows:
+* TRD::volumeObjectTo = VOSBI::volumeObject
+* TRD::unrestrictedProportionTo = VOSBI::coincidentProportion
+* TRD::restrictedProportionTo = 1.0 - VOSBI::coincidentProportion
+* TRD::voToPermeability = VOSBI::transferRestrictedDimensionPermeabilities(inverted parameter ObstructedDimension)
+A check is also performed here to make sure the VolumeObjects involved are configured correctly: if the destination box VOSBI has a background VO, it must be the same as the source box's foreground or background VO.
+
+If the source and destination boxes are the same, and the parameter ObstructedDimension is obstructed in the source/destination VOSBI, all the TRD variables are set to their corresponding VOSBI variables. The TRD's "from" and "to" variables are the same in this case.
+
+
+After examination of the VOSBI(s) is complete, the TRD is stored in the map of pre-calculated TRDs and returned to the caller. It may still be UTRD (albeit potentially with updated background VOs), if neither box was determined to be restricted. Throughout the running of the simulation, the transfer proportion for every pair of adjacent Boxes will be retrieved many times; by caching the values they need only be calculated once.
+
+
+SUBSECTIONS OF SCOREBOARDS
+
+Scoreboards are divided into Scoreboard boxes, and each Scoreboard box is now subdivided into n+1 subsections, where n is the number of VolumeObjects in the simulation. Subsections have a volume between 0 and the total volume of the Scoreboard box (inclusive). The volumes of all subsections of a box sum to the total volume of that box. For each Characteristic stored in the Scoreboard, n+1 variants are created (suffixed " VolumeObject [none]", " VolumeObject 1", " VolumeObject 2", ...). These variants are then used by all Scoreboard-accessing Processes and all spatially-variant SharedAttributes.
+
+
+USAGE IN PROCESSES
+
+The Nitrate, Phosphorus and Water Processes take restriction due to barrier modelling into account in two ways. 
+
+Firstly, for functionality that does not require transfer between Scoreboard boxes - uptake by roots, evaporation of water, etc. - they simply iterate over each subsection of the Scoreboard box being addressed. Characteristic values in the Scoreboard are now identified by their subsection index in addition to their Scoreboard box index. Methods which do not require transfer between boxes (e.g. Nitrate::UptakeN(), which simulates the transfer of Nitrate from Scoreboard box subsections to the roots located within them) will not be further described here, as their functionality is not significantly changed. 
+
+Secondly, many methods involve the transfer of water/nutrients between Scoreboard boxes. These methods have been made significantly more complex by the division of each Scoreboard box into arbitrary numbers of arbitrarily-sized subsections.
+
+
+METHODS INVOLVING TRANSFER BETWEEN SCOREBOARD BOX SUBSECTIONS
+
+* Nitrate::DiffuseN()
+
+For every Scoreboard box, diffusion is attempted to all surrounding boxes. That is: in the positive X direction if the current box is not one of the rightmost, in the negative X direction if the current box is not one of the leftmost, in the positive Y direction if the current box is not one of the backmost, in the negative Y direction if the current box is not one of the frontmost, in the positive Z direction if the current box is not one of the bottommost, and in the negative Z direction if the current box is not one of the topmost.
+
+For each Scoreboard box pair, the method CalculateNitrateDiffusion() is called. Another method, named DoDiffusion(), does the actual diffusion between two box subsections; it may be called one or more times from CalculateNitrateDiffusion() as described below.
+CalculateNitrateDiffusion() first retrieves the TransferRestrictionData object for its pair of boxes.
+If the source box is restricted in this direction, and the restricting VolumeObject is semipermeable, the method calls DoDiffusion() with the restricted and unrestricted subsections of the source box. It does this twice, once for each direction: restricted to unrestricted and vice versa.
+If the destination box is restricted in this direction, and the restricting VolumeObject is semipermeable, the method calls DoDiffusion() with the restricted and unrestricted subsections of the destination box. It does this twice, once for each direction: restricted to unrestricted and vice versa.
+Once this is done, the actual diffusion between boxes can be performed. If neither box is restricted, DoDiffusion() is called for each subsection (with source box and destination box as parameters). If both boxes are restricted, DoDiffusion() is called only once, for the unrestricted subsections of the source and destination boxes. If one box is restricted and the other is not, DoDiffusion() is called only once, for the unrestricted subsection of the restricted box and the corresponding subsection (the subsection within the same VO or lack of VO) of the unrestricted box.
+
+For each call of DoDiffusion(), the average distance of the two subsections must be calculated. For this purpose, the "thicknesses" of the source and destination boxes are used - width if diffusion is along the X-axis, depth if along the Y-axis, and height if along the Z-axis.
+If the source subsection is very small (volume <0.001 mL) and the destination subsection is not very small (volume >0.01 mL), the average distance is set as the source subsection's coincident proportion with the source box multiplied by the destination box's thickness.
+If the source subsection is not very small (volume >0.01 mL) and the destination subsection is very small (volume <0.001 mL), the average distance is set as the destination subsection's coincident proportion with the destination box multiplied by the source box's thickness.
+Otherwise, the average distance is set as the average of the source subsection's coincident proportion with the source box multiplied by the source box's thickness and the destination subsection's coincident proportion with the destination box multiplied by the destination box's thickness.
+
+DoDiffusion() does the actual diffusion - if the difference in Nitrate concentrations is sufficient - as before, but now diffuses between two Scoreboard box subsections. If the diffusion is intra-box (that is, from one subsection to another within the same box), the calculated delta-Nitrate is multiplied by the permeability (in the range 0.0 - 1.0) of the dividing VolumeObject's surface.
+
+
+* Nitrate::MassFlowN()
+
+For each Nitrate packet, the BoxIndex of the containing box and the index of the containing subsection is determined by comparing its 3D coordinates with the Scoreboard boundaries and the dimensions and location of each VolumeObject (using the method VolumeObjectCoordinator::GetContainingVolumeObjectIndex(), see below). This BoxIndex and subsection index are used to retrieve the appropriate Characteristic values (water content, field capacity, water moved, etc.) required to calculate the displacement the Nitrate packet will be subjected to. 
+MassFlowN() allows Nitrate packets to be moved through up to two boxes. Displacement of Nitrates is directly correlated to and caused by water movement, which is restricted by barrier modelling where applicable. As such, barrier modelling is not re-calculated in MassFlowN(). 
+
+
+* Nitrate::LeachN()
+
+LeachN() has very similar behaviour to MassFlowN(). It also iterates over each Nitrate packet and locates the Scoreboard box subsection containing them, using those indices to retrieve the appropriate Characteristic values. As with MassFlowN(), LeachN() is driven by water movement (which is specifically rainfall leaching in LeachN()). Since water movement is already subject to barrier modelling in Water, barrier modelling is not re-calculated in LeachN().
+
+
+* Phosphorus::DiffuseP()
+
+Phosphorus::DiffuseP() works almost exactly the same as Nitrate::DiffuseN(), except for the beginning of the method. Phosphorus::DiffuseP() may be called in "drain mode", in which case its functionality is executed twice in a row. 
+Each time DiffuseP()'s functionality is executed, it iterates over the Scoreboard columns in the opposite order to the previous call. That is, if an execution of the functionality steps through all Y-values from first to last and all X-alues from first to last, the next execution will step through Y- and X-values from last to first. Z-values are always iterated from first to last.
+For each Scoreboard box, the method CalculateDiffusionOrder() is called. This method attempts diffusion to all surrounding boxes, as in Nitrate::DiffuseN(), with an added check used to ensure that phosphorus is only diffused through each box wall once per execution of DiffuseP()'s functionality. That is, when diffusion is attempted from box B1 to box B2, the check ensures that diffusion is not attempted from B2 back to B1 in the same execution of DiffuseP()'s functionality.
+
+For each valid Scoreboard box pair in a call to CalculateDiffusionOrder() - that is, the original box and all surrounding boxes that have not yet been diffused to - CalculatePhosphorusDiffusion() is called. CalculatePhosphorusDiffusion() behaves essentially the same as Nitrate::CalculateNitrateDiffusion(), calling Phosphorus::DoDiffusion() to do the actual diffusion.
+
+Phosphorus::DoDiffusion(), again, is essentially identical to Nitrate::DoDiffusion() in terms of barrier modelling behaviour.
+
+
+* Phosphorus::LeachP()
+
+LeachP() uses water movement from rainfall to leach Phosphorus downwards through columns. As with LeachN(), the barrier modelling transfer restriction is left to Water. The only significant change to LeachP()'s functionality is that leaching is now attempted for each pair of corresponding subsections in each pair of boxes in each column.
+
+
+* Water::Drain()
+
+Drain() iterates over each Scoreboard box, from the top to the bottom of each column. The TransferRestrictionData for each vertical pair of boxes is retrieved. If the top (source) box is restricted, and the VO surface is semipermeable, DoDrain() is called to drain a proportion of water from the restricted subsection to the unrestricted.
+Then, if neither box is restricted, DoDrain() is called on each pair of corresponding subsections. If both boxes are restricted, DoDrain() is called on only the unrestricted subsections of the pair of boxes. Otherwise, DoDrain() is called on the unrestricted subsection of the restricted box and the corresponding subsection in the other box.
+
+DoDrain() attempts to drain water from one subsection to another. The subsections may be in the same box, one above the other, or they may be corresponding subsections of two Z-adjacent boxes. If the subsections are within the same box, the permeability of the VO surface is applied to the rained water amount as a restriction modifer. Once this is done, the original water draining code is implemented. As before, excess water reaching the bottom of the Scoreboard disappears; this happens whether or not a VolumeObject is present in the lowest rows of boxes. However, if an impermeable VolumeObject is present but ends before the bottom of the Scoreboard, water will not be drained out of it.
+
+
+* Water::RedistributeWater()
+
+RedistributeWater() iterates over each Scoreboard box and attempts redistribution first within the box. For each subsection of the box, if the separating VO is semipermeable, DoRedistribution() is called for the current subsection and each other subsection. It is called twice for each subsection pair, attempting diffusion first one way and then the other.
+Then, the method attempts redistribution from the current box to each adjacent box. For each pair of boxes, it iterates over each corresponding pair of subsections. If neither subsection is obstructed from the other, DoRedistribution() is called on the pair. 
+
+The same procedure as in Nitrate::CalculateNitrateDiffusion() is used to calculate the average distance parameter of Water::DoRedistribution().
+
+Water::DoRedistribution() behaves almost identically to Nitrate::DoDiffusion() and Phosphorus::DoDiffusion(). It operates on a pair of subsections, be they within the same box or corresponding subsections of adjacent boxes. If the redistribution is intra-box (that is, from one subsection to another within the same box), the calculated delta-Water is multiplied by the permeability (in the range 0.0 - 1.0) of the dividing VolumeObject's surface.
+
+
+
+OTHER METHODS INVOLVING BARRIER MODELLING
+
+* Nitrate::RedistributeDots()
+
+The dots representing Nitrate packets are placed on a pseudorandom basis within boxes with sufficient Nitrate amount. As subsections of boxes may be, essentially, arbitrarily shaped and sized, RedistributeDots() is made more complicated by barrier modelling. To ensure that a Nitrate packet is placed within the correct subsection, the following procedure is followed. 
+1) If the subsection is within a VO, the method VolumeObject::GenerateRandomPointInBox() (see below) is called with the current Scoreboard box as a parameter, to produce a point which is located inside the box and inside the VO. 
+2) If not - if the subsection is the non-VO one - each VO is iterated over. GenerateRandomPointInBox() is called on the first VO, to produce a point which is located inside the box and OUTSIDE the VO. 
+3) Each subsequent VO is then checked to ensure the generated coordinate is not located inside it. 
+4) While the randomly-generated coordinate is invalid - that is, located inside any VO - steps 2-4 are repeated.
+Once the coordinate of a Nitrate packet has been successfully generated, RedistributeDots() is not affected further by barrier modelling (except in that each Scoreboard box is divided into subsections, of course).
+
+* VolumeObjectCoordinator::GetContainingVolumeObject()
+
+This method takes a parameter DoubleCoordinate and iterates over all VolumeObjects, calling VolumeObject::Contains() to determine if each VO contains the point. If multiple VOs contain the point, the innermost containing VO is returned. If only one VO contains the point, it is returned. If no VOs contain the point, the function returns NULL.
+
+* VolumeObjectCoordinator::GetContainingVolumeObjectIndex()
+
+This method calls VolumeObjectCoordinator::GetContainingVolumeObject() and returns the resulting VO's index, or 0 if the resulting VO is NULL.
+
+* VolumeObject::Contains(parameter DoubleCoordinate)
+
+Implementations of this method simply compare the parameter DoubleCoordinate to the location and dimensions of the VolumeObject. If the DoubleCoordinate's Z-coordinate is above or below the bounds of the VolumeObject, it returns false. If the X-coordinate is left or right of the bounds of the VO, it returns false. If the Y-coordinate is in front of or behind the bounds of the VO, it returns false. If all these tests are passed, the method returns true.
+
+* VolumeObject::Contains(parameter VolumeObject) 
+
+Implementations of this method first determine the type of the parameter VolumeObject: BoundingCylinder or BoundingRectangularPrism. The geometrical extremities of the parameter VO are compared to the implementor's extremities. If and only if all surfaces, edges and vertices of the parameter VO are located within (and not touching) the implementor VO, the function returns true.
+
+* VolumeObject::GenerateRandomPointInBox()
+
+Implementations of this method are more complicated than Contains(), because they have no guarantee of any overlap between the parameter Scoreboard box and the VO. Overlap, if it exists, may be extremely small, so optimisations over and above the brute-force "randomise coordinate in box, call Contains()" procedure are necessary in some cases.
+
+* BoundingRectangularPrism::GenerateRandomPointInBox()
+
+If the method has been called to generate a point within the box and within the VO:
+The valid region is defined as the rectangular prism between the rightmost of the left bounds of the VO and box, the leftmost of the right bounds of the VO and box, the topmost of the bottom bounds of the VO and box, the bottommost of the top bounds of the VO and box, the frontmost of the back bounds of the VO and box, and the backmost of the front bounds of the VO and box.
+A random coordinate within these bounds is generated, checked with Contains(), and returned.
+
+Otherwise, if the method has been called to generate a point within the box and outside the VO:
+The possibly-valid region is defined as the parameter Scoreboard box. A random coordinate within these bounds is generated, and checked with Contains(). If Contains() returns true, the random generation is repeated. If 100 iterations take place without a valid coordinate being generated, the coincident proportion between this box and the VO is retrieved. If this proportion is over 0.999 - that is, the valid region is less than 0.1% of the box - "jitter-lock" mode is activated. Otherwise, iteration continues. If 1000 iterations are reached without a valid coordinate, "jitter-lock" mode is activated.
+If "jitter-lock" mode has been activated, each component of the coordinate is generated separately. A Z-value is repeatedly generated within the possibly-valid region's Z-range until one outside the VO's Z-range is reached. The same procedure is repeated for X and Y, and the resulting coordinate is returned.
+
+* BoundingCylinder::GenerateRandomPointInBox()
+
+If the method has been called to generate a point within the box and within the VO:
+The possibly-valid region is defined as the rectangular prism between the rightmost of the left bounds of the VO (i.e. the circular cross-section's leftmost extreme)  and box, the leftmost of the right bounds of the VO (i.e. the circular cross-section's rightmost extreme) and box, the topmost of the bottom bounds of the VO and box, the bottommost of the top bounds of the VO and box, the frontmost of the back bounds of the VO and box, and the backmost of the front bounds of the VO and box.
+A random coordinate within these bounds is generated and checked with Contains(). If it is not inside the VO, the random generation is repeated. If 100 iterations are reached and the coincident proportion between box and VO is less than 0.00001 - that is, the valid region is less than 0.001% of the box - "jitter-lock" mode is activated. Otherwise, iteration continues. If 1000 iterations are reached without a valid coordinate, "jitter-lock" mode is activated.
+If "jitter-lock" mode has been activated, each component of the coordinate is generated separately. A Z-value is repeatedly generated within the box's Z-range until one within the VO's Z-range is reached. The same procedure is repeated for X and Y, and the resulting coordinate is returned.
+
+Otherwise, if the method has been called to generate a point within the box and outside the VO:
+The possibly-valid region is defined as the parameter Scoreboard box. A random coordinate within these bounds is generated, and checked with Contains(). If Contains() returns true, the random generation is repeated. If 100 iterations take place without a valid coordinate being generated, the coincident proportion between this box and the VO is retrieved. If this proportion is over 0.9999 - that is, the valid region is less than 0.01% of the box - "jitter-lock" mode is activated. Otherwise, iteration continues. If 1000 iterations are reached without a valid coordinate, "jitter-lock" mode is activated.
+If "jitter-lock" mode has been activated, each component of the coordinate is generated separately. 
+If there is some overlap between VO and box in the Z-axis, a Z-value is repeatedly generated within the box's Z-range until one outside the VO's Z-range is reached. If there is total overlap between VO and box in the Z-axis (i.e. the box is surrounded by the VO, in the Z-axis) or no overlap, the pre-existing Z-value is used.
+If there is less than total Z-overlap, the pre-existing X- and Y-values are valid, as the coordinate will be above or below the VO, and this coordinate is returned.
+If there is total Z-overlap, pairs of random X- and Y- values within the box's range are repeatedly generated until a pair is generated outside the circular cross-sections circumference. This coordinate is then returned.
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<!-- VolumeObject specification file                                        -->
+<!--                                                                        -->
+<!-- FORMAT:XML                                                             -->
+<!--                                                                        -->
+<!-- NO C-style comments                                                    -->
+<!--                                                                        -->
+<!-- CURRENTLY SUPPORTED CLASSES:                                           -->
+<!--                                                                        -->
+<!-- BoundingCylinder                                                       -->
+<!-- Specifies a cylinder of a given depth, the top disc                    -->
+<!-- coplanar with the surface, centred at a given coordinate (with Z=0).   -->
+<!-- BoundingCylinders have impenetrable surfaces and do not affect         -->
+<!-- the growth rate of root tips growing within them.                      -->
+<!--                                                                        -->
+<!-- BoundingRectangularPrism                                               -->
+<!-- Specifies a right cuboid defined by two points, the left front top     -->
+<!-- and right back bottom coordinates. Aligned with the Z-axis             -->
+<!-- in the same way as BoundingCylinders.                                  -->
+<!-- BoundingRectangularPrisms have impenetrable surfaces and do not affect -->
+<!-- the growth rate of root tips growing within them.                      -->
+<!--                                                                        -->
+
+<rootmap
+        xmlns="https://example.org/ROOTMAP/VolumeObjectsSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/VolumeObjectsSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/VolumeObjects.xsd">
+  <construction>
+    <owner>VolumeObjectCoordinator</owner>
+    <volumeobject>
+      <class_name>BoundingCylinder</class_name>
+      <origin>5,5,0</origin>
+      <depth>60.0</depth>
+      <radius>5</radius>
+    </volumeobject>
+  </construction>
+</rootmap>

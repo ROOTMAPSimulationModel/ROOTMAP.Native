@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
+
+<!-- Plants file                                                            -->
+<!--                                                                        -->
+<!-- FORMAT:XML                                                             -->
+<!--                                                                        -->
+<!-- NO C-style comments                                                    -->
+<!--                                                                        -->
+<rootmap
+        xmlns="https://example.org/ROOTMAP/PlantsSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/PlantsSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/Plants.xsd">
+  <construction>
+    <owner>PlantCoordinator</owner>
+    <plant>
+      <name>Plant 120</name>
+      <type>RootMap Plant Type</type>
+      <!-- origin and seed_location are X,Y,Z no spaces -->
+      <origin>5.0,5.0,0.0</origin>
+      <seed_location>5.0,5.0,0.5</seed_location>
+      <!-- seeding time is in days from time zero -->
+      <seeding_time>1.0</seeding_time>
+      <seminal_axis>
+        <start_lag>1.0</start_lag>
+        <probability>1.0</probability>
+      </seminal_axis>
+      <seminal_axis>
+        <start_lag>1.0</start_lag>
+        <probability>0.0</probability>
+      </seminal_axis>
+      <nodal_axis>
+        <start_lag>100.0</start_lag>
+        <probability>0.0</probability>
+      </nodal_axis>
+    </plant>
+  </construction>
+</rootmap>
+

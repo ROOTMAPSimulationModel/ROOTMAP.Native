@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<rootmap
+        xmlns="https://example.org/ROOTMAP/ScoreboardDataSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/ScoreboardDataSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/ScoreboardData.xsd">
+  <initialisation>
+    <owner>Scoreboard</owner>
+    <!-- Plant SharedAttributes -->
+    <!-- Growth Rate per-Plant per-RootOrder -->
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 71 RootOrder0</characteristic>
+      <scheme>set scoreboard value=0.22;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 71 RootOrder1</characteristic>
+      <scheme>set scoreboard value=0.03;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 71 RootOrder2</characteristic>
+      <scheme>set scoreboard value=0.04;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 71 RootOrder>=3</characteristic>
+      <scheme>set scoreboard value=0.04;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Root P Plasticity Factor Plant 71 RootOrder0</characteristic>
+      <scheme>set scoreboard value=1.0;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Root P Plasticity Factor Plant 71 RootOrder1</characteristic>
+      <scheme>set scoreboard value=1.0;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Root P Plasticity Factor Plant 71 RootOrder2</characteristic>
+      <scheme>set scoreboard value=1.0;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Growth Rate Plant 71 RootOrder0</characteristic>
+      <scheme>set scoreboard value=0.08;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Growth Rate Plant 71 RootOrder1</characteristic>
+      <scheme>set scoreboard value=0.04;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Growth Rate Plant 71 RootOrder2</characteristic>
+      <scheme>set scoreboard value=0.02;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Growth Rate Plant 71 RootOrder>=3</characteristic>
+      <scheme>set scoreboard value=0.01;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 71 RootOrder0</characteristic>
+      <scheme>
+        set scoreboard value=0.62;
+        set plane Z=1 value=0.27;
+        set plane Z=2 value=0.27;
+        set plane Z=3 value=0.27;
+        set plane Z=4 value=0.27;
+        set plane Z=5 value=0.27;
+        set plane Z=6 value=0.27;
+        set plane Z=7 value=0.29;
+        set plane Z=8 value=0.29;
+        set plane Z=9 value=0.29;
+        set plane Z=10 value=0.29;
+        set plane Z=11 value=0.45;
+        set plane Z=12 value=0.45;
+        set plane Z=13 value=0.45;
+        set plane Z=14 value=0.45;
+        set plane Z=15 value=0.45;
+      </scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 71 RootOrder1</characteristic>
+      <scheme>set scoreboard value=1.5;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 71 RootOrder2</characteristic>
+      <scheme>set scoreboard value=0.6;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 71 RootOrder>=3</characteristic>
+      <scheme>set scoreboard value=0.6;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Geotropism Index Plant 71 RootOrder0</characteristic>
+      <scheme>set scoreboard value=0.75;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Geotropism Index Plant 71 RootOrder1</characteristic>
+      <scheme>set scoreboard value=0.2;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Geotropism Index Plant 71 RootOrder2</characteristic>
+      <scheme>set scoreboard value=0.1;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Geotropism Index Plant 71 RootOrder>=3</characteristic>
+      <scheme>set scoreboard value=0.1;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Deflection Index Plant 71 RootOrder0</characteristic>
+      <scheme>set scoreboard value=0.25;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Deflection Index Plant 71 RootOrder1</characteristic>
+      <scheme>set scoreboard value=0.2;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Deflection Index Plant 71 RootOrder2</characteristic>
+      <scheme>set scoreboard value=0.2;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Deflection Index Plant 71 RootOrder>=3</characteristic>
+      <scheme>set scoreboard value=0.2;</scheme>
+    </scoreboarddata>
+  </initialisation>
+</rootmap>
+

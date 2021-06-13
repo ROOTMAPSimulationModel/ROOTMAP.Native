@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<rootmap
+        xmlns="https://example.org/ROOTMAP/ViewSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/ViewSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/Renderer.xsd">
+	<initialisation>
+		<owner>RenderCoordinator</owner>
+		<characteristic_colour_info>
+		  <colour_min>0</colour_min>
+		  <colour_max>255</colour_max>
+		  <characteristic_min>0.0</characteristic_min>
+		  <characteristic_max>1000.0</characteristic_max>
+		  <process_name>Phosphorus</process_name>
+		  <characteristic_name>Total Labile P</characteristic_name>
+		</characteristic_colour_info>
+		<characteristic_colour_info>
+		  <colour_min>0</colour_min>
+		  <colour_max>255</colour_max>
+		  <characteristic_min>0.0</characteristic_min>
+		  <characteristic_max>1000.0</characteristic_max>
+		  <process_name>Nitrate</process_name>
+		  <characteristic_name>Nitrate Concentration</characteristic_name>
+		</characteristic_colour_info>
+		<characteristic_colour_info>
+		  <colour_min>0</colour_min>
+		  <colour_max>255</colour_max>
+		  <characteristic_min>0.0</characteristic_min>
+		  <characteristic_max>100.0</characteristic_max>
+		  <process_name>Water</process_name>
+		  <characteristic_name>Water Content</characteristic_name>
+		</characteristic_colour_info>
+		<characteristic_colour_info>
+		  <colour_min>0</colour_min>
+		  <colour_max>255</colour_max>
+		  <characteristic_min>5.0</characteristic_min>
+		  <characteristic_max>180.0</characteristic_max>
+		  <process_name>Nitrate</process_name>
+		  <characteristic_name>Nitrate Amount</characteristic_name>
+		</characteristic_colour_info>
+		<characteristic_colour_info>
+		  <colour_min>0</colour_min>
+		  <colour_max>255</colour_max>
+		  <characteristic_min>5.0</characteristic_min>
+		  <characteristic_max>17.0</characteristic_max>
+		  <process_name>Extractable Aluminium</process_name>
+		  <characteristic_name>Extractable Aluminium</characteristic_name>
+		</characteristic_colour_info>
+	</initialisation>
+</rootmap>

@@ -1,0 +1,200 @@
+POSTPROCESSING ROOTMAP OUTPUT WITH R
+
+R is a statistical computing package specially designed for working efficiently with large data sets. The ROOTMAP package includes a suite of R scripts which automate several postprocessing tasks commonly performed on ROOTMAP simulation data. To install R for your operating system, visit http://cran.r-project.org/ and follow the instructions. Documentation for R is also available at this site.
+The script suite also requires the Omegahat XML package, which may not be included in the basic installation. To retrieve the XML package, go Packages --> Install Package(s) in the R GUI menu, select your local mirror and select package XML. A faster way, for Windows users, is to simply paste the following command into the R command line: install.packages("XML", repos = "http://www.omegahat.org/R")
+
+The following tasks are currently performed by the script suite:
+
+1) Calculating Root Length Density (m root/m^3 soil) versus Depth (m)
+	Requires: Root Length ROOTMAP output, and the Scoreboards.xml & OutputRules.xml used to produce it
+	1a) Calculating Aggregate Root Length (m) versus Depth (m)
+2) Calculating Water Content (cm^3 water/cm^3 soil) versus Depth (m)
+	Requires: Water Content ROOTMAP output, Scoreboards.xml, OutputRules.xml
+3) Calculating Nitrate Content (ug N/cm^3 soil) versus Depth (m)
+	Requires: Nitrate Content ROOTMAP output, Scoreboards.xml, OutputRules.xml
+	3a) Calculating Nitrate Content (ug N/g soil) versus Depth (m)
+		Requires: All Nitrate (ug/cm^3 soil) requirements plus Bulk Density ROOTMAP output
+	3b) Calculating Nitrate Content (kg N/ha) versus Depth (m)
+		Requires: All Nitrate (ug/cm^3 soil) requirements plus Bulk Density ROOTMAP output		
+4) Calculating Phosphorus Content (ug P/cm^3 soil) versus Depth (m)
+	Requires: Phosphorus Content ROOTMAP output, Scoreboards.xml, OutputRules.xml
+	4a) Calculating Phosphorus Content (ug P/g soil) versus Depth (m)
+		Requires: All Phosphorus (ug/cm^3 soil) requirements plus Bulk Density ROOTMAP output
+	4b) Calculating Phosphorus Content (kg P/ha) versus Depth (m)
+		Requires: All Phosphorus (ug/cm^3 soil) requirements plus Bulk Density ROOTMAP output
+		
+
+RUNNING THE SCRIPT SUITE
+
+(1)		
+For a given ROOTMAP simulation, place the data which are constant between runs (Scoreboards.xml, OutputRules.xml and Bulk Density) in the top level directory, and place each run's variant data in a subdirectory. For example:
+
+C:\Rootmap_wheat_sim\
+
+	Scoreboards.XML
+	OutputRules.XML
+	Bulk Density 180D 88.txt
+	
+	Run 1\
+		Nitrate 01/06/10.txt
+		Nitrate 01/08/10.txt
+		Nitrate 01/10/10.txt
+		Phosphorus 01/06/10.txt
+		Phosphorus 01/08/10.txt
+		Phosphorus 01/10/10.txt		
+		Root Length 01/06/10.txt
+		Root Length 01/08/10.txt
+		Root Length 01/10/10.txt
+		Water Content 01/06/10.txt
+		Water Content 01/08/10.txt
+		Water Content 01/10/10.txt		
+	Run 2\
+		[...etc...]
+	Run 3\
+		[...etc...]
+		
+(2)
+Launch the R GUI. Change workspace to [ROOTMAP install directory].
+
+(3)
+Type the following into the R command line:
+source("ROOTMAP_Postprocessor.r")
+The script will begin by prompting for a simulation directory. Type the absolute path to your simulation directory and press enter. Use forward slashes, not backslashes, even if your operating system is Windows.
+
+(4)
+Processing will now begin; if all files are located correctly, not malformed, and named according to the <filename> tags in OutputRules.xml, no further input will be necessary. It may be advantageous to try the script on a small number of runs first, to ensure it works correctly for your data. If an error occurs and the script terminates, you may have to change working directories back to [ROOTMAP install directory] before repeating step (3), as the script suite changes working directory throughout.
+If a valid Bulk Density file is not found in the simulation directory, processing will continue, but the soil density-dependent Nitrate and Phosphorus data will not be produced.
+
+(5)
+Postprocessed data will be stored in subdirectories of each run's subdirectory, all named "Postprocessed Data". Individual files are named with a descriptive summary phrase appended to the original ROOTMAP data file's name.
+
+(6)
+The script will overwrite any existing postprocessed data with the same name, so be sure to keep the source and postprocessed data together.
+
+(7)
+All the functionality of the script suite is contained within the 8 .r scripts located in [ROOTMAP install directory]. These scripts are simple text files and can be edited with the R GUI, Notepad, or any other text editor. ROOTMAP_Postprocessor.r contains, at its beginning, various configuration variables such as graph width/height (default 500x1000 pixels) and script location directory are defined. These variables may be edited directly.
+
+------------------------------------------------------------------------------------------------------
+
+RAYTRACING ROOTMAP VISUALISATION
+
+
+
+****    1. Data Output Setup
+
+
+ROOTMAP's raytracer data output is controlled by an Output Rule, the same as other forms of output (such as per-Scoreboard Characteristic data).
+Preparing raytracer data requires three unique settings in the output rule:
+
+	1)	Source (<source>) - the main focus of the raytraced scene. Required. Selection of the source determines where the scene's centrepoint will be.
+	     [table]
+		 SOURCE								CENTREPOINT
+		 ScoreboardCoordinator				Geometric centre of all Scoreboards; i.e. (length/2, breadth/2, depth/2)
+         Plant								Origin point of the Plant in the X and Y planes; half the maximum depth drawn to in the Z plane
+         PlantCoordinator					Geometric centre of all Plant origins in the X and Y planes; half the maximum depth drawn to in the Z plane
+		Setting the source to a Process not listed here (e.g. Nitrate) will default the centrepoint to (0,0,0) (not recommended).
+		
+	2)	Others to be raytraced (<specification1>) - a list of names to be raytraced in addition to the source. Optional (may be left blank or omitted entirely).
+		Set to "all" (<specification1>all</specification1>) to raytrace output from everything: the source, plus all raytracer-capable Processes, plus visualisation of all Scoreboard boxes.
+		Set to a comma-delimited list of one or more Processes and/or "ScoreboardCoordinator" to raytrace output from these in addition to the <source>.  E.g. <specification1>Nitrate, ScoreboardCoordinator</specification1>.
+		Explicitly listing the <source> again in this list is redundant and will be ignored.
+		
+	3)	Scoreboard rendering technique (<specification2>) - choice of methods by which to create the volumetric Scoreboard data. Required. Set to either "DF3" or "SB". DF3 is a volumetric file format supported directly by POV-Ray, is much faster in most situations, and should be used by default. SB (stands for Scoreboard Box) is a macro which renders a Scoreboard box as a rectangular prism in POV-Ray, and is better in situations where the Scoreboard is made up of irregularly-sized boxes. See 2.
+		
+
+In addition, the behaviours of two other elements are unique to the RaytracerData output rule.
+
+	1)	The <filename> tag must be set to produce serially-numbered output files (as below) in order for POV-ray to correctly interpret them. Each output file contains data for one frame of animation.
+	
+		--> File name (<filename>) - "Raytracer/DF3_Rootmap_Data%04u.inc" by default. The prefix "Raytracer/" indicates that the data will be written to a subdirectory named "Raytracer". The "%04u" suffix means that the files output by this rule will be numbered with an unsigned (i.e. >=0 and hence the 'u') decimal integer of at least 4 digits. Numbering begins at zero.
+		For example, the first three files here would be "DF3_Rootmap_Data0000.inc", "DF3_Rootmap_Data0001.inc", and "DF3_Rootmap_Data0002.inc".
+		The Scene Setup Data points to "DF3_Rootmap_Data0000.inc" as the "master" data include file by default. [The "master" then points to all the other ones.] If the filename is changed in the output rule, the Scene Setup Data (see 4.) must be updated to point to the correct first frame.
+		
+	2)	The <when> element functions normally, but also offers a simpler timing option. If <count> is specified as a positive non-zero integer, and neither <initialtime> & <interval> nor <attime> & <regularity> tags are specified, the <count> will be used as the total frame count for the whole simulation. That is, <interval> will be calculated as [total sim runtime] / <count>. The first frame will be taken at time <interval> + [sim start], and the last frame will be taken at [sim end].
+		<count> may be set to 0 as a simple way of temporarily switching raytracer output off IF no <attime> or <regularity> tags are defined.
+	
+	
+	
+****	2. Selection of Scoreboard rendering technique
+
+
+There are two options available for rendering Scoreboard Boxes. The first is to use a modified POV-Ray Box primitive for each Scoreboard Box, and accompany each one with an array of values for all Process/Characteristic pairs. The second is to use a DF3 volume, which covers the entire Scoreboard (and thus contains the values of all Scoreboard Boxes), for each Process/Characteristic pair.
+
+ *** SB (Box) method ***
+PROs:	More efficient for irregularly-spaced Scoreboard boundaries (i.e. non-uniform Scoreboard Box dimensions)
+		Typically more sharply-defined boundaries between Scoreboard Boxes
+		All data for each frame is contained within one large POV-Ray include file (ease of portability)
+CONs:	Very large POV-Ray include files are more difficult and time-consuming to examine
+		Typically slower to render
+		Slow to parse within POV-Ray
+		No convenient way to remove unnecessary Process/Characteristic pair data
+
+ *** DF3 volume method ***
+PROs:	More efficient for regularly-spaced Scoreboard boundaries
+		Data for each frame is contained within one POV-Ray include file and one DF3 directory  (ease of organisation)
+		Smaller POV-Ray include files are easier to examine
+		Much faster to parse within POV-Ray - only the three Process/Characteristic pairs of interest are interpreted
+		Typically much faster to render
+		DF3 files may potentially be useable directly in other programs
+		DF3 files for unwanted Process/Characteristic pairs may be discarded
+CONs:	Voxel (volume element) size is fixed and cubic; slight variations in Scoreboard boundaries may result in each Scoreboard box requiring many voxels (currently, the resolution of the smallest Scoreboard Box is hard limited to 4 voxels per side. This results in file sizes of at least 4^3 voxels for each Box, and often much more)
+		DF3 files are binary encoded, and thus require more effort to examine
+	
+If your Scoreboard boxes are uniform or simple linear multiples in dimension (e.g. some boxes 1x1x1, others 2x1x1), the DF3 method should definitely be used. However if they are irregularly-sized, the SB method should be used. If DF3 format is selected for a given Scoreboard and the file sizes that would result are calculated to be too large, output will revert to SB format. 
+	
+	
+	
+****    3. Generation and Output
+
+
+While a valid RaytracerData output rule is present in OutputRules.xml, at the designated times ROOTMAP will automatically generate and write to disk POV-ray format representations of the model.
+These files are formatted as POV-ray "include files". As the name suggests they will be included in the main scene description file (see 4.). Specifically, the first file in the series is directly included and it then includes all the others.
+Caution should be taken when configuring RaytracerData output rules and when running ROOTMAP with such rules active. Each time ROOTMAP must generate a frame, all participating modules are polled and transfer data; this places a burden on the host computer's CPU and memory. The more times a frame is generated in a given simulation, the longer it will take. Also, a set of data files which take a long time to generate in ROOTMAP will take a long time to handle in POV-ray.
+As a rule of thumb, RaytracerData output rules should only be active when absolutely necessary, and users should be aware that high frame count RaytracerData output will likely take a long time and impose a significant workload on hardware.
+That being said, once a high frame count simulation has been run, the resulting data can be used repeatedly to produce visualisations ranging from cut-down, low-resolution, low-frame-rate tests to full-scale high-quality animation renders; this versatility will often be worth the initial cost of computation time.
+
+
+
+****    4. Rendering
+
+
+Once a data file has been produced, there are three steps to follow to generate raytraced images and animations.
+
+	1)	Configure the visualisation using "Rootmap_Scene_Setup_Data.inc". This is a text file of options and settings which is incorporated into the main scene file ("Rootmap_Scene.pov") and used for "internal" control of the scene. The file is in POV-ray syntax, but is designed to be simple and verbose, with expressive variable names and explanatory comments.
+		"Internal" control refers to everything that can be handled within the files themselves. This includes the background, root segment and nitrate packet colour; selection of Characteristics to represent (and how to represent them) in the Scoreboard boxes; camera rotation control; and so on.
+		The few options that cannot be set in the Scene Setup Data are those which control POV-ray itself - rendering resolution, animation frame count, antialiasing, etc. - which is where the batch files come in.
+	
+	
+	2)	Run POV-ray directly (from the command line or using the graphical user interface); select a batch file to use; or create a modified batch file if necessary.
+		Running the main POV-ray program to produce ROOTMAP raytraces is the easiest and most user-friendly option. To do so:
+		A]	Run the POV-ray 3.6 program
+		B]	Open the following files: "Rootmap_Scene.pov", "Rootmap_Scene_Setup_Data.inc" and "DF3_Rootmap_Data0000.inc" (if the ROOTMAP RaytracerData output rule specified a filename different to "DF3_Rootmap_Data%04u.inc", use the first file of that series instead).
+		NOTE: It is only technically necessary to open "Rootmap_Scene.pov", but viewing the other files may be helpful. Only the Scene Setup Data need be modified for most renders. Users experienced with POV-ray may wish to edit the other files to visualise the ROOTMAP data in different ways. 
+		C]	Ensure the "Rootmap_Scene.pov" file/tab is selected
+		D]	Select a frame count and a resolution. The aspect ratio of the ROOTMAP scene is set at 3:4 ("portrait"), not 4:3 ("landscape"); resolutions used should reflect this. E.g. 800 x 600 will produce a distorted image, 600 x 800 should be used instead.
+			The POV-ray resolution presets are all 4:3 aspect ratio, so an overriding resolution must be typed into the Command Line toolbar. Width, height and frame count can be specified in two ways (using the resolution above for a 10-frame animation):
+			+W600 +H800 +KFF10
+			or
+			Width=600 Height=800 Final_Frame=10
+		E]	Run the render. Parsing may take some time due to the large size of the data files; renders including the translucent Scoreboard boxes and/or grid will take significantly longer than those without.
+		
+		Alternatively, the batch files provided with POV-ray automate a number of preconfigured renders (on Windows systems).
+		Each batch file's name is descriptive of its output resolution and number of frames.
+		The batch files call the command line version of POV-ray using "Rootmap_POV-ray.ini", an initialisation file containing resolution and frame count settings (which in turn calls "Rootmap_Scene.pov").
+		Batch files can be copied and edited to produce custom output as necessary. The most common change required is probably the number of frames to render in POV-ray (final_frame=n or +KFFn). 
+		Before running a batch file, ensure that POV-ray is configured to allow scripts to write to file (Options->Script I/O Restrictions->No restrictions).		
+		
+		There are many more options for fine-tuning POV-ray. http://www.povray.org/documentation/ is an excellent resource on this topic.
+	
+	
+	3)	Combine the output images into an animation (if desired). 
+		There are a number of ways to do this:
+		
+		--> some operating systems may have built-in support for encoding movies from sequences of bitmap images
+		
+		--> a very simple BMP to AVI converter (written in Java) is available here: http://sourceforge.net/projects/bmpseq
+		
+		--> ffmpeg (http://ffmpeg.mplayerhq.hu/) is a free, open source command line tool for encoding and decoding a large variety of video and audio formats. It is very powerful but has a steep learning curve. Two of the ROOTMAP batch files use ffmpeg to attempt automatically encoding a movie from the images generated by POV-ray. Some of the ffmpeg command line parameters may require tweaking to get this to succeed, due to the variation between different ROOTMAP simulations
+
+		--> similar to ffmpeg, the command line tools ImageMagick (http://www.imagemagick.org) and Gifsicle (http://www.lcdf.org/gifsicle) are very effective at working with large numbers of images (and can be used to generate animated GIFs), but also take some practice to become proficient with.
+	

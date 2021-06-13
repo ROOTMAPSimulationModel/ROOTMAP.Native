@@ -1,0 +1,66 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="https://example.org/ROOTMAP/VolumeObjectsSchema"
+           targetNamespace="https://example.org/ROOTMAP/VolumeObjectsSchema"
+           elementFormDefault="qualified">
+    <xsd:include schemaLocation="Common.xsd"/>
+
+    <xsd:element name="rootmap">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element type="tns:Construction" name="construction" maxOccurs="1" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="Construction">
+        <xsd:sequence>
+            <xsd:element type="xsd:string" name="owner" fixed="VolumeObjectCoordinator" />
+            <xsd:element type="tns:VolumeObject" name="volumeobject" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="VolumeObject">
+        <xsd:sequence>
+            <xsd:element name="class_name" >
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="BoundingCylinder" />
+                        <xsd:enumeration value="BoundingRectangularPrism" />
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="root_penetration_probability" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element type="tns:UnitInterval" name="top" maxOccurs="1"/>
+                        <xsd:element type="tns:UnitInterval" name="bottom" maxOccurs="1"/>
+                        <xsd:element type="tns:UnitInterval" name="sides" maxOccurs="1"/>
+                        <xsd:element name="probability_calculation_algorithm">
+                            <xsd:simpleType>
+                                <xsd:restriction base="xsd:string">
+                                    <xsd:enumeration value="Directly Specified" />
+                                    <xsd:enumeration value="Cosin Proportional" />
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="permeability" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element type="tns:UnitInterval" name="top" maxOccurs="1"/>
+                        <xsd:element type="tns:UnitInterval" name="bottom" maxOccurs="1"/>
+                        <xsd:element type="tns:UnitInterval" name="sides" maxOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <!-- TODO <choice></choice> of sequences here -->
+            <xsd:element name="origin" type="tns:Coordinate3D" minOccurs="0" />
+            <xsd:element name="depth" type="xsd:decimal" minOccurs="0" />
+            <xsd:element name="radius" type="tns:PositiveDecimal" minOccurs="0" />
+            <xsd:element name="leftfronttop" type="tns:Coordinate3D" minOccurs="0" />
+            <xsd:element name="rightbackbottom" type="tns:Coordinate3D" minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

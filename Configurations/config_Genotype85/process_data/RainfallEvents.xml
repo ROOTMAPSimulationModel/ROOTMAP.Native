@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rootmap
+        xmlns="https://example.org/ROOTMAP/RainfallEventsSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/RainfallEventsSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/RainfallEvents.xsd">
+  <initialisation>
+    <owner>Water</owner>
+    <data>
+      <!-- Radiation (MJ/m2), MaxT(degC), MinT(degC), rain amount(cm), pan evap (mm), time (in days) -->
+      <floatarray name="Rainfall Events">
+        6.4,24.80,9.42,0.0,1.08,0.0
+      </floatarray>
+    </data>
+  </initialisation>
+</rootmap>

@@ -1,0 +1,18 @@
+1. RMParentFrame seems to be handling all the generation of the basic RootMap window and bringing it up
+	ready for use.
+2. Once a simulation is opened, RMParentFrame calls RunSimulation() which is basically a helper function
+	that calls GUISimulationEngine and starts that running which then runs SimulationEngine().
+3. SimulationEngine() initialises scoreboard data via SimulationEngine::InitialiseScoreboardDataValues),
+	talks to Scoreboard Coordinator,
+	initialises Post Office and starts progress window
+	process coordinator, shared attribute manager, plant coordinator and Post Office via
+	SimulationEngine(), 
+	
+	Output rules are read in, output strategies and output files are set up
+
+	and then all your view windows open in the program
+
+4. dataOutputCoordinator, renderCoordinator, processCoordinator, scoreboardCoordinator
+
+
+XML is being parsed and data collected using TinyXML. 

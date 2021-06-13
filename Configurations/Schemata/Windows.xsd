@@ -1,0 +1,113 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="https://example.org/ROOTMAP/ViewSchema"
+           targetNamespace="https://example.org/ROOTMAP/ViewSchema"
+           elementFormDefault="qualified">
+    <xsd:include schemaLocation="Common.xsd"/>
+
+    <xsd:element name="rootmap">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="visualisation" type="tns:Visualisation" minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="Visualisation">
+        <xsd:sequence>
+            <xsd:element name="owner" type="tns:ViewOwner" minOccurs="1" maxOccurs="1"/>
+            <xsd:choice>
+                <xsd:element name="table" type="tns:Table" minOccurs="0" maxOccurs="1" />
+                <xsd:element name="view" type="tns:View" minOccurs="0" maxOccurs="1" />
+                <xsd:element name="view3d" type="tns:View3D" minOccurs="0" maxOccurs="1" />
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Table">
+        <xsd:sequence>
+            <xsd:element name="process_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="characteristic_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="view_direction" type="tns:ViewDirection" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="layer_number" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="stratum" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="View">
+        <xsd:sequence>
+            <xsd:element name="view_direction" type="tns:ViewDirection" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="reference_index" type="tns:Coordinate3D" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="scale" type="xsd:decimal" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="zoom_ratio" type="xsd:decimal" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="repeat" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="wrap" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="boundaries" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="boxes" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="box_colours" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="scoreboards" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="processes" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="characteristics" type="tns:Characteristics" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="View3D">
+        <xsd:sequence>
+            <xsd:element name="view_position" type="tns:Coordinate3D" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="scale" type="xsd:decimal" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="boundaries" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="boxes" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="box_colours" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="root_radius_multiplier" type="xsd:decimal" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="root_colour_by_branch_order" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="high_contrast_root_colour" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="base_root_red" type="tns:UnitInterval" minOccurs="1" maxOccurs="1" />
+            <xsd:element name="base_root_green" type="tns:UnitInterval" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="base_root_blue" type="tns:UnitInterval" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="quality" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="low" />
+                        <xsd:enumeration value="medium" />
+                        <xsd:enumeration value="high" />
+                        <xsd:enumeration value="very high" />
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="scoreboards" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="processes" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Characteristics">
+        <xsd:all>
+            <xsd:element name="cyan" type="tns:CharacteristicColourInfo" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="magenta" type="tns:CharacteristicColourInfo" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="yellow" type="tns:CharacteristicColourInfo" minOccurs="1" maxOccurs="1"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="CharacteristicColourInfo">
+        <xsd:sequence>
+            <xsd:element name="colour_min" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:int">
+                        <xsd:minInclusive value="0"/>
+                        <xsd:maxInclusive value="255"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="colour_max" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:int">
+                        <xsd:minInclusive value="0"/>
+                        <xsd:maxInclusive value="255"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="characteristic_min" type="xsd:decimal" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="characteristic_max" type="xsd:decimal" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="process_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="characteristic_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

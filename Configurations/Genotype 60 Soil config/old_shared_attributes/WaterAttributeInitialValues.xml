@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rootmap
+        xmlns="https://example.org/ROOTMAP/ScoreboardDataSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/ScoreboardDataSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/ScoreboardData.xsd">
+  <initialisation>
+    <owner>Water</owner>
+    <objectdata>
+      <name>Water Flux0</name>
+      <initial_value>0.00</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Water Flux1</name>
+      <initial_value>0.00</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Water Flux2</name>
+      <initial_value>0.00</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Water Flux>=3</name>
+      <initial_value>0.00</initial_value>
+    </objectdata>
+  </initialisation>
+</rootmap>

@@ -1,0 +1,110 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           //
+//      Scene Setup Data for raytracing ROOTMAP scenes in POV-ray 3.6        //
+//                                                                           //
+///////////////////////////////////////////////////////////////////////////////
+
+// Path to directory containing all ROOTMAP raytracing data (if in Windows, use double-backslashes as path separators)
+#declare HOME_DIRECTORY = "HOME_DIRECTORY_PLACEHOLDER";
+// Name of "master" data include file (i.e. first in the series)
+#declare INCLUDE_FILENAME = "DF3_Rootmap_Data0000.inc";
+
+
+// Selection of model elements to render
+
+#declare DRAW_ROOT_SYSTEM=true;         // If no plants need be drawn, set this to false to speed up parsing time
+// Per-plant selection of root systems to render - modify array declaration to list all desired Plants (0-based count)
+#declare PLANTS_TO_DRAW = array[2] {0,1};
+
+#declare DRAW_SCOREBOARD_BOXES=false;
+#declare DRAW_SCOREBOARD_GRID=false;     // Antialiasing strongly recommended if grid is drawn
+#declare DRAW_SCOREBOARD_BOUNDARIES=false;
+#declare DRAW_NITRATE_PACKETS=false;
+#declare DRAW_WETTING_FRONT=false;
+#declare DRAW_RECTANGULAR_PRISMS=true;
+#declare DRAW_CYLINDERS=true;
+
+#declare ROOT_RADIUS_MULTIPLIER=3.0;
+
+// Selection of colours
+
+#declare BACKGROUND_COLOUR = rgb 1;
+#declare ROOT_RED = 0.3*0.545;
+#declare ROOT_GREEN = 0.3*0.270;
+#declare ROOT_BLUE = 0.3*0.0745;
+#declare ROOT_LIGHTENING_PER_ORDER = 0.1;
+#declare NITRATE_PACKET_COLOUR = rgb <0.784314,0.435294,0.356863>;
+#declare GRID_COLOUR = rgb 1;//<0.8,0.8,0.8,0.8>;   // t = transmission (of non-filtered light)
+#declare RECTANGULAR_PRISM_COLOUR = rgbf<1,1,1,0.5>;
+#declare CYLINDER_COLOUR = rgbf<1,1,1,0.75>;
+// Uncomment the line below to use WETTING_FRONT_COLOUR for each call of the WF() macro instead of its r,g,b,a arguments
+//#declare WETTING_FRONT_COLOUR  = rgbt<0.1,0.0,0.5,0.3>;
+
+
+// Selection of Process & Characteristic,
+// value bounds and colour intensity bounds
+// for each Scoreboard box colour.
+// Set COLOUR_MIN = COLOUR_MAX = 0 to switch a colour off entirely.
+
+#declare CYAN_PROCESS = "Water";
+#declare CYAN_CHARACTERISTIC = "Water Content";
+#declare CYAN_VALUE_MIN=0.07;                           // Only used with SB-type Scoreboard rendering
+#declare CYAN_VALUE_MAX=0.2;                            // Only used with SB-type Scoreboard rendering
+#declare CYAN_COLOUR_MIN = 0.0;                         // Used with both DF3-type and SB-type Scoreboard rendering
+#declare CYAN_COLOUR_MAX = 0.0;                         // Used with both DF3-type and SB-type Scoreboard rendering
+#declare CYAN_MINIMUM_DF3_INTENSITY_THRESHOLD = 0.0;    // Use this to avoid displaying DF3 cells below a minimum intensity
+
+#declare MAGENTA_PROCESS = "Phosphorus";
+#declare MAGENTA_CHARACTERISTIC = "Total Labile P";
+#declare MAGENTA_VALUE_MIN=0.0;                         // Only used with SB-type Scoreboard rendering
+#declare MAGENTA_VALUE_MAX=250.0;                       // Only used with SB-type Scoreboard rendering
+#declare MAGENTA_COLOUR_MIN = 0.0;                      // Used with both DF3-type and SB-type Scoreboard rendering
+#declare MAGENTA_COLOUR_MAX = 0.07;                      // Used with both DF3-type and SB-type Scoreboard rendering
+#declare MAGENTA_MINIMUM_DF3_INTENSITY_THRESHOLD = 0.14; // Use this to avoid displaying DF3 cells below a minimum intensity
+
+#declare YELLOW_PROCESS = "Nitrate";
+#declare YELLOW_CHARACTERISTIC = "Background N";
+#declare YELLOW_VALUE_MIN=0.0;                          // Only used with SB-type Scoreboard rendering
+#declare YELLOW_VALUE_MAX=1000.0;                       // Only used with SB-type Scoreboard rendering
+#declare YELLOW_COLOUR_MIN = 0.0;                       // Used with both DF3-type and SB-type Scoreboard rendering
+#declare YELLOW_COLOUR_MAX = 0.0;                       // Used with both DF3-type and SB-type Scoreboard rendering
+#declare YELLOW_MINIMUM_DF3_INTENSITY_THRESHOLD = 0.0;  // Use this to avoid displaying DF3 cells below a minimum intensity
+
+
+// Growth and Rotation setting: Assign one value from the list below.
+// [Note that CUSTOM_PATH is an advanced setting and requires both
+//  knowledge of POV-ray animation, and manual editing of the Rootmap_Scene.pov scene file.]
+
+//     Allowable rotation setting options  ||  Division of frames (growing / rotation)  :
+//                                         ||
+//     NONE                                ||  All frames growing/none rotation
+//     WHILE_GROWING                       ||  All frames both growing AND rotation
+//     AFTER_GROWING                       ||  First section growing/second section rotation
+//     NO_GROWING                          ||  All frames rotation of fully-grown root system
+//     CUSTOM_PATH                         ||  May be user-defined (default: All frames both growing AND rotation)
+
+#declare HORIZONTAL_CAMERA_ROTATION = AFTER_GROWING;
+#declare VERTICAL_CAMERA_ROTATION = NONE;
+
+#declare HORIZONTAL_CAMERA_ROTATION_DEGREES = 360;
+#declare VERTICAL_CAMERA_ROTATION_DEGREES = 90;
+
+// Proportion of frames devoted to camera rotation.
+// E.g. if HORIZONTAL_CAMERA_ROTATION_AFTER_GROWING_TIMESHARE = 0.2,
+// root system grows fully in the first 80% of frames, and
+// the camera rotates horizontally for the remaining 20%.
+#declare HORIZONTAL_CAMERA_ROTATION_AFTER_GROWING_TIMESHARE = 0.25;
+#declare VERTICAL_CAMERA_ROTATION_AFTER_GROWING_TIMESHARE = 1.0;
+
+// Static rotation setting (degrees); separate from camera
+// Use to face the model front-on, side-on, diagonal, etc.
+#declare INITIAL_HORIZONTAL_ROTATION = 90;
+#declare INITIAL_VERTICAL_ROTATION = 0;
+
+
+// This variable decreases the overall intensity of colour-absorbent media within Scoreboard boxes.
+// Increase for darker colour when there are few boxes or Characteristic intensities are low;
+// decrease if too much light is being absorbed by the Scoreboard boxes and the scene is too dark.
+#declare OVERALL_BOX_INTENSITY = 0.15;
+// This variable does the same thing, but for the Rootmap Volume using DF3 density fields.
+#declare OVERALL_DF3_INTENSITY = 2.0;

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rootmap
+        xmlns="https://example.org/ROOTMAP/SharedAttributesSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/SharedAttributesSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/SharedAttributes.xsd">
+  <construction>
+    <owner>SharedAttributeManager</owner>
+    <attribute>
+      <owner>Water</owner>
+      <characteristic_descriptor>
+        <name>Water Flux</name>
+        <units>cm^3/cm s</units>
+        <minimum>0.0</minimum>
+        <maximum>1000.0</maximum>
+        <default>0.0</default>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+        <stratum>Soil</stratum>
+      </characteristic_descriptor>
+      <storage>Scoreboard</storage>
+      <variations>Plant,RootOrder</variations>
+    </attribute>
+    <attribute>
+      <owner>Water</owner>
+      <characteristic_descriptor>
+        <name>Water Uptake</name>
+        <units>cm^3</units>
+        <minimum>0.0</minimum>
+        <maximum>1000.0</maximum>
+        <default>0.0</default>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+        <stratum>Soil</stratum>
+      </characteristic_descriptor>
+      <storage>Scoreboard</storage>
+      <variations>Plant</variations>
+    </attribute>
+  </construction>
+</rootmap>

@@ -1,0 +1,76 @@
+
+Plant::GrowRootTip() is the method responsible for all root growth. It is provided with a root tip's location and unit heading vector, adjusts the heading vector to account for geotropism, and determines the growth increment (distance the root should grow in the current time step). 
+
+At this point, the location coordinate, heading vector and projected magnitude are passed to a subfunction, Plant::GrowRootTipSegment(). This method iterates over all VOs in the simulation and calls the the barrier modelling root interaction method, VolumeObject::DeflectRootSegment(), on each.
+
+VolumeObject::DeflectRootSegment() returns a collection (a C++ STL vector) of coordinates which describe the path of the root segment, as deflected by the VO surface. Most of the time no intersection occurs and the collection is empty. If no intersection occurs with any VO, the root grows exactly as Plant::GrowRootTip() has projected.
+
+If intersection with a VO does occur, the distance from the starting location to the first intersected location is calculated and stored. All VolumeObjects are checked for intersection. All those VOs which would be intersected by the projected root segment have their distance-to-intersection stored; once all VOs have been checked the VO which is intersected after the shortest distance is selected.
+
+Also if intersection with a VO does occur, VolumeObject::DeflectRootSegment() returns a unit heading vector which represents the growth direction of the root segment after all deflection has occurred. This vector is not always parallel to the vector from the secondlast to the last deflected coordinate. 
+
+At this point, functionality originally from Plant::GrowRootTip() resumes. 
+
+The root segment is drawn as lines joining each coordinate. If no intersection has occurred there will be one line segment beginning at the root tip's location and projecting along the undeflected heading vector by the growth increment. If an intersection has occurred, there will be line segments linking each of the coordinates returned by VolumeObject::DeflectRootSegment().
+
+If no intersection has occurred, the heading vector will be unchanged. If an intersection has occurred, the heading vector will be set to the vector returned by VolumeObject::DeflectRootSegment. This handling of the deflected heading vector independent of the deflected coordinates is necessary because the deflected coordinates are sometimes an approximation of how the root's path would actually deflect. For example, a root segment deflecting along the curved surface inside a cylinder will logically end up with a heading tangent to the surface at its ending point. This is the heading which is returned, as the vector from its secondlast to its last point of contact will NOT be exactly tangential (as the distance between the two points cannot be 0).
+
+
+
+
+VOLUMEOBJECT::DEFLECTROOTSEGMENT()
+
+This method is declared in the VolumeObject interface. Currently there are two classes which implement the VolumeObject interface: BoundingCylinder and BoundingRectangularPrism.
+
+
+
+* BoundingCylinder::DeflectRootSegment()
+
+This method uses no third party code. It is called with a start point, a unit heading vector and a magnitude. It uses these three to calculate an end point. It then calls BoundingCylinder::GetClosestIntersection().
+
+
+BoundingCylinder::GetClosestIntersection() begins by checking the Cartesian distance between the origin and destination points. If the distance is less than 10^-8, the method immediately returns no intersection. As a performance consideration, the squared Cartesian distance is actually used - this avoids the relatively inefficient square root calculation.
+
+returnImmediately = (10^-8)^2 >= (Xd - Xo)*(Xd - Xo) + (Yd - Yo)*(Yd - Yo) + (Zd - Zo)*(Zd - Zo)
+
+First, the method checks for intersection between the line segment and the cylinder's curved wall. The origin and destination X & Y coordinates are translated to be relative to the cylinder's origin. The parametric line-circle intersection equations found at http://mathworld.wolfram.com/Circle-LineIntersection.html are used to solve for the discriminant. If the discriminant is <0, there is no intersection with the curved wall. If the discriminant is 0, the line is tangential to the circle and the parameter (t) value is evaluated accordingly. If the discriminant is >0, the plus/minus terms of the equations are evaluated and the term which results in a parameter (t) value of between 0 and 1 is selected.
+
+At this point, a t value has been calculated for the curved surface. If it is in the range 0<t<=1, the line segment intersects the curved surface. (If the discriminant was <0, t is set to an invalid flag value.)
+
+Next, the method checks for intersection between the root segment and the top or bottom disc of the cylinder. These two intersections are calculated using the parametric matrix algebra method as at http://en.wikipedia.org/wiki/Line-plane_intersection. To facilitate easy solution of the matrix algebra, the points (0,0,z), (1,0,z) and (0,1,z) are used to define the top plane (z==top) and bottom plane (z==bottom). Using these points, the inverted matrix may be simplified algebraically, so it is not necessary to computationally invert the matrix each time the method is called. The values of the parameter t for intersection with the top & bottom planes are calculated using the inverted matrix and the vectors from the origin point to the top & bottom planes. If either value of t is in the range 0<t<=1, the line segment intersects the top and/or bottom plane accordingly. If both values of t are in the range 0<t<=1, the smaller value of t is selected.
+
+At this point, there are two t values: curved surface and top or bottom plane. If both are invalid, the method returns no intersection. Otherwise, the smaller value of t is substituted into the parametric line equation, and the resulting coordinate is checked against the geometry of the cylinder (for intersection with curved surface, the coordinate must be located within the Z-bounds of the cylinder and on the circumference of the cross-sectional circle. For intersection with the top or bottom disc, the coordinate must be located on or within the circumference of the cross-sectional circle).
+If this coordinate is invalid, the larger value of t is checked in the same fashion. If that resulting coordinate is invalid, the method returns no intersection. Otherwise, the method returns the valid coordinate of intersection, and the unit vector normal to the cylinder surface at the point of intersection.
+
+
+Control now returns to BoundingCylinder::DeflectRootSegment(). If no intersection was found, the method returns false (control returns to Plant::GrowRootTipSegment()). Otherwise, the angle between the root segment's heading vector and the vector normal to the intersected surface is calculated. Next, the intersection coordinate is translated along the normal vector by a distance equal to the root radius. This avoids the rounding-error problems inherent in dealing with very small floating-point numbers, as well as taking into account the effect of the root's thickness on the resulting root geometry.
+Next, the remaining length of the root segment (the distance between the intersection point and the undeflected destination point) is calculated. Then the normal vector is examined to determine whether the curved surface or the top/bottom disc has been intersected (a normal to the curved surface has z=0; a normal to the top/bottom disc is either (0,0,1) or (0,0,-1)).
+
+If the top/bottom disc is intersected, the z-component of the root segment's heading is zeroed out, the heading vector re-normalised, and the deflected destination point calculated as the intersection point plus a translation of the remaining length along the new heading.
+
+If the curved surface is intersected from outside the cylinder, the root segment is deflected along the plane tangent (at the intersection point) to the curved surface. The deflected end point in this case is calculated as the undeflected end point, translated along the surface normal vector by a distance equal to the distance from the intersection point to the undeflected end point.
+
+If the curved surface is intersected from inside the cylinder, the root segment is projected onto the curved surface. First, the component of the undeflected heading located in the XY plane is taken. This vector is calculated by multiplying the unit heading vector by the (scalar) distance from the intersection to the undeflected end point, then zeroing out the Z-component. The XY component is then projected onto the tangent to the XY-plane circle. From this tangential component and the circle radius, the angle of the projected arc can be computed. Polar coordinate angles for the intersection point and the undeflected endpoint are calculated using the C++ mathematics function atan2(). By comparing the two angles and determining in which quadrant each falls, the "handedness" of the undeflected root segment (clockwise or counterclockwise) is determined. This handedness is applied to the deflected root segment: if counterclockwise, the angle used to calculate the deflected end point is the polar angle of the intersection point plus the projected arc angle; if clockwise, the angle is the polar angle of the intersection point minus the projected angle.
+The resulting angle is substituted into the polar circle equation to obtain the XY coordinates of the deflected end point. Again, the deflected end point is shifted by the magnitude of the root radius. The Z coordinate is not deflected.
+
+The intersection point and the deflected end point are now fed back into a recursive call of BoundingCylinder::DeflectRootSegment() (as the start point and end point respectively). This recursive call determines if the deflected root segment will intersect any other surfaces. All points of intersection are stored in the aforementioned collection. Further nested recursive calls will be made as long as surfaces continue to be intersected (more than one intersection per root segment is rare; more than two is almost unheard of). When a recursive call returns without intersecting any surface, the collection of coordinates and the root segment's final heading are returned to Plant::GrowRootTipSegment().
+
+
+
+* BoundingRectangularPrism::DeflectRootSegment()
+
+This method uses no third party code. It is called with a start point, a unit heading vector and a magnitude. It uses these three to calculate an end point. It then calls BoundingRectangularPrism::GetClosestIntersection().
+
+
+BoundingRectangularPrism::GetClosestIntersection() begins by checking the locations of the start and end points. If both start and end points have an X, Y or Z component located outside (in the same direction, e.g. left and left or below and below) outside the rectangular prism, the method returns no intersection.
+
+For each of the Z, Y and X components, the following calculations are performed. 
+The start and end points are compared with each other and the two (Z, Y or X) surface planes. From this comparison, it is determined which (if either) of the planes are intersected. If a surface is intersected, the normal to the intersected surface is obtained. The line-plane intersection solution from http://en.wikipedia.org/wiki/Line-plane_intersection (as in BoundingCylinder) is used to determine a value t for the parametric equation. The lowest t in the range 0<=t<1 is selected and used in its appropriate line equation to determine the coordinates of the intersection point. This coordinate and the normal to the intersected surface are returned to BoundingRectangularPrism::DeflectRootSegment(). If no surface is intersected, nothing is returned and control returns to Plant::GrowRootTipSegment().
+
+The intersection point is translated along the normal to the intersected surface by a distance equal to the root radius. 
+By taking the dot product of the normal to the intersected surface and the undeflected unit heading vector, the manner in which the root segment intersects the surface is determined. If the heading is parallel to or outbound from the intersected surface, no alteration of the heading is necessary. If the heading is inbound to the intersected surface, the component of the heading in that direction is zeroed out and the heading is normalised, to produce a new heading parallel to the intersected surface. If the heading was inbound parallel to the surface normal, a randomised (but still parallel to the intersected plane) heading vector is generated. Randomisation is restricted to horizontal-only, to avoid spurious upward growth of roots.
+
+The deflected end point is calculated by translating the intersection point along the deflected heading by a distance equal to the distance between the intersection point and the undeflected end point.
+
+The intersection point and the deflected end point are now fed back into a recursive call of BoundingRectangularPrism::DeflectRootSegment() (as the start point and end point respectively). This recursive call determines if the deflected root segment will intersect any other surfaces. All points of intersection are stored in the aforementioned collection. Further nested recursive calls will be made as long as surfaces continue to be intersected. When a recursive call returns without intersecting any surface, the collection of coordinates and the root segment's final heading are returned to Plant::GrowRootTipSegment().
+

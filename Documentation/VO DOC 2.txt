@@ -1,0 +1,26 @@
+DETAILED DESCRIPTION OF BARRIER MODELLING FUNCTIONALITY
+
+Barrier modelling in ROOTMAP uses mainly custom code and the Boost.Geometry computational geometry library in places where it provides a significant benefit. There are two forms of interaction covered: root (coordinate-based) and water/nutrient (ScoreboardBox-based).
+
+ROOT INTERACTION: see RootInteraction.txt
+
+WATER/NUTRIENT INTERACTION: see WaterNutrientInteraction.txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

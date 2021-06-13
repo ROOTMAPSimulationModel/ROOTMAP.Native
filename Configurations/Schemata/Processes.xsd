@@ -1,0 +1,61 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="https://example.org/ROOTMAP/ProcessesSchema"
+           targetNamespace="https://example.org/ROOTMAP/ProcessesSchema"
+           elementFormDefault="qualified">
+    <xsd:include schemaLocation="Common.xsd"/>
+
+    <xsd:element name="rootmap">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="construction" type="tns:Processes" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="Processes">
+        <xsd:sequence>
+            <xsd:element name="owner" type="xsd:string" fixed="ProcessCoordinator" />
+            <xsd:element name="process" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="name" type="xsd:string" />
+                        <xsd:element name="override" type="xsd:boolean" />
+                        <xsd:element name="scoreboard" type="xsd:string" />
+                        <!-- TODO restrict to Grow, Misc etc. -->
+                        <xsd:element name="activitytype" type="xsd:string" />
+                        <xsd:element name="characteristic" type="tns:Characteristic" minOccurs="0" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Characteristic">
+        <xsd:sequence>
+            <xsd:element name="minimum" type="xsd:double">
+                <xsd:annotation>
+                    <xsd:documentation>Supports scientific notation and the special values INF (infinity), -INF (negative infinity) an NaN (not a number).
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="maximum" type="xsd:double">
+                <xsd:annotation>
+                    <xsd:documentation>Supports scientific notation and the special values INF (infinity), -INF (negative infinity) an NaN (not a number).
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="default" type="xsd:double">
+                <xsd:annotation>
+                    <xsd:documentation>Supports scientific notation and the special values INF (infinity), -INF (negative infinity) an NaN (not a number).
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="name" type="xsd:string" />
+            <xsd:element name="units" type="xsd:string" />
+            <xsd:element name="visible" type="xsd:boolean" />
+            <xsd:element name="editable" type="xsd:boolean" />
+            <xsd:element name="tobesaved" type="xsd:boolean" />
+            <xsd:element name="specialperboxinfo" type="xsd:boolean" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

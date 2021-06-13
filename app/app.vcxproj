@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{49EF4BAB-CD5D-448F-9539-8D903CD4F0EA}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>app</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>ROOTMAP</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)ROOTMAP.Core</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(OutDir)\core;$(OutDir)\simulation</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>ROOTMAP</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)ROOTMAP.Core</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(OutDir)\core;$(OutDir)\simulation</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_UNICODE;UNICODE;_CRT_SECURE_NO_WARNINGS;WIN32;WXUSINGDLL;_WINDOWS;_DEBUG;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;wsock32.lib;core.lib;simulation.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <GenerateMapFile>true</GenerateMapFile>
+      <OptimizeReferences>false</OptimizeReferences>
+    </Link>
+    <PreBuildEvent>
+      <Message>Stamp version number into application code. Copy wxWidgets XRC file and bitmap resources to target dir.</Message>
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File version-stamp.ps1
+mkdir $(TargetDir)resources%3b
+copy $(ProjectDir)gui\MDI\resources\RootMapMDI.xrc $(TargetDir)
+copy $(ProjectDir)gui\MDI\resources\*.bmp $(TargetDir)resources</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_UNICODE;UNICODE;_CRT_SECURE_NO_WARNINGS;WIN32;WXUSINGDLL;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <SupportJustMyCode>true</SupportJustMyCode>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;wsock32.lib;core.lib;simulation.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>false</OptimizeReferences>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <GenerateMapFile>true</GenerateMapFile>
+      <LinkTimeCodeGeneration />
+    </Link>
+    <PreBuildEvent>
+      <Message>Stamp version number into application code. Copy wxWidgets XRC file and bitmap resources to target dir.</Message>
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File version-stamp.ps1
+mkdir $(TargetDir)resources%3b
+copy $(ProjectDir)gui\MDI\resources\RootMapMDI.xrc $(TargetDir)
+copy $(ProjectDir)gui\MDI\resources\*.bmp $(TargetDir)resources</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="rootmap.log.cfg" />
+    <None Include="version-stamp.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="rootmap.log.cfg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common\FilesystemUtilities.h" />
+    <ClInclude Include="common\ProcessHelper.h" />
+    <ClInclude Include="common\RmGetOpts.h" />
+    <ClInclude Include="common\Types.h" />
+    <ClInclude Include="gui\CharacteristicColourSelectionDialog\RmCharacteristicColourSelectionDialog.h" />
+    <ClInclude Include="gui\common\GuiIdentifierUtility.h" />
+    <ClInclude Include="gui\common\GuiSimulationEngine.h" />
+    <ClInclude Include="gui\common\GuiUtility.h" />
+    <ClInclude Include="gui\common\IProgressCoordinator.h" />
+    <ClInclude Include="gui\common\ITableCoordinator.h" />
+    <ClInclude Include="gui\common\IView3DCoordinator.h" />
+    <ClInclude Include="gui\common\IViewCoordinator.h" />
+    <ClInclude Include="gui\common\IViewProcessSelectionCallback.h" />
+    <ClInclude Include="gui\common\IWindowCoordinator.h" />
+    <ClInclude Include="gui\common\SimulationActivityWindow.h" />
+    <ClInclude Include="gui\MDI\RmMdiApp.h" />
+    <ClInclude Include="gui\MDI\RmParentFrame.h" />
+    <ClInclude Include="gui\ProgressDialog\RmProgressWindow.h" />
+    <ClInclude Include="gui\SplashDialog\RmSplashWindow.h" />
+    <ClInclude Include="gui\TableWindow\LayerMenuHelper.h" />
+    <ClInclude Include="gui\TableWindow\RmSelectTableCharacteristic.h" />
+    <ClInclude Include="gui\TableWindow\RmTableWindow.h" />
+    <ClInclude Include="gui\TableWindow\ScoreboardTableHelper.h" />
+    <ClInclude Include="gui\TableWindow\TableInformation.h" />
+    <ClInclude Include="gui\View3DWindow\glext.h" />
+    <ClInclude Include="gui\View3DWindow\OpenGLCanvas.h" />
+    <ClInclude Include="gui\View3DWindow\ProcessVertexBuffer.h" />
+    <ClInclude Include="gui\View3DWindow\RmGLCanvas.h" />
+    <ClInclude Include="gui\View3DWindow\RmGLVertex.h" />
+    <ClInclude Include="gui\View3DWindow\RmView3D.h" />
+    <ClInclude Include="gui\View3DWindow\RootCylinder.h" />
+    <ClInclude Include="gui\View3DWindow\ScoreboardBoxBoundaryVertices.h" />
+    <ClInclude Include="gui\View3DWindow\ScoreboardVertexBuffer.h" />
+    <ClInclude Include="gui\View3DWindow\Types.h" />
+    <ClInclude Include="gui\View3DWindow\VertexBuffer.h" />
+    <ClInclude Include="gui\ViewCommon\DrawScoreboardIterator.h" />
+    <ClInclude Include="gui\ViewCommon\IProcessDrawingBuffer.h" />
+    <ClInclude Include="gui\ViewCommon\RootColourationModeUtility.h" />
+    <ClInclude Include="gui\ViewCommon\Types.h" />
+    <ClInclude Include="gui\ViewCommon\View3DInformation.h" />
+    <ClInclude Include="gui\ViewCommon\ViewCaptor.h" />
+    <ClInclude Include="gui\ViewCommon\ViewInformation.h" />
+    <ClInclude Include="gui\ViewProcessSelection\RmViewProcessSelectionDialog.h" />
+    <ClInclude Include="gui\ViewWindow\ProcessDrawingBuffer.h" />
+    <ClInclude Include="gui\ViewWindow\RmScrolledWindow.h" />
+    <ClInclude Include="gui\ViewWindow\RmViewWindow.h" />
+    <ClInclude Include="gui\ViewWindow\ScoreboardBoxBoundaries.h" />
+    <ClInclude Include="gui\ViewWindow\ScoreboardBuffer.h" />
+    <ClInclude Include="gui\ViewWindow\ScoreboardColourBoxes.h" />
+    <ClInclude Include="gui\ViewWindow\ScoreboardDrawingIterator.h" />
+    <ClInclude Include="gui\ViewWindow\ScrolledWindowBuffer.h" />
+    <ClInclude Include="gui\ViewWindow\ScrolledWindowHelper.h" />
+    <ClInclude Include="gui\ViewWindow\ViewBuffer.h" />
+    <ClInclude Include="gui\ViewWindow\ViewBufferStructures.h" />
+    <ClInclude Include="gui\ViewWindow\WrapRepeatBuffer.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="common\FilesystemUtilities.cpp" />
+    <ClCompile Include="common\ProcessHelper.cpp" />
+    <ClCompile Include="common\RmGetOpts.cpp" />
+    <ClCompile Include="common\RmVersion.cpp" />
+    <ClCompile Include="gui\CharacteristicColourSelectionDialog\RmCharacteristicColourSelectionDialog.cpp" />
+    <ClCompile Include="gui\common\GuiIdentifierUtility.cpp" />
+    <ClCompile Include="gui\common\GuiSimulationEngine.cpp" />
+    <ClCompile Include="gui\common\GuiUtility.cpp" />
+    <ClCompile Include="gui\common\SimulationActivityWindow.cpp" />
+    <ClCompile Include="gui\MDI\RmMdiApp.cpp" />
+    <ClCompile Include="gui\MDI\RmParentFrame.cpp" />
+    <ClCompile Include="gui\ProgressDialog\RmProgressWindow.cpp" />
+    <ClCompile Include="gui\SplashDialog\RmSplashWindow.cpp" />
+    <ClCompile Include="gui\TableWindow\LayerMenuHelper.cpp" />
+    <ClCompile Include="gui\TableWindow\RmSelectTableCharacteristic.cpp" />
+    <ClCompile Include="gui\TableWindow\RmTableWindow.cpp" />
+    <ClCompile Include="gui\TableWindow\ScoreboardTableHelper.cpp" />
+    <ClCompile Include="gui\TableWindow\TableInformation.cpp" />
+    <ClCompile Include="gui\View3DWindow\OpenGLCanvas.cpp" />
+    <ClCompile Include="gui\View3DWindow\ProcessVertexBuffer.cpp" />
+    <ClCompile Include="gui\View3DWindow\RmGLCanvas.cpp" />
+    <ClCompile Include="gui\View3DWindow\RmGLVertex.cpp" />
+    <ClCompile Include="gui\View3DWindow\RmView3D.cpp" />
+    <ClCompile Include="gui\View3DWindow\RootCylinder.cpp" />
+    <ClCompile Include="gui\View3DWindow\ScoreboardBoxBoundaryVertices.cpp" />
+    <ClCompile Include="gui\View3DWindow\ScoreboardVertexBuffer.cpp" />
+    <ClCompile Include="gui\View3DWindow\VertexBuffer.cpp" />
+    <ClCompile Include="gui\ViewCommon\RootColourationModeUtility.cpp" />
+    <ClCompile Include="gui\ViewCommon\View3DInformation.cpp" />
+    <ClCompile Include="gui\ViewCommon\ViewCaptor.cpp" />
+    <ClCompile Include="gui\ViewCommon\ViewCaptureOutputStrategy.cpp" />
+    <ClCompile Include="gui\ViewCommon\ViewInformation.cpp" />
+    <ClCompile Include="gui\ViewProcessSelection\RmViewProcessSelectionDialog.cpp" />
+    <ClCompile Include="gui\ViewWindow\ProcessDrawing.cpp" />
+    <ClCompile Include="gui\ViewWindow\ProcessDrawingBuffer.cpp" />
+    <ClCompile Include="gui\ViewWindow\RmScrolledWindow.cpp" />
+    <ClCompile Include="gui\ViewWindow\RmViewWindow.cpp" />
+    <ClCompile Include="gui\ViewWindow\ScoreboardBoxBoundaries.cpp" />
+    <ClCompile Include="gui\ViewWindow\ScoreboardBuffer.cpp" />
+    <ClCompile Include="gui\ViewWindow\ScoreboardColourBoxes.cpp" />
+    <ClCompile Include="gui\ViewWindow\ScoreboardDrawingIterator.cpp" />
+    <ClCompile Include="gui\ViewWindow\ScrolledWindowBuffer.cpp" />
+    <ClCompile Include="gui\ViewWindow\ScrolledWindowHelper.cpp" />
+    <ClCompile Include="gui\ViewWindow\ViewBuffer.cpp" />
+    <ClCompile Include="gui\ViewWindow\ViewBufferStructures.cpp" />
+    <ClCompile Include="gui\ViewWindow\WrapRepeatBuffer.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\log4cpp.1.1.3\build\log4cpp.targets" Condition="Exists('..\packages\log4cpp.1.1.3\build\log4cpp.targets')" />
+    <Import Project="..\packages\boost.1.72.0.0\build\boost.targets" Condition="Exists('..\packages\boost.1.72.0.0\build\boost.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\log4cpp.1.1.3\build\log4cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\log4cpp.1.1.3\build\log4cpp.targets'))" />
+    <Error Condition="!Exists('..\packages\boost.1.72.0.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.72.0.0\build\boost.targets'))" />
+  </Target>
+</Project>

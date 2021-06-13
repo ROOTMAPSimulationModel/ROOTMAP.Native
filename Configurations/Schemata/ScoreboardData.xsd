@@ -1,0 +1,30 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="https://example.org/ROOTMAP/ScoreboardDataSchema"
+           targetNamespace="https://example.org/ROOTMAP/ScoreboardDataSchema"
+           elementFormDefault="qualified">
+    <xsd:include schemaLocation="Common.xsd"/>
+
+    <xsd:element name="rootmap">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="initialisation" type="tns:ScoreboardData" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="ScoreboardData">
+        <xsd:sequence>
+            <xsd:element name="owner" type="xsd:string" fixed="Scoreboard" />
+            <xsd:element name="scoreboarddata" minOccurs="0" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="process" type="xsd:string" />
+                        <xsd:element name="characteristic" type="xsd:string" />
+                        <!-- TODO restrict to valid scheme definitions? -->
+                        <xsd:element name="scheme" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

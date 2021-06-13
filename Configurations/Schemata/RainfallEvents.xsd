@@ -1,0 +1,44 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="https://example.org/ROOTMAP/RainfallEventsSchema"
+           targetNamespace="https://example.org/ROOTMAP/RainfallEventsSchema"
+           elementFormDefault="qualified">
+    <xsd:include schemaLocation="Common.xsd"/>
+
+    <xsd:element name="rootmap">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="initialisation" type="tns:RainfallEvents" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="RainfallEvents">
+        <xsd:sequence>
+            <xsd:element name="owner" type="xsd:string"/>
+            <xsd:element name="data">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="floatarray" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:simpleContent>
+                                    <xsd:extension base="tns:RainfallArrayString">
+                                        <xsd:attribute name="name" type="xsd:string" fixed="Rainfall Events"/>
+                                    </xsd:extension>
+                                </xsd:simpleContent>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="RainfallArrayString">
+        <xsd:annotation>
+            <xsd:documentation>Radiation (MJ/m2), MaxT(degC), MinT(degC), rain amount(cm), pan evap (mm), time (in days)</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="([0-9]|\.|,|\s)*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

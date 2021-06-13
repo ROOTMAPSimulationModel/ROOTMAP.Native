@@ -1,0 +1,743 @@
+------------------------------------------------------------------------------------------------------
+
+POT MODELLING WITH ROOTMAP
+
+
+
+****    1. Introduction
+
+ROOTMAP has recently been equipped with barrier modelling functionality. This allows for restriction of root growth and water/nutrient transfer. Currently two types of three-dimensional objects (henceforth: VolumeObjects or VOs) are implemented: cylinders and rectangular prisms. By defining a VO with a plant or plants located within it, ROOTMAP can be used to model root growth in pots.
+
+
+**** 	2.	Setup
+
+	a)	To set up a pot modelling run, begin by defining a Plant or Plants in Plants.xml. These should be located at origin points within the Scoreboard.
+	
+	b)	Next, define one or more VolumeObjects in VolumeObjects.xml. The VO should be located so that the Plant's origin is within its boundaries. Note that, currently, all VOs are aligned vertically in the soil. Valid VolumeObject names are:
+		i.	BoundingCylinder
+		ii.	BoundingRectangularPrism
+	PLANT/VOLUMEOBJECT CONDITIONS:
+		* Multiple Plants may be placed within a single VO. Plants may be placed outside VOs. A VO may be placed inside another VO. VO surfaces may NOT intersect surfaces of another VO (that is, VOs may not overlap. A VO located within another VO must be completely contained within it).
+		* Plants must be placed a valid distance from all VO surfaces; there must be a clearance of more than the plant's maximum root radius from the plant's origin to all VO surfaces. As follows from this, the minimum size of a VO is 2x[maximum root radius] in all dimensions.
+	
+	c)	Examine Characteristic and SharedAttribute settings in the config directory. Characteristics and SharedAttributes that are named "(characteristic name) VolumeObject [none]" may have different values from VolumeObject to VolumeObject; the "VolumeObject [none]" variants set values for the space outside of any VolumeObjects. Create one copy of each of these Characteristic/SharedAttributes for each VolumeObject in VolumeObjects.xml, renaming the suffixes "VolumeObject 1", "VolumeObject 2", and so on.
+		
+	e)	To display a graphical representation of the VolumeObject(s) in the 3D View, add "VolumeObjectCoordinator" to the list of Processes in the View3DCoordinator definition in Windows.xml.
+	
+	f)	Launch ROOTMAP and run the simulation. The root system(s) should be deflected realistically where they intersect the VolumeObject surfaces.
+	
+
+****	3.	Example Pot Modelling Setup
+
+This example setup assumes a Scoreboard large enough to contain both Plants and both pots.
+
+
+Plants.xml:
+
+[Vanessa -- please put these XML sections in Courier New or some other code-y font. Thanks :)]
+
+<?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
+
+<!-- Plants file                                                            -->
+<!--                                                                        -->
+<!-- FORMAT:XML                                                             -->
+<!--                                                                        -->
+<!-- NO C-style comments                                                    -->
+<!--                                                                        -->
+<rootmap>
+  <construction>
+    <owner>PlantCoordinator</owner>
+    <plant>
+      <name>Plant 1</name>
+      <type>RootMap Plant Type</type>
+      <!-- origin and seed_location are X,Y,Z no spaces -->
+      <origin>10.0,10.0,0.0</origin>
+      <seed_location>10.0,10.0,0.5</seed_location>
+      <!-- seeding time is in days from time zero -->
+      <seeding_time>1.0</seeding_time>
+      <seminal_axis>
+        <start_lag>1.0</start_lag>
+        <probability>1.0</probability>
+      </seminal_axis>
+      <seminal_axis>
+        <start_lag>1.0</start_lag>
+        <probability>0.0</probability>
+      </seminal_axis>
+      <nodal_axis>
+        <start_lag>100.0</start_lag>
+        <probability>0.0</probability>
+      </nodal_axis>
+    </plant>
+	<plant>
+      <name>Plant 2</name>
+      <type>RootMap Plant Type</type>
+      <!-- origin and seed_location are X,Y,Z no spaces -->
+      <origin>20.0,10.0,0.0</origin>
+      <seed_location>20.0,10.0,0.5</seed_location>
+      <!-- seeding time is in days from time zero -->
+      <seeding_time>1.0</seeding_time>
+      <seminal_axis>
+        <start_lag>1.0</start_lag>
+        <probability>1.0</probability>
+      </seminal_axis>
+      <seminal_axis>
+        <start_lag>1.0</start_lag>
+        <probability>0.0</probability>
+      </seminal_axis>
+      <nodal_axis>
+        <start_lag>100.0</start_lag>
+        <probability>0.0</probability>
+      </nodal_axis>
+    </plant>
+  </construction>
+</rootmap>
+
+
+VolumeObjects.xml:
+
+
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<!-- VolumeObject specification file                                        -->
+<!--                                                                        -->
+<!-- FORMAT:XML                                                             -->
+<!--                                                                        -->
+<!-- NO C-style comments                                                    -->
+<!--                                                                        -->
+<!-- CURRENTLY SUPPORTED CLASSES:                                           -->
+<!--                                                                        -->
+<!-- BoundingCylinder                                                       -->
+<!-- Specifies a cylinder of a given depth, 								-->
+<!-- the top disc centred at the coordinate <origin>.  						-->
+<!-- BoundingCylinders have impenetrable surfaces and do not affect         -->
+<!-- the growth rate of root tips growing within them.                      -->
+<!--                                                                        -->
+<!-- BoundingRectangularPrism                                               -->
+<!-- Specifies a right cuboid defined by two points, the left front top     -->
+<!-- and right back bottom coordinates. Aligned with the Z-axis             -->
+<!-- in the same way as BoundingCylinders.                                  -->
+<!-- BoundingRectangularPrisms have impenetrable surfaces and do not affect -->
+<!-- the growth rate of root tips growing within them.                      -->
+<!--                                                                        -->
+
+<rootmap>
+  <construction>
+    <owner>VolumeObjectCoordinator</owner>
+	<volumeobject>
+      <class_name>BoundingCylinder</class_name>
+      <origin>10.0,10.0,0.0</origin>
+      <depth>50.0</depth>
+      <radius>5.0</radius>
+    </volumeobject>
+    <volumeobject>
+      <class_name>BoundingRectangularPrism</class_name>
+      <leftfronttop>15.0,5.0,0.0</leftfronttop>
+      <rightbackbottom>25.0,15.0,50.0</rightbackbottom>
+    </volumeobject>
+  </construction>
+</rootmap>
+
+
+BulkDensity.xml:
+
+<?xml version="1.0" encoding="utf-8"?>
+<rootmap>
+  <initialisation>
+    <owner>Scoreboard</owner>
+    <scoreboarddata>
+      <process>BulkDensity</process>
+      <characteristic>Bulk Density VolumeObject [none]</characteristic>
+      <scheme>
+        set scoreboard value=1.5;
+      </scheme>
+    </scoreboarddata>
+	<scoreboarddata>
+      <process>BulkDensity</process>
+      <characteristic>Bulk Density VolumeObject 1</characteristic>
+      <scheme>
+        set scoreboard value=1.6;
+      </scheme>
+    </scoreboarddata>
+	<scoreboarddata>
+      <process>BulkDensity</process>
+      <characteristic>Bulk Density VolumeObject 2</characteristic>
+      <scheme>
+        set scoreboard value=1.49;
+      </scheme>
+    </scoreboarddata>
+  </initialisation>
+</rootmap>
+
+
+NitrateAmount.xml:
+
+<?xml version="1.0" encoding="utf-8"?>
+<rootmap>
+  <initialisation>
+    <owner>Scoreboard</owner>
+    <scoreboarddata>
+      <!-- Nitrate Amount &#x3BC;ugN during the simulation, initially input as ugN/g-->
+      <process>Nitrate</process>
+      <characteristic>Nitrate Amount VolumeObject [none]</characteristic>
+      <scheme>
+        set scoreboard value=4.5;
+      </scheme>
+    </scoreboarddata>
+	<scoreboarddata>
+      <!-- Nitrate Amount &#x3BC;ugN during the simulation, initially input as ugN/g-->
+      <process>Nitrate</process>
+      <characteristic>Nitrate Amount VolumeObject 1</characteristic>
+      <scheme>
+        set scoreboard value=5.0;
+      </scheme>
+    </scoreboarddata>
+	<scoreboarddata>
+      <!-- Nitrate Amount &#x3BC;ugN during the simulation, initially input as ugN/g-->
+      <process>Nitrate</process>
+      <characteristic>Nitrate Amount VolumeObject 2</characteristic>
+      <scheme>
+        set scoreboard value=6.0;
+      </scheme>
+    </scoreboarddata>
+  </initialisation>
+</rootmap>
+
+
+Processes.xml:
+
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<!-- Simulating luping root growth in a sandy soil                          -->
+<!-- Plants file                                                            -->
+<!--                                                                        -->
+<!-- FORMAT:XML                                                             -->
+<!--                                                                        -->
+<!-- NO C-style comments                                                    -->
+<!--                                                                        -->
+<rootmap>
+  <construction>
+
+    <owner>ProcessCoordinator</owner>
+    
+	<!-- ... (Bulk Density is the only process that needs its Characteristics manually varied in Processes.xml -->
+
+    <process>
+      <name>Bulk Density</name>
+      <override>false</override>
+      <scoreboard>Soil</scoreboard>
+      <activitytype>NONE</activitytype>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>2.5</maximum>
+        <default>1.55</default>
+        <name>Bulk Density VolumeObject [none]</name>
+        <units>g/cm^3</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+	  <characteristic>
+        <minimum>0</minimum>
+        <maximum>2.5</maximum>
+        <default>1.55</default>
+        <name>Bulk Density VolumeObject 1</name>
+        <units>g/cm^3</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+	  <characteristic>
+        <minimum>0</minimum>
+        <maximum>2.5</maximum>
+        <default>1.55</default>
+        <name>Bulk Density VolumeObject 2</name>
+        <units>g/cm^3</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+    </process>
+
+	<!-- ... -->
+
+  </construction>
+</rootmap>
+
+
+PlantAttributeInitialValues.xml:
+
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<rootmap>
+  <initialisation>
+    <owner>Scoreboard</owner>
+    <!-- Plant SharedAttributes -->
+    <!-- Growth Rate per-Plant per-RootOrder -->
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 2 RootOrder0 VolumeObject [none]</characteristic>
+      <scheme>set scoreboard value=0.25;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 2 RootOrder1 VolumeObject [none]</characteristic>
+      <scheme>set scoreboard value=0.03;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 2 RootOrder2 VolumeObject [none]</characteristic>
+      <scheme>set scoreboard value=0.04;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 2 RootOrder>=3 VolumeObject [none]</characteristic>
+      <scheme>set scoreboard value=0.04;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Root P Plasticity Factor Plant 2 RootOrder0 VolumeObject [none]</characteristic>
+      <scheme>set scoreboard value=1.0;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Root P Plasticity Factor Plant 2 RootOrder1 VolumeObject [none]</characteristic>
+      <scheme>set scoreboard value=1.5;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Root P Plasticity Factor Plant 2 RootOrder2 VolumeObject [none]</characteristic>
+      <scheme>set scoreboard value=1.5;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 2 RootOrder0 VolumeObject [none]</characteristic>
+      <scheme>
+        set scoreboard value=0.34;
+        set plane Z=1 value=0.21;
+        set plane Z=2 value=0.21;
+        set plane Z=3 value=0.21;
+        set plane Z=4 value=0.21;
+        set plane Z=5 value=0.21;
+        set plane Z=6 value=0.21;
+        set plane Z=7 value=0.27;
+        set plane Z=8 value=0.27;
+        set plane Z=9 value=0.27;
+        set plane Z=10 value=0.27;
+        set plane Z=11 value=0.27;
+        set plane Z=12 value=0.27;
+        set plane Z=13 value=0.27;
+      </scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Branch Lag Time Plant 2 RootOrder1 VolumeObject [none]</characteristic>
+      <scheme>
+        set scoreboard value=672;
+        set plane Z=1 value=552;
+        set plane Z=2 value=552;
+        set plane Z=3 value=552;
+        set plane Z=4 value=552;
+        set plane Z=5 value=552;
+      </scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 2 RootOrder1 VolumeObject [none]</characteristic>
+      <scheme>set scoreboard value=0.50;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 2 RootOrder2 VolumeObject [none]</characteristic>
+      <scheme>set scoreboard value=0.6;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 2 RootOrder>=3 VolumeObject [none]</characteristic>
+      <scheme>set scoreboard value=0.6;</scheme>
+	 </scoreboarddata>
+	  
+	<scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 2 RootOrder0 VolumeObject 1</characteristic>
+      <scheme>set scoreboard value=0.25;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 2 RootOrder1 VolumeObject 1</characteristic>
+      <scheme>set scoreboard value=0.03;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 2 RootOrder2 VolumeObject 1</characteristic>
+      <scheme>set scoreboard value=0.04;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 2 RootOrder>=3 VolumeObject 1</characteristic>
+      <scheme>set scoreboard value=0.04;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Root P Plasticity Factor Plant 2 RootOrder0 VolumeObject 1</characteristic>
+      <scheme>set scoreboard value=1.0;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Root P Plasticity Factor Plant 2 RootOrder1 VolumeObject 1</characteristic>
+      <scheme>set scoreboard value=1.5;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Root P Plasticity Factor Plant 2 RootOrder2 VolumeObject 1</characteristic>
+      <scheme>set scoreboard value=1.5;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 2 RootOrder0 VolumeObject 1</characteristic>
+      <scheme>
+        set scoreboard value=0.34;
+        set plane Z=1 value=0.21;
+        set plane Z=2 value=0.21;
+        set plane Z=3 value=0.21;
+        set plane Z=4 value=0.21;
+        set plane Z=5 value=0.21;
+        set plane Z=6 value=0.21;
+        set plane Z=7 value=0.27;
+        set plane Z=8 value=0.27;
+        set plane Z=9 value=0.27;
+        set plane Z=10 value=0.27;
+        set plane Z=11 value=0.27;
+        set plane Z=12 value=0.27;
+        set plane Z=13 value=0.27;
+      </scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Branch Lag Time Plant 2 RootOrder1 VolumeObject 1</characteristic>
+      <scheme>
+        set scoreboard value=672;
+        set plane Z=1 value=552;
+        set plane Z=2 value=552;
+        set plane Z=3 value=552;
+        set plane Z=4 value=552;
+        set plane Z=5 value=552;
+      </scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 2 RootOrder1 VolumeObject 1</characteristic>
+      <scheme>set scoreboard value=0.50;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 2 RootOrder2 VolumeObject 1</characteristic>
+      <scheme>set scoreboard value=0.6;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 2 RootOrder>=3 VolumeObject 1</characteristic>
+      <scheme>set scoreboard value=0.6;</scheme>
+    </scoreboarddata>
+	
+	<scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 2 RootOrder0 VolumeObject 2</characteristic>
+      <scheme>set scoreboard value=0.22;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 2 RootOrder1 VolumeObject 2</characteristic>
+      <scheme>set scoreboard value=0.04;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 2 RootOrder2 VolumeObject 2</characteristic>
+      <scheme>set scoreboard value=0.055;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 2 RootOrder>=3 VolumeObject 2</characteristic>
+      <scheme>set scoreboard value=0.04;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Root P Plasticity Factor Plant 2 RootOrder0 VolumeObject 2</characteristic>
+      <scheme>set scoreboard value=1.2;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Root P Plasticity Factor Plant 2 RootOrder1 VolumeObject 2</characteristic>
+      <scheme>set scoreboard value=1.5;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Root P Plasticity Factor Plant 2 RootOrder2 VolumeObject 2</characteristic>
+      <scheme>set scoreboard value=1.5;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 2 RootOrder0 VolumeObject 2</characteristic>
+      <scheme>
+        set scoreboard value=0.34;
+        set plane Z=1 value=0.21;
+        set plane Z=2 value=0.21;
+        set plane Z=3 value=0.21;
+        set plane Z=4 value=0.21;
+        set plane Z=5 value=0.21;
+        set plane Z=6 value=0.21;
+        set plane Z=7 value=0.27;
+        set plane Z=8 value=0.27;
+        set plane Z=9 value=0.27;
+        set plane Z=10 value=0.27;
+        set plane Z=11 value=0.27;
+        set plane Z=12 value=0.27;
+        set plane Z=13 value=0.27;
+      </scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Branch Lag Time Plant 2 RootOrder1 VolumeObject 2</characteristic>
+      <scheme>
+        set scoreboard value=672;
+        set plane Z=1 value=552;
+        set plane Z=2 value=552;
+        set plane Z=3 value=552;
+        set plane Z=4 value=552;
+        set plane Z=5 value=552;
+      </scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 2 RootOrder1 VolumeObject 2</characteristic>
+      <scheme>set scoreboard value=0.52;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 2 RootOrder2 VolumeObject 2</characteristic>
+      <scheme>set scoreboard value=0.6;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Seminal Final Branch Interval Plant 2 RootOrder>=3 VolumeObject 2</characteristic>
+      <scheme>set scoreboard value=0.6;</scheme>
+    </scoreboarddata>
+  </initialisation>
+</rootmap>
+
+
+SoilWaterContent.xml:
+
+<?xml version="1.0" encoding="utf-8"?>
+<rootmap>
+  <initialisation>
+    <owner>Scoreboard</owner>
+    <scoreboarddata>
+      <process>Water</process>
+      <characteristic>Water Content VolumeObject [none]</characteristic>
+      <scheme>
+        set scoreboard value=0.102;
+      </scheme>
+    </scoreboarddata>
+	
+    <scoreboarddata>
+      <process>Water</process>
+      <characteristic>Drained Upper Limit VolumeObject [none]</characteristic>
+      <scheme>
+        set scoreboard value=0.102;
+      </scheme>
+    </scoreboarddata>
+
+    <scoreboarddata>
+      <process>Water</process>
+      <characteristic>Wilting Point VolumeObject [none]</characteristic>
+      <scheme>
+        set scoreboard value=0.07;
+      </scheme>
+    </scoreboarddata>
+	
+    <scoreboarddata>
+      <process>Water</process>
+      <characteristic>Water Content VolumeObject 1</characteristic>
+      <scheme>
+        set scoreboard value=0.102;
+      </scheme>
+    </scoreboarddata>
+	
+    <scoreboarddata>
+      <process>Water</process>
+      <characteristic>Drained Upper Limit VolumeObject 1</characteristic>
+      <scheme>
+        set scoreboard value=0.102;
+      </scheme>
+    </scoreboarddata>
+	
+    <owner>Scoreboard</owner>
+    <scoreboarddata>
+      <process>Water</process>
+      <characteristic>Wilting Point VolumeObject 1</characteristic>
+      <scheme>
+        set scoreboard value=0.07;
+      </scheme>
+    </scoreboarddata>
+	
+	<scoreboarddata>
+      <process>Water</process>
+      <characteristic>Water Content VolumeObject 2</characteristic>
+      <scheme>
+        set scoreboard value=0.11;
+      </scheme>
+    </scoreboarddata>
+	
+    <scoreboarddata>
+      <process>Water</process>
+      <characteristic>Drained Upper Limit VolumeObject 2</characteristic>
+      <scheme>
+        set scoreboard value=0.11;
+      </scheme>
+    </scoreboarddata>
+	
+    <owner>Scoreboard</owner>
+    <scoreboarddata>
+      <process>Water</process>
+      <characteristic>Wilting Point VolumeObject 2</characteristic>
+      <scheme>
+        set scoreboard value=0.068;
+      </scheme>
+    </scoreboarddata>
+  </initialisation>
+
+</rootmap>
+
+
+Windows.xml:
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<rootmap>
+  <visualisation>
+    <owner>TableCoordinator</owner>
+    <table>
+      <process_name>Nitrate</process_name>
+      <characteristic_name>Nitrate Concentration VolumeObject 1</characteristic_name>
+      <view_direction>Front</view_direction>
+      <layer_number>5</layer_number>
+      <stratum>Soil</stratum>
+    </table>
+	<table>
+      <process_name>Nitrate</process_name>
+      <characteristic_name>Nitrate Concentration VolumeObject 2</characteristic_name>
+      <view_direction>Front</view_direction>
+      <layer_number>5</layer_number>
+      <stratum>Soil</stratum>
+    </table>
+  </visualisation>
+
+
+  <visualisation>
+    <owner>ViewCoordinator</owner>
+    <view>
+      <view_direction>Front</view_direction>
+      <reference_index>-5.0,-5.0,-5.0</reference_index>
+      <scale>6.5432</scale>
+      <zoom_ratio>1.0</zoom_ratio>
+      <repeat>false</repeat>
+      <wrap>false</wrap>
+      <boundaries>true</boundaries>
+      <boxes>true</boxes>
+      <box_colours>true</box_colours>
+      <scoreboards>Soil</scoreboards>
+      <processes>Plant 1,Nitrate,Water</processes>
+      <characteristics>
+        <cyan>
+          <colour_min>0</colour_min>
+          <colour_max>255</colour_max>
+          <characteristic_min>0.0</characteristic_min>
+          <characteristic_max>1000.0</characteristic_max>
+          <process_name>Phosphorus</process_name>
+          <characteristic_name>Total Labile P VolumeObject 1</characteristic_name>
+        </cyan>
+        <yellow>
+          <colour_min>0</colour_min>
+          <colour_max>255</colour_max>
+          <characteristic_min>0.0</characteristic_min>
+          <characteristic_max>1000.0</characteristic_max>
+          <process_name>Nitrate</process_name>
+          <characteristic_name>Nitrate Concentration VolumeObject 1</characteristic_name>
+        </yellow>
+        <magenta>
+          <colour_min>0</colour_min>
+          <colour_max>255</colour_max>
+          <characteristic_min>0.0</characteristic_min>
+          <characteristic_max>100.0</characteristic_max>
+          <process_name>Water</process_name>
+          <characteristic_name>Water Content VolumeObject 1</characteristic_name>
+        </magenta>
+      </characteristics>
+    </view>
+	<view>
+      <view_direction>Front</view_direction>
+      <reference_index>-5.0,-5.0,-5.0</reference_index>
+      <scale>6.5432</scale>
+      <zoom_ratio>1.0</zoom_ratio>
+      <repeat>false</repeat>
+      <wrap>false</wrap>
+      <boundaries>true</boundaries>
+      <boxes>true</boxes>
+      <box_colours>true</box_colours>
+      <scoreboards>Soil</scoreboards>
+      <processes>Plant 2,Nitrate,Water</processes>
+      <characteristics>
+        <cyan>
+          <colour_min>0</colour_min>
+          <colour_max>255</colour_max>
+          <characteristic_min>0.0</characteristic_min>
+          <characteristic_max>1000.0</characteristic_max>
+          <process_name>Phosphorus</process_name>
+          <characteristic_name>Total Labile P VolumeObject 2</characteristic_name>
+        </cyan>
+        <yellow>
+          <colour_min>0</colour_min>
+          <colour_max>255</colour_max>
+          <characteristic_min>0.0</characteristic_min>
+          <characteristic_max>1000.0</characteristic_max>
+          <process_name>Nitrate</process_name>
+          <characteristic_name>Nitrate Concentration VolumeObject 2</characteristic_name>
+        </yellow>
+        <magenta>
+          <colour_min>0</colour_min>
+          <colour_max>255</colour_max>
+          <characteristic_min>0.0</characteristic_min>
+          <characteristic_max>100.0</characteristic_max>
+          <process_name>Water</process_name>
+          <characteristic_name>Water Content VolumeObject 2</characteristic_name>
+        </magenta>
+      </characteristics>
+    </view>
+  </visualisation>
+
+
+  <visualisation>
+    <owner>View3DCoordinator</owner>
+    <view3d>
+      <!-- view position is the camera's initial offset from the origin -->
+      <view_position>0.0,18.0,0.0</view_position>
+      <scale>6.5432</scale>
+      <boundaries>true</boundaries>
+      <boxes>false</boxes>
+      <box_colours>false</box_colours>
+      <root_radius_multiplier>5.0</root_radius_multiplier>
+	  <root_colour_by_branch_order>true</root_colour_by_branch_order>
+	  <high_contrast_root_colour>false</high_contrast_root_colour>
+	  <base_root_red>0.65</base_root_red>
+	  <base_root_green>0.49</base_root_green>
+	  <base_root_blue>0.24</base_root_blue>
+	  <!-- Supported 3D view quality options are Low, Medium, High and Very High -->
+	  <quality>low</quality>
+      <scoreboards>Soil</scoreboards>
+      <processes>Plant 1,Plant 2,Nitrate,VolumeObjectCoordinator</processes>
+    </view3d>
+  </visualisation>
+</rootmap>

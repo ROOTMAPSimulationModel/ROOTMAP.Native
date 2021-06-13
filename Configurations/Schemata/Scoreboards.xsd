@@ -1,0 +1,39 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="https://example.org/ROOTMAP/ScoreboardsSchema"
+           targetNamespace="https://example.org/ROOTMAP/ScoreboardsSchema"
+           elementFormDefault="qualified">
+    <xsd:include schemaLocation="Common.xsd"/>
+
+    <xsd:element name="rootmap">
+        <xsd:complexType>
+            <xsd:annotation>
+                <xsd:documentation>Defines boundaries of Scoreboard layers.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:sequence>
+                <xsd:element type="tns:Construction" name="construction" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="Construction">
+        <xsd:sequence>
+            <xsd:element type="xsd:string" name="owner"/>
+            <xsd:element type="tns:Scoreboard" name="scoreboard" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Scoreboard">
+        <xsd:sequence>
+            <xsd:element type="xsd:string" name="name" />
+            <xsd:element type="xsd:int" name="stratum" />
+            <xsd:element type="tns:BoundaryArray" name="boundaryarray" minOccurs="3" maxOccurs="3"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="BoundaryArray">
+        <xsd:sequence>
+            <xsd:element type="tns:Dimension" name="dimension"/>
+            <xsd:element type="tns:PositionArray" name="positionarray" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

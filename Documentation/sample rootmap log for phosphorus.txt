@@ -1,0 +1,23 @@
+2019-11-26 13:00:59.176 DEBUG rootmap.SharedAttributeOwner (196) PlantCoordinator::DoSearchForAttribute(Nutrient Solution Renew,Plant)
+2019-11-26 13:00:59.176 DEBUG rootmap.SharedAttributeFamily MakeSharedAttributeName0()
+2019-11-26 13:00:59.176 INFO rootmap.SharedAttributeOwner (167) PlantCoordinator found attribute 'Nutrient Solution Renew Plant 2'
+2019-11-26 13:00:59.176 INFO rootmap.SharedAttributeOwner (215) Search success, found {attribute:Nutrient Solution Renew} in {owner:PlantCoordinator}
+2019-11-26 13:00:59.176 DEBUG rootmap.SharedAttributeSearchHelper SearchForClusterIndex {attribute:Nutrient Renew} {cluster:Plant} {variations:NULL}
+2019-11-26 13:00:59.176 DEBUG rootmap.SharedAttributeManager SearchForAttribute {attribute:Nutrient Renew} {varname:Plant} {owner:NULL}
+2019-11-26 13:00:59.176 DEBUG rootmap.SharedAttributeOwner (196) Water::DoSearchForAttribute(Nutrient Renew,Plant)
+2019-11-26 13:00:59.176 DEBUG rootmap.SharedAttributeOwner (222) Search failure, did not find {attribute:Nutrient Renew} in {owner:Water}
+2019-11-26 13:00:59.176 DEBUG rootmap.SharedAttributeOwner (196) Nitrate::DoSearchForAttribute(Nutrient Renew,Plant)
+2019-11-26 13:00:59.176 DEBUG rootmap.SharedAttributeOwner (222) Search failure, did not find {attribute:Nutrient Renew} in {owner:Nitrate}
+2019-11-26 13:00:59.176 DEBUG rootmap.SharedAttributeOwner (196) Phosphorus::DoSearchForAttribute(Nutrient Renew,Plant)
+2019-11-26 13:00:59.176 DEBUG rootmap.SharedAttributeOwner (222) Search failure, did not find {attribute:Nutrient Renew} in {owner:Phosphorus}
+2019-11-26 13:00:59.176 DEBUG rootmap.SharedAttributeOwner (196) PlantCoordinator::DoSearchForAttribute(Nutrient Renew,Plant)
+2019-11-26 13:00:59.176 DEBUG rootmap.SharedAttributeFamily MakeSharedAttributeName0()
+2019-11-26 13:00:59.176 INFO rootmap.SharedAttributeOwner (167) PlantCoordinator found attribute 'Nutrient Renew Plant 2'
+2019-11-26 13:00:59.177 INFO rootmap.SharedAttributeOwner (215) Search success, found {attribute:Nutrient Renew} in {owner:PlantCoordinator}
+2019-11-26 13:00:59.177 DEBUG rootmap.SharedAttributeIteratorAssistant Cluster found for 'Plant'
+2019-11-26 13:00:59.203 DEBUG rootmap.AllProcessSender Sending message {Type:'Init', Destination:'Organic Matter'}
+2019-11-26 13:00:59.203 DEBUG rootmap.AllProcessSender Sending message {Type:'Init', Destination:'Penetrometer Resistance'}
+2019-11-26 13:00:59.203 DEBUG rootmap.AllProcessSender Sending message {Type:'Init', Destination:'Phosphorus'}
+2019-11-26 13:00:59.203 DEBUG rootmap.MessageList Adding message:Time:1990-01-01 12:59:59, Src:Phosphorus, Dest:Phosphorus, Type:Normal, Data:00000000, Priority:40
+2019-11-26 13:02:13.534 DEBUG rootmap.PostOffice Destructing {Previous:1990-01-01 09:00:00, Now:1990-01-01 09:00:00, Start:1990-01-01 09:00:00, End:1990-01-15 00:00:00, Runtime:1970-02-12 08:00:00, #messages:10}
+2019-11-26 13:02:13.573 NOTICE rootmap.IdentifierUtility IdentityUtility destructor; NEXT values {CharacteristicId:387, ProcessId:16, PlantId:0, PlantTypeId:1, PlantSummaryId:12}

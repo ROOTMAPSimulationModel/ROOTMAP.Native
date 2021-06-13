@@ -1,0 +1,224 @@
+LIST OF CHARACTERISTICS (AND WHERE THEY'RE FOUND) (both input and output characteristics)
+-----------------------------------------------------------------------------------------
+(Note that the files in the scoreboard data directory refer to several of these characteristics
+and set them as inputs for various volume objects but don't define the defaults or details etc.
+They also set new characteristics not listed here, often broken down to per-VO.)
+
+shared attributes / phosphorusattributes.xml
+
+<name>Phosphorus Uptake</name>
+<name>Cumulative Phosphorus Uptake</name>
+<name>Cumulative Fertiliser P Uptake</name>
+<name>Cumul Local Phosphorus Uptake</name>
+<name>P Absorption Power</name>
+<name>Organic P Mineralisation</name>
+<name>Org P Min Fraction</name>
+<name>Org P Min Time</name>
+<name>P Utilisation Efficiency</name>
+<name>P Flux Max</name>
+<name>P Uptake Kinetic Const</name>
+<name>P Conc Min</name>
+<name>Apase Multiplier</name>
+
+shared attributes / nitrateattributes.xml
+
+<name>Plant Nitrate Uptake</name>
+<name>Cumul Plant N Fixation</name>
+<name>Cumul Plant Nitrate Uptake</name>
+<name>Cumul Plant FertN Uptake</name>
+<name>Cumul RO Nitrate Uptake</name>
+<name>Cumul Local Nitrate Uptake</name>
+<name>Cumul Local FertN Uptake</name>
+<name>Added Fertiliser N</name>
+<name>N Absorption Power</name>
+<name>N Flux Max</name>
+<name>N Uptake Kinetic Const</name>
+<name>Degree Days</name>
+<name>Degree Days at Growth Start</name>
+<name>Mineralisation Depth</name>
+<name>Calculate Nitrate Mineralisation</name>
+
+shared attributes / waterattributes.xml
+
+<name>Water Flux</name>
+<name>Cumul Local Plant Water Uptake</name>
+<name>Water Upregulation Limit</name>
+<name>Cumul Total Plant Water Uptake</name>
+<name>Local Plant Water Uptake</name>
+<name>Rain Amount</name>
+<name>Pan Evaporation</name>
+<name>Max Temperature</name>
+<name>Min Temperature</name>
+<name>Radiation</name>
+<name>Green Cover</name>
+<name>Avg Green Cover Factor</name>
+<name>Residue Cover</name>
+<name>Cumulative Evaporation Before Germination</name>
+<name>Cumulative Evaporation After Germination</name>
+<name>Calculate Evaporation</name>
+                
+shared attributes / plantattributes.xml
+
+<name>Seminal Branch Lag Time</name>
+<name>Nodal Branch Lag Time</name>
+<name>Seminal Deflection Index</name>
+<name>Nodal Deflection Index</name>
+<name>Seminal Final Branch Interval</name>
+<name>Nodal Final Branch Interval</name>
+<name>Seminal Geotropism Index</name>
+<name>Nodal Geotropism Index</name>
+<name>Growth Rate Max</name>
+<name>Seminal Growth Rate</name>
+<name>Nodal Growth Rate</name>
+<name>Seminal Unit Growth Rate</name>
+<name>Nodal Unit Growth Rate</name>
+<name>Initial Branch Angle</name>
+<name>Initial Branch Interval</name>
+<name>Root Conductance</name>
+ <name>Tip Growth Duration</name>
+<name>Initial Seminal Deflection</name>
+ <name>Germination Lag</name>
+<name>First Seminal Probability</name>
+<name>Temperature of Zero Growth</name>
+<name>Root Radius</name>
+<name>Root Hair Radius</name>
+<name>Root Hair Length</name>
+<name>Root Hair Density</name>
+<name>Model Root Hairs</name>
+<name>Degree Days Model</name>
+<name>Full Cover Days</name>
+<name>Ripening Days</name>
+<name>Harvest Days</name>
+<name>Full Cover Degree Days</name>
+<name>Ripening Degree Days</name>
+<name>Harvest Degree Days</name>
+<name>Ground Cover Max</name>
+<name>Ground Cover Harvest</name>
+<name>Previous Total Root Length</name>
+<name>Plant Is Legume</name>
+<name>Root Exudation Is On</name> ****still being implemented
+<name>Degree Days Base Temp</name>
+<name>Seeding Time</name>
+<name>Imax Decline Curve</name>
+<name>Root P Plasticity Factor</name>
+<name>Down Regulation Factor</name>
+<name>Root N Plasticity Factor</name>
+<name>N Regulation Factor</name>
+<name>P Regulation Factor</name>
+<name>Remaining N Resource Units</name>
+<name>Remaining P Resource Units</name>
+<name>Plant Target Resource Ratio</name>
+<name>Plant Actual Resource Ratio</name>
+<name>Mean Coty Life</name>
+<name>Leaf Emergence</name>
+<name>Nutrient Solution</name>
+<name>Nutrient Solution Renew</name>
+<name>Nutrient Renew</name>
+
+process_data / processes.xml ***Note many of these are input values rather than output characteristics 
+                                we might track***
+
+(Ammonium process)
+<name>Ammonium</name>
+<name>Ammonium Received Buffer</name>
+
+(Extractable Aluminium process)
+<name>Extractable Aluminium</name>
+
+(Nitrate process)
+<name>Nitrate Concentration</name>
+<name>Nitrate Leached</name>
+<name>Internal Workings</name>
+ <name>Nitrate Amount</name>
+<name>Nitrate Renew</name>
+<name>Nitrate Amount Check</name>
+<name>Fraction of Fertiliser N</name>
+<name>Coefficient c</name>
+<name>Coefficient d</name>
+<name>Dispersivity</name>
+<name>Fertiliser N</name>
+<name>Background N</name>
+<name>Added N</name>
+ <name>Added N2</name>
+<name>Rate Constant</name>
+<name>Rate Constant Temperature</name>
+<name>Q10</name>
+<name>Mineralisable N</name>
+<name>Mineralised N</name>
+<name>Estimate Initial Soil Temp Profile</name>
+<name>Thermal Diffusivity</name>
+<name>Other Soil Resources</name>
+<name>Radiation Extinction Coeff</name>
+<name>Packet Size</name>
+
+(process Organic Matter)
+<name>Organic Carbon</name>
+<name>Organic Nitrogen</name>
+<name>NH4 Requested</name>
+<name>Organic Nitrogen Received Buffer</name>
+<name>Residue Cover</name>
+
+(process Penetrometer Resistance)
+<name>Penetrometer Resistance</name>
+
+(process Phosphorus)
+<name>Total Labile P</name>
+<name>Renew Labile P</name>
+<name>Liquid Phase P Concentration</name>
+<name>Liquid Phase P</name>
+ <name>Labile Solid Phase P</name>
+<name>Labile Solid Phase P Conc</name>
+<name>Added P</name>
+<name>Buffer Index</name>
+<name>Buffer Capacity</name>
+ <name>Plus X</name>
+ <name>Plus Y</name>
+ <name>Plus Z</name>
+ <name>Minus X</name>
+<name>Minus Y</name>
+<name>Minus Z</name>
+<name>Apase Multiplier</name>
+<name>Organic P</name>
+<name>Local P Uptake</name>
+<name>Fraction Fertiliser Solid</name>
+<name>Fraction Fertiliser Liquid</name>
+<name>Freundlich Param n</name>
+<name>Recalcitrant P Fraction</name>
+
+(process pH)
+<name>pH</name>
+
+(process Temperature)
+<name>Temperature</name>
+
+(process Water)
+Water Content</name>
+<name>Drained Upper Limit</name>
+<name>Wilting Point</name>
+<name>Rained Amount</name>
+<name>Wetting Front</name>
+<name>Draw Wetting Front</name>
+<name>Water Moved</name>
+ <name>Direction Moved</name>
+<name>Rain Out Bottom</name>
+<name>Cumul Local Water Uptake</name>
+<name>Water Routine Number</name>
+<name>Maintain Initial Water Content</name>
+<name>Coefficient A</name>
+ <name>Coefficient B</name>
+<name>Alpha</name>
+<name>Water Saturation</name>
+<name>Coefficient m</name>
+<name>Coefficient n</name>
+ <name>Saturated Hydraulic Conductivity</name>
+
+(process Bulk Density)
+<name>Bulk Density VolumeObject [none]</name>
+<name>Bulk Density VolumeObject 1</name>
+<name>Bulk Density VolumeObject 2</name>
+
+(process Evolved Carbon)
+<name>Cumulative Evolved CO2</name>
+<name>CO2 Received Buffer</name>
+
+

@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ViewWindow">
+      <UniqueIdentifier>{4c3668ae-53d1-4e12-87e2-fe7301e6da12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SplashWindow">
+      <UniqueIdentifier>{baad73c6-5c5e-492f-823d-82c40c2824c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common gui">
+      <UniqueIdentifier>{121f9c7f-ea8c-4b59-990e-57fc540a27ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CharacteristicColourSelectionDialog">
+      <UniqueIdentifier>{e7dd3e24-232d-4f46-b1dd-39d6e0218654}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProgressWindow">
+      <UniqueIdentifier>{9c0032fa-7c9a-4eae-a260-204c3b4b1978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TableWindow">
+      <UniqueIdentifier>{fb4072e2-abac-4845-8242-50e49e883352}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ViewProcessSelectionDialog">
+      <UniqueIdentifier>{cb2e554a-ff14-43bc-9e48-004d1168b4d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main App">
+      <UniqueIdentifier>{18330f33-cd71-4a76-bf08-311074e32cdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{a0f75e02-227f-4f51-8fa8-16ece0f2bf6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="View3D">
+      <UniqueIdentifier>{68c4995f-5dc3-41bf-bea6-2ccc3020b8b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ViewCommon">
+      <UniqueIdentifier>{4b65d17b-af5e-43cc-9d7e-5b7ce15b9fd1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="gui\ViewWindow\ProcessDrawing.cpp">
+      <Filter>ViewWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewWindow\ProcessDrawingBuffer.cpp">
+      <Filter>ViewWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewWindow\RmScrolledWindow.cpp">
+      <Filter>ViewWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewWindow\RmViewWindow.cpp">
+      <Filter>ViewWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewWindow\ScoreboardBoxBoundaries.cpp">
+      <Filter>ViewWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewWindow\ScoreboardBuffer.cpp">
+      <Filter>ViewWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewWindow\ScoreboardColourBoxes.cpp">
+      <Filter>ViewWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewWindow\ScrolledWindowBuffer.cpp">
+      <Filter>ViewWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewWindow\ScrolledWindowHelper.cpp">
+      <Filter>ViewWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewWindow\ViewBuffer.cpp">
+      <Filter>ViewWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewWindow\ViewBufferStructures.cpp">
+      <Filter>ViewWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewWindow\WrapRepeatBuffer.cpp">
+      <Filter>ViewWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\SplashDialog\RmSplashWindow.cpp">
+      <Filter>SplashWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\common\GuiIdentifierUtility.cpp">
+      <Filter>common gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\common\GuiSimulationEngine.cpp">
+      <Filter>common gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\common\GuiUtility.cpp">
+      <Filter>common gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\common\SimulationActivityWindow.cpp">
+      <Filter>common gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\CharacteristicColourSelectionDialog\RmCharacteristicColourSelectionDialog.cpp">
+      <Filter>CharacteristicColourSelectionDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ProgressDialog\RmProgressWindow.cpp">
+      <Filter>ProgressWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\TableWindow\LayerMenuHelper.cpp">
+      <Filter>TableWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\TableWindow\RmSelectTableCharacteristic.cpp">
+      <Filter>TableWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\TableWindow\RmTableWindow.cpp">
+      <Filter>TableWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\TableWindow\ScoreboardTableHelper.cpp">
+      <Filter>TableWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\TableWindow\TableInformation.cpp">
+      <Filter>TableWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewProcessSelection\RmViewProcessSelectionDialog.cpp">
+      <Filter>ViewProcessSelectionDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\MDI\RmMdiApp.cpp">
+      <Filter>Main App</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\MDI\RmParentFrame.cpp">
+      <Filter>Main App</Filter>
+    </ClCompile>
+    <ClCompile Include="common\ProcessHelper.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\View3DWindow\OpenGLCanvas.cpp">
+      <Filter>View3D</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\View3DWindow\ProcessVertexBuffer.cpp">
+      <Filter>View3D</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\View3DWindow\RmGLCanvas.cpp">
+      <Filter>View3D</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\View3DWindow\RmView3D.cpp">
+      <Filter>View3D</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\View3DWindow\RootCylinder.cpp">
+      <Filter>View3D</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\View3DWindow\ScoreboardBoxBoundaryVertices.cpp">
+      <Filter>View3D</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\View3DWindow\ScoreboardVertexBuffer.cpp">
+      <Filter>View3D</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\View3DWindow\VertexBuffer.cpp">
+      <Filter>View3D</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewCommon\RootColourationModeUtility.cpp">
+      <Filter>ViewCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewCommon\View3DInformation.cpp">
+      <Filter>ViewCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewCommon\ViewCaptor.cpp">
+      <Filter>ViewCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewCommon\ViewCaptureOutputStrategy.cpp">
+      <Filter>ViewCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewCommon\ViewInformation.cpp">
+      <Filter>ViewCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\View3DWindow\RmGLVertex.cpp">
+      <Filter>View3D</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ViewWindow\ScoreboardDrawingIterator.cpp">
+      <Filter>ViewWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="common\RmVersion.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\RmGetOpts.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\FilesystemUtilities.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="gui\ViewWindow\ProcessDrawingBuffer.h">
+      <Filter>ViewWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewWindow\RmScrolledWindow.h">
+      <Filter>ViewWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewWindow\RmViewWindow.h">
+      <Filter>ViewWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewWindow\ScoreboardBoxBoundaries.h">
+      <Filter>ViewWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewWindow\ScoreboardBuffer.h">
+      <Filter>ViewWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewWindow\ScoreboardColourBoxes.h">
+      <Filter>ViewWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewWindow\ScrolledWindowBuffer.h">
+      <Filter>ViewWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewWindow\ScrolledWindowHelper.h">
+      <Filter>ViewWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewWindow\ViewBuffer.h">
+      <Filter>ViewWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewWindow\ViewBufferStructures.h">
+      <Filter>ViewWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewWindow\WrapRepeatBuffer.h">
+      <Filter>ViewWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\SplashDialog\RmSplashWindow.h">
+      <Filter>SplashWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\common\GuiIdentifierUtility.h">
+      <Filter>common gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\common\GuiSimulationEngine.h">
+      <Filter>common gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\common\GuiUtility.h">
+      <Filter>common gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\common\IProgressCoordinator.h">
+      <Filter>common gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\common\ITableCoordinator.h">
+      <Filter>common gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\common\IView3DCoordinator.h">
+      <Filter>common gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\common\IViewCoordinator.h">
+      <Filter>common gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\common\IViewProcessSelectionCallback.h">
+      <Filter>common gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\common\IWindowCoordinator.h">
+      <Filter>common gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\common\SimulationActivityWindow.h">
+      <Filter>common gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\CharacteristicColourSelectionDialog\RmCharacteristicColourSelectionDialog.h">
+      <Filter>CharacteristicColourSelectionDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ProgressDialog\RmProgressWindow.h">
+      <Filter>ProgressWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\TableWindow\LayerMenuHelper.h">
+      <Filter>TableWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\TableWindow\RmSelectTableCharacteristic.h">
+      <Filter>TableWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\TableWindow\RmTableWindow.h">
+      <Filter>TableWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\TableWindow\ScoreboardTableHelper.h">
+      <Filter>TableWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\TableWindow\TableInformation.h">
+      <Filter>TableWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewProcessSelection\RmViewProcessSelectionDialog.h">
+      <Filter>ViewProcessSelectionDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\MDI\RmMdiApp.h">
+      <Filter>Main App</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\MDI\RmParentFrame.h">
+      <Filter>Main App</Filter>
+    </ClInclude>
+    <ClInclude Include="common\ProcessHelper.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Types.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\View3DWindow\OpenGLCanvas.h">
+      <Filter>View3D</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\View3DWindow\ProcessVertexBuffer.h">
+      <Filter>View3D</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\View3DWindow\RmGLVertex.h">
+      <Filter>View3D</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\View3DWindow\RootCylinder.h">
+      <Filter>View3D</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\View3DWindow\ScoreboardBoxBoundaryVertices.h">
+      <Filter>View3D</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\View3DWindow\ScoreboardVertexBuffer.h">
+      <Filter>View3D</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\View3DWindow\VertexBuffer.h">
+      <Filter>View3D</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewCommon\DrawScoreboardIterator.h">
+      <Filter>ViewCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewCommon\IProcessDrawingBuffer.h">
+      <Filter>ViewCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewCommon\RootColourationModeUtility.h">
+      <Filter>ViewCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewCommon\Types.h">
+      <Filter>ViewCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewCommon\View3DInformation.h">
+      <Filter>ViewCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewCommon\ViewCaptor.h">
+      <Filter>ViewCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewCommon\ViewInformation.h">
+      <Filter>ViewCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="gui\View3DWindow\RmView3D.h">
+      <Filter>View3D</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\View3DWindow\RmGLCanvas.h">
+      <Filter>View3D</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ViewWindow\ScoreboardDrawingIterator.h">
+      <Filter>ViewWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\View3DWindow\Types.h">
+      <Filter>View3D</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\View3DWindow\glext.h">
+      <Filter>View3D</Filter>
+    </ClInclude>
+    <ClInclude Include="common\RmGetOpts.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\FilesystemUtilities.h">
+      <Filter>common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="rootmap.log.cfg" />
+    <None Include="version-stamp.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app.rc" />
+  </ItemGroup>
+</Project>

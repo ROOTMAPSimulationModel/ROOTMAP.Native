@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<rootmap
+        xmlns="https://example.org/ROOTMAP/PostOfficeSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/PostOfficeSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/PostOffice.xsd">
+  <construction>
+    <owner>PostOffice</owner>
+    <postoffice>
+      <!-- Year,Month,Day,Hour,Minute,Second -->
+      <previous>1990,1,1,9,0,0</previous>
+      <now>1990,1,1,9,0,0</now>
+      <next_start>1990,1,1,9,0,0</next_start>
+      <next_end>1990,1,15,0,0,0</next_end>
+
+      <!-- Years,Months,Days,Hours,Minutes,Seconds -->
+      <defaultruntime>0,0,42,0,0,0</defaultruntime>
+    </postoffice>
+
+  </construction>
+</rootmap>

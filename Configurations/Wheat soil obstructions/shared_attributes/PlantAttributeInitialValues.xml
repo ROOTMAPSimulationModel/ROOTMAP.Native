@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<rootmap
+        xmlns="https://example.org/ROOTMAP/ScoreboardDataSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/ScoreboardDataSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/ScoreboardData.xsd">
+  <initialisation>
+    <owner>Scoreboard</owner>
+    <!-- Plant SharedAttributes -->
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 1 RootOrder0 VolumeObject 2</characteristic>
+      <scheme>set scoreboard value=0.0025;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 1 RootOrder1 VolumeObject 2</characteristic>
+      <scheme>set scoreboard value=0.0010;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 1 RootOrder2 VolumeObject 2</characteristic>
+      <scheme>set scoreboard value=0.0010;</scheme>
+    </scoreboarddata>
+    <scoreboarddata>
+      <process>PlantCoordinator</process>
+      <characteristic>Growth Rate Max Plant 1 RootOrder>=3 VolumeObject 2</characteristic>
+		<!-- MSA 11.07.07 Rationale: maybe it's easier for the very tiny root hairs to get into rock cracks? -->
+      <scheme>set scoreboard value=0.004;</scheme>
+    </scoreboarddata>
+  </initialisation>
+</rootmap>
+

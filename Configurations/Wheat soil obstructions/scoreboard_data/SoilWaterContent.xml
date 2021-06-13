@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rootmap
+        xmlns="https://example.org/ROOTMAP/ScoreboardDataSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/ScoreboardDataSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/ScoreboardData.xsd">
+<initialisation>
+
+    <!-- Soil W for modelling lupin root growth in pots, simulations in sandy soil -->
+
+    <owner>Scoreboard</owner>
+
+    <scoreboarddata>
+
+      <!-- water
+
+        Initial soil water content -->
+
+      <process>Water</process>
+
+      <characteristic>Water Content VolumeObject [none]</characteristic>
+
+      <scheme>
+
+        set scoreboard value=0.35;
+
+      </scheme>
+
+    </scoreboarddata>
+
+    <scoreboarddata>
+
+      <!-- water
+
+        Initial soil water content -->
+
+      <process>Water</process>
+
+      <characteristic>Water Content VolumeObject 1</characteristic>
+
+      <scheme>
+
+        set scoreboard value=0.15;
+
+      </scheme>
+
+    </scoreboarddata>
+
+  </initialisation>
+
+
+</rootmap>

@@ -1,0 +1,64 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:simpleType name="Coordinate3D">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="(-?[0-9]+(\.[0-9]+)?,){2}-?[0-9]+(\.[0-9]+)?"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="DateTime">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9]{1,4},[0-1]?[0-9],[0-3]?[0-9],[0-2]?[0-9](,[0-6]?[0-9]){2}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="Dimension">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="X" />
+            <xsd:enumeration value="Y" />
+            <xsd:enumeration value="Z" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="PositionArray">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="\s*([0-9]+,)*[0-9]+\s*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="PositiveDecimal">
+        <xsd:restriction base="xsd:decimal">
+            <xsd:minInclusive value="0"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="Temperature">
+        <xsd:annotation>
+            <xsd:documentation>Describes a sensible temperature range for input into the model. Range is designed to catch accidental digits, e.g. entering "100" instead of "10", rather than any attempt at fully describing the model's capability for temperature extremes. 
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:decimal">
+            <xsd:minInclusive value="-49"/>
+            <xsd:maxInclusive value="99"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="UnitInterval">
+        <xsd:restriction base="xsd:decimal">
+            <xsd:minInclusive value="0"/>
+            <xsd:maxInclusive value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="ViewDirection">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Front" />
+            <xsd:enumeration value="Top" />
+            <xsd:enumeration value="Side" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="ViewOwner">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="TableCoordinator" />
+            <xsd:enumeration value="ViewCoordinator" />
+            <xsd:enumeration value="View3DCoordinator" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="YmdHMS">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

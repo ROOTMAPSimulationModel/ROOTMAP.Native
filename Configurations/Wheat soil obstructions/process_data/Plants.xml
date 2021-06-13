@@ -1,0 +1,168 @@
+<rootmap
+        xmlns="https://example.org/ROOTMAP/PlantsSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/PlantsSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/Plants.xsd">
+
+  <construction>
+
+    <owner>PlantCoordinator</owner>
+
+    <plant>
+
+      <name>Plant 1</name>
+
+      <type>RootMap Plant Type</type>
+
+      <!-- origin and seed_location are X,Y,Z no spaces -->
+
+      <origin>8.0,12.0,0.0</origin>
+
+      <seed_location>8.0,12.0,0.0</seed_location>
+
+      <!-- seeding time is in days from time zero -->
+
+      <seeding_time>0.0</seeding_time>
+
+      <seminal_axis>
+
+        <!-- axis lag is in hours from time zero -->
+
+        <start_lag>0.0</start_lag>
+
+        <probability>1.0</probability>
+
+      </seminal_axis>
+
+      <seminal_axis>
+
+        <start_lag>96.0</start_lag>
+
+        <probability>1.0</probability>
+
+      </seminal_axis>
+
+      <seminal_axis>
+
+        <start_lag>168.0</start_lag>
+
+        <probability>1.0</probability>
+
+      </seminal_axis>
+
+      <nodal_axis>
+
+        <start_lag>240.0</start_lag>
+
+        <probability>1.0</probability>
+
+      </nodal_axis>
+
+    </plant>
+
+    <plant>
+
+      <name>Plant 2</name>
+
+      <type>RootMap Plant Type</type>
+
+      <!-- origin and seed_location are X,Y,Z no spaces -->
+
+      <origin>16.0,12.0,0.0</origin>
+
+      <seed_location>16.0,12.0,0.0</seed_location>
+
+      <!-- seeding time is in days from time zero -->
+
+      <seeding_time>0.0</seeding_time>
+
+      <seminal_axis>
+
+        <!-- axis lag is in hours from time zero -->
+
+        <start_lag>0.0</start_lag>
+
+        <probability>1.0</probability>
+
+      </seminal_axis>
+
+      <seminal_axis>
+
+        <start_lag>96.0</start_lag>
+
+        <probability>1.0</probability>
+
+      </seminal_axis>
+
+      <seminal_axis>
+
+        <start_lag>168.0</start_lag>
+
+        <probability>1.0</probability>
+
+      </seminal_axis>
+
+      <nodal_axis>
+
+        <start_lag>240.0</start_lag>
+
+        <probability>1.0</probability>
+
+      </nodal_axis>
+
+    </plant>
+
+    <plant>
+
+      <name>Plant 3</name>
+
+      <type>RootMap Plant Type</type>
+
+      <!-- origin and seed_location are X,Y,Z no spaces -->
+
+      <origin>24.0,12.0,0.0</origin>
+
+      <seed_location>24.0,12.0,0.0</seed_location>
+
+      <!-- seeding time is in days from time zero -->
+
+      <seeding_time>0.0</seeding_time>
+
+      <seminal_axis>
+
+        <!-- axis lag is in hours from time zero -->
+
+        <start_lag>0.0</start_lag>
+
+        <probability>1.0</probability>
+
+      </seminal_axis>
+
+      <seminal_axis>
+
+        <start_lag>96.0</start_lag>
+
+        <probability>1.0</probability>
+
+      </seminal_axis>
+
+      <seminal_axis>
+
+        <start_lag>168.0</start_lag>
+
+        <probability>1.0</probability>
+
+      </seminal_axis>
+
+      <nodal_axis>
+
+        <start_lag>240.0</start_lag>
+
+        <probability>1.0</probability>
+
+      </nodal_axis>
+
+    </plant>
+
+  </construction>
+
+</rootmap>

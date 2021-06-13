@@ -1,0 +1,89 @@
+* Output is controlled by the file OutputRules.xml in the base of your config directory
+* The text files it writes during each run can be found in C:\[you the user]\AppData\Roaming\ROOTMAP\v6.0.0
+* If you screw up stuff in OutputRules.xml, for example characteristic names or plant names, 
+  the program will run fine and just not write you any output files for whatever's screwed up.
+* You can see in the Progress window when the program is writing output. It comes up with "Output File Alarm".
+* Mike says: 
+  1) You'll need to replace all references to "Plant 120" with whatever your simulation's plant is named
+  4) If it (or any output config) doesn't work, some trouble-prone areas to check are:
+     a) Ensure the Characteristic name exactly matches a real characteristic
+     b) Ensure the <when> element is set up to actually produce output during the simulation's runtime. 
+     E.g. if it has an <interval> of 30 days and the simulation runs for 20 days, it'll never produce output
+* Note that the interval starts after the initial time and that one-time-outputs may need <interval>
+  filled out, as in your one output will happen <interval> after <initial>, there is no <initial> output 
+  if <interval> is set to 0.
+
+------
+For a list of output and input characteristics, see List of Characteristics in Documentation directory.
+
+
+------
+
+This was taken from RootMapXMLTags in some old config directories:
+
+1 Root Node
+All XML files have the root node of "rootmap" (ie. <rootmap></rootmap>). Primary tags, those under the root node, can be
+1.1 configuration
+1.2 construction
+1.3 initialisation
+1.4 visualisation
+(and are dealt with in that order)
+2 configuration node tags
+2.1 name - an arbitrary name for display in the gui. Maybe, sometime
+2.2 type - the type of data: construction|initialisation
+2.3 owner - the name of the registered configuration object which will probably want to know about the data
+2.4 location - the file in which the data resides
+3 construction node tags
+3.1 owner
+this must come first. It is the name of the registered configuration object, ie. same as the original owner. There may be multiple construction data owners in the same file. Other construction tags are relevant to a particular sort of owner. There are three other construction tags:
+3.2 scoreboard
+only relevant for where owner is ScoreboardCoordinator
+3.2.1 name - brief name, for Gui purposes, like "Air", "Soil", "Litter"...
+3.2.2 stratum - an integer, places this scoreboard within the overall
+3.2.3 boundaryarray - (exactly 3 of these)
+3.2.3.1 dimension - one of X|Y|Z
+3.2.3.2 positionarray - comma-seperated list of boundaries. There is no whitespace between the first and last element, eg. 1.1,2,3,4.4,5,10
+3.3 process
+these should all have owner of ProcessCoordinator
+3.3.1 name
+the process name. Used both in the gui and for searching so should contain user-readable characters
+3.3.2 scoreboard
+the name of the scoreboard as defined in the scoreboard construction section, that this process lives in. There is a special scoreboard, "GLOBAL" for those processes that are not restricted to one scoreboard eg. PlantCoordinator
+
+Note: All available process tags will be utilised before the attribute tags
+
+3.4 attribute
+attributes should belong to their process, ie. their owner should be the name of their process.
+3.4.1 characteristic_descriptor
+3.4.1.1 name
+3.4.1.2 units
+3.4.1.3 minimum_value
+3.4.1.4 maximum_value
+3.4.1.5 default_value
+3.4.1.6 visible
+3.4.1.7 edittable
+3.4.1.8 worth_saving
+3.4.1.9 scoreboard_stratum
+3.4.2 storage
+"scoreboard" for scoreboard data. For process-specific attributes (not yet supported), usually the name of the owner process.
+3.4.3 variations
+for shared attributes, the attribute will have variations. These will be one (or more comma-seperated) of [Plant,PlantType,RootOrder]
+3.4.4 defaults
+3.4.4.1 variation_name - the name of the variation that these default values apply to
+3.4.4.2 default_values - value or csv list of, for each variation
+4 initialisation node tags
+4.1 owner
+that again
+4.2 objectdata
+data specific to this object
+4.2.1 name - the object will use this to identify the data destination
+4.2.2 initialvalue - the initial value. Whether this is string, number or other depends on the object
+4.3 scoreboarddata
+data destined for the scoreboard
+4.3.1 characteristic - the scoreboard characteristic name
+4.3.2 dimensionorder
+the csv order in which to assimilate the data into the scoreboard. A + in front of the dimension means increasing index (default) a - means descending index, eg. X,-Y,Z (left-right, back-front, top-bottom (for below-ground scoreboards)). Data not used causes a warning in the error log, as does insufficient data
+4.3.3 data - the data. Can be tab, space or comma-seperated.
+5 visualisation node tags
+
+-----

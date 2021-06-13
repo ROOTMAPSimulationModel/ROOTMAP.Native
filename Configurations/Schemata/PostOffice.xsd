@@ -1,0 +1,32 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="https://example.org/ROOTMAP/PostOfficeSchema"
+           targetNamespace="https://example.org/ROOTMAP/PostOfficeSchema"
+           elementFormDefault="qualified">
+    <xsd:include schemaLocation="Common.xsd"/>
+
+    <xsd:element name="rootmap">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="construction" type="tns:PostOfficeConstruction" maxOccurs="1" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="PostOfficeConstruction">
+        <xsd:sequence>
+            <xsd:element name="owner" type="xsd:string"/>
+            <xsd:element name="postoffice">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="random_seed" type="xsd:unsignedInt" minOccurs="0" maxOccurs="1" />
+                        <xsd:element name="previous" type="tns:DateTime" maxOccurs="1" />
+                        <xsd:element name="now" type="tns:DateTime" maxOccurs="1" />
+                        <xsd:element name="next_start" type="tns:DateTime" maxOccurs="1" />
+                        <xsd:element name="next_end" type="tns:DateTime" maxOccurs="1" />
+                        <xsd:element name="defaultruntime" type="tns:YmdHMS" maxOccurs="1" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

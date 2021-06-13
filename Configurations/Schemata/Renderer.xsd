@@ -1,0 +1,46 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="https://example.org/ROOTMAP/ViewSchema"
+           targetNamespace="https://example.org/ROOTMAP/ViewSchema"
+           elementFormDefault="qualified">
+    <xsd:include schemaLocation="Common.xsd"/>
+
+    <xsd:element name="rootmap">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="initialisation" type="tns:Renderer" minOccurs="0" maxOccurs="1" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="Renderer">
+        <xsd:sequence>
+            <xsd:element name="owner" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="characteristic_colour_info" type="tns:CharacteristicColourInfo" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="CharacteristicColourInfo">
+        <xsd:sequence>
+            <xsd:element name="colour_min" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:int">
+                        <xsd:minInclusive value="0"/>
+                        <xsd:maxInclusive value="255"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="colour_max" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:int">
+                        <xsd:minInclusive value="0"/>
+                        <xsd:maxInclusive value="255"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="characteristic_min" type="xsd:decimal" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="characteristic_max" type="xsd:decimal" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="process_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="characteristic_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<rootmap
+        xmlns="https://example.org/ROOTMAP/OutputRulesSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/OutputRulesSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/OutputRules.xsd">
+
+    <initialisation>
+        <owner>DataOutputCoordinator</owner>
+        <outputrule>
+            <type>ScoreboardData</type>
+            <source>PlantCoordinator</source>
+            <!-- characteristic is meaningful for the type/source combination
+           It applies in the general non-scoreboard sense of the term
+           also, you see -->
+            <characteristic>Root Length Wrap None Plant 85</characteristic>
+            <stratum>Soil</stratum>
+            <!-- accepts % formatting codes for strftime -->
+            <!-- Pre-processes URL % formatted values before passing to strftime
+           eg. use %20 for trailing spaces -->
+            <!-- Pre-processes extra format specifiers:
+           %C counter for number of outputs for this object so far (UNSUPPORTED)
+           %R raw timestamp in seconds from T=0 (UNSUPPORTED)
+           both of these accept the usual %d format specifiers,
+           eg. "%.3C" produces a 3-digit leading-zero-padded.
+           The following example produces a filename like
+           RootLength_YYYYmmdd-HHMMSS.txt
+           PLEASE ensure you don't confuse the lowercase and uppercase 'm'.
+           m=month, M=Minute -->
+            <filename>TotalRootLengthPlant85.txt</filename>
+            <!-- specification1 and specification2 are meaningful to the type.
+           For "ScoreboardData", specification1 is the dimension order. -->
+            <specification1>X,Z,Y</specification1>
+            <!-- how to handle current contents when openning a non-empty file:
+           append|overwrite (default=overwrite) -->
+            <reopen>overwrite</reopen>
+            <when>
+                <!-- a count of zero is to repeat ad infinitum -->
+                <count>0</count>
+                <!-- For exporting "every" so often, use the initialtime and frequency tags
+             Year,Month,Day,Hour,Minute,Second -->
+                <initialtime>0,0,0,0,0,0</initialtime>
+                <interval>0,0,34,0,0,0</interval>
+            </when>
+        </outputrule>
+    </initialisation>
+
+</rootmap>

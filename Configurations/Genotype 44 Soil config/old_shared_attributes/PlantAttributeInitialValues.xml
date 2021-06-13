@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<rootmap
+        xmlns="https://example.org/ROOTMAP/ScoreboardDataSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/ScoreboardDataSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/ScoreboardData.xsd">
+  <initialisation>
+    <owner>PlantCoordinator</owner>
+    <objectdata>
+      <name>Growth Rate Max RootOrder0</name>
+      <initial_value>0.09</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max RootOrder1</name>
+      <initial_value>0.008</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max RootOrder2</name>
+      <initial_value>0.008</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max RootOrder>=3</name>
+      <initial_value>0.008</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max Plant 1 RootOrder0</name>
+      <initial_value>0.04</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max Plant 1 RootOrder1</name>
+      <initial_value>0.04</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max Plant 1 RootOrder2</name>
+      <initial_value>0.03</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max Plant 1 RootOrder>=3</name>
+      <initial_value>0.02</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max Plant 2 RootOrder0</name>
+      <initial_value>0.05</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max Plant 2 RootOrder1</name>
+      <initial_value>0.02</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max Plant 2 RootOrder2</name>
+      <initial_value>0.02</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max Plant 2 RootOrder>=3</name>
+      <initial_value>0.01</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max Plant 3 RootOrder0</name>
+      <initial_value>0.04</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max Plant 3 RootOrder1</name>
+      <initial_value>0.01</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max Plant 3 RootOrder2</name>
+      <initial_value>0.01</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Growth Rate Max Plant 3 RootOrder>=3</name>
+      <initial_value>0.01</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Branch Lag Time RootOrder0</name>
+      <initial_value>100.0</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Branch Lag Time RootOrder1</name>
+      <initial_value>96.0</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Branch Lag Time RootOrder2</name>
+      <initial_value>360.0</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Branch Lag Time RootOrder>=3</name>
+      <initial_value>480.0</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Deflection Index RootOrder0</name>
+      <initial_value>0.3</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Deflection Index RootOrder1</name>
+      <initial_value>0.25</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Deflection Index RootOrder2</name>
+      <initial_value>0.25</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Deflection Index RootOrder>=3</name>
+      <initial_value>0.25</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Final Branch Interval RootOrder0</name>
+      <initial_value>0.5</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Final Branch Interval RootOrder1</name>
+      <initial_value>0.6</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Final Branch Interval RootOrder2</name>
+      <initial_value>0.5</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Final Branch Interval RootOrder>=3</name>
+      <initial_value>0.4</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Geotropism Index RootOrder0</name>
+      <initial_value>0.8</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Geotropism Index RootOrder1</name>
+      <initial_value>0.15</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Geotropism Index RootOrder2</name>
+      <initial_value>0.0</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Geotropism Index RootOrder>=3</name>
+      <initial_value>0.0</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Tip Growth Duration RootOrder0</name>
+      <initial_value>6000.0</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Tip Growth Duration RootOrder1</name>
+      <initial_value>3120.0</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Tip Growth Duration RootOrder2</name>
+      <initial_value>1920.0</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Tip Growth Duration RootOrder>=3</name>
+      <initial_value>1776.0</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Root Radius PlantType 1 RootOrder0</name>
+      <initial_value>3.0</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Root Radius PlantType 1 RootOrder1</name>
+      <initial_value>1.0</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Root Radius PlantType 1 RootOrder2</name>
+      <initial_value>0.5</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Root Radius PlantType 1 RootOrder>=3</name>
+      <initial_value>0.1</initial_value>
+    </objectdata>
+  </initialisation>
+</rootmap>

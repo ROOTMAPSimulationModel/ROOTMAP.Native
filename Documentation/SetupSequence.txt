@@ -1,0 +1,47 @@
+----STILL IN PROGRESS----
+
+1. Choose a basic configuration to work with. There is a default, if you just want to experiment with the program and get used to it. There are also basic configurations with either wheat or lupin in different standard types of soil. You can begin with one of those and modify it to match your experimental parameters. ##TODO
+
+2. Your configuration directory should have the file rootmap.xml in it.	This is what you give the program when you want to load the simulation. It tells the model where to find all the other XML files, and shouldn't need any changing.
+
+3. Define the size of your scoreboard. Do this in /Scoreboards.xml, located in the base directory of the config tree.
+
+4. Locate your plants in the Scoreboard (by coordinates). Do this in process-data/Plants.xml, one plant for each plant. This is also where you state which type of plant it is. Types of plants are listed in process-data/PlantTypes.xml. At this stage the plant types are much of a muchness but this might change as we develop cool configurations. 
+(The code is currently limited to a max of three plants - any more after this get ignored but may slow down processing!)
+
+5. Define your volume object/s. Do this in /VolumeObjects.xml (located in the base directory of your config tree). These are impenetrable surfaces for mimicking pots, gravel etc. There may be limits on the number of VOs modelled (unconfirmed). 
+(See also VO.DOC in Documentation for extra details.)
+
+6. Set soil properties by modifying values in scoreboard_data directory. VO[none] is everything outside the VOs, then VO 1, 2 etc are the pots. ##TBC.
+
+7. Get into the nitty-gritty details of plant characteristics. 
+        Is it a legume? Does its nutrient uptake (Imax) decline with time?
+	Do you want to include calculating the effects of root hairs?
+	Is it growing in nutrient solution rather than soil?
+        So on and so forth. 
+        Most of this is in shared-attributes/PlantAttributes.XML
+Currently the program gives the same characteristics to all plants in the model run, can't have mixed plants. It assumes that what you are comparing in the model is same plants but different soil conditions rather than same soil different plants.
+
+8. Set environmental factors. When does it rain? Temperature of days? Do you want to include calculating evaporation? (default is NO) These apply to all plants in the model (they all get rained on).
+        shared-attributes/WaterAttributes.xml
+	process_data/FullRad_RainfallEvents.xml
+	check "List Of Characteristics" for others of relevance to you
+
+9. Check your assumptions. The model makes a bunch of assumptions that can be controlled in the XML. For example: 
+	* Temperature (soil) - minimum, maximum, default
+	* Wilting point
+	* Maintain Initial Water Content (don't remove the water from the soil when the plants drink it, so that you can see root-nutrient interactions without water dynamics, set to OFF by default)
+This is not a full list. See "List Of Characteristics" in the documentation.
+	process_data\Processes.xml
+
+10. How long does the simulation run for, and do dates matter (e.g. are you matching them to field data)? PostOffice.xml has the default run time. Times are recorded in (years, weeks, days, hours, minutes, seconds) so the default of 0,0,35,0,0,0 means 35 days. Dates as set here will be recorded against the model output in the output files.
+
+11. Do you want every run of this simulation to be exactly the same without random variation? Set the Random Seed in PostOffice.xml to whatever eight digit number you like, so that all random variations in the model come out the same each time. If you want stochastic variation between your model runs, remove the Random Seed.
+	
+12. There may be other modifications needed? This document still in progress.
+
+13. Set which output characteristics you want to record and their data formats etc. OutputRules.xml in the base config directory is where this happens. More detail in documentation under "Collecting Output". 
+    
+14. Set viewing characteristics in Windows.xml. Probably don't need to futz with this most of the time but it controls colours on screen, if you want plants in their own 3D windows etc. You may need it for making results look pretty.
+
+

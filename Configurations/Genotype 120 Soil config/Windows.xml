@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<rootmap
+        xmlns="https://example.org/ROOTMAP/ViewSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/ViewSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/Windows.xsd">
+
+  <visualisation>
+    <owner>TableCoordinator</owner>
+    <table>
+      <process_name>Nitrate</process_name>
+      <characteristic_name>Nitrate Concentration</characteristic_name>
+      <view_direction>Front</view_direction>
+      <layer_number>1</layer_number>
+      <stratum>Soil</stratum>
+    </table>
+  </visualisation>
+
+  <visualisation>
+    <owner>ViewCoordinator</owner>
+    <view>
+      <view_direction>Front</view_direction>
+      <reference_index>-5.0,-5.0,-5.0</reference_index>
+      <scale>6.5432</scale>
+      <zoom_ratio>1.0</zoom_ratio>
+      <repeat>false</repeat>
+      <wrap>false</wrap>
+      <boundaries>true</boundaries>
+      <boxes>true</boxes>
+      <box_colours>true</box_colours>
+      <scoreboards>Soil</scoreboards>
+      <processes>Plant 120,Nitrate,Water</processes>
+      <characteristics>
+        <cyan>
+          <colour_min>0</colour_min>
+          <colour_max>255</colour_max>
+          <characteristic_min>0.0</characteristic_min>
+          <characteristic_max>1000.0</characteristic_max>
+          <process_name>Phosphorus</process_name>
+                    <characteristic_name>Total Labile P VolumeObject 1</characteristic_name>
+        </cyan>
+        <magenta>
+          <colour_min>0</colour_min>
+          <colour_max>255</colour_max>
+          <characteristic_min>0.0</characteristic_min>
+          <characteristic_max>100.0</characteristic_max>
+          <process_name>Water</process_name>
+                    <characteristic_name>Water Content VolumeObject 1</characteristic_name>
+        </magenta>
+        <yellow>
+          <colour_min>0</colour_min>
+          <colour_max>255</colour_max>
+          <characteristic_min>0.0</characteristic_min>
+          <characteristic_max>1000.0</characteristic_max>
+          <process_name>Nitrate</process_name>
+                    <characteristic_name>Nitrate Concentration VolumeObject 1</characteristic_name>
+        </yellow>
+      </characteristics>
+    </view>
+  </visualisation>
+
+  <visualisation>
+    <owner>View3DCoordinator</owner>
+    <view3d>
+      <!-- view position is the camera's initial offset from the origin -->
+      <view_position>0.0,18.0,0.0</view_position>
+      <scale>6.5432</scale>
+      <boundaries>true</boundaries>
+      <boxes>false</boxes>
+      <box_colours>false</box_colours>
+      <root_radius_multiplier>5.0</root_radius_multiplier>
+	  <root_colour_by_branch_order>true</root_colour_by_branch_order>
+	  <high_contrast_root_colour>false</high_contrast_root_colour>
+	  <base_root_red>0.65</base_root_red>
+	  <base_root_green>0.49</base_root_green>
+	  <base_root_blue>0.24</base_root_blue>
+	  <!-- Supported 3D view quality options are Low, Medium, High and Very High -->
+	  <quality>low</quality>
+      <scoreboards>Soil</scoreboards>
+      <processes>Plant 120,Nitrate,VolumeObjectCoordinator</processes>
+    </view3d>
+  </visualisation>
+</rootmap>

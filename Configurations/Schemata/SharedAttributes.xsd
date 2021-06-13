@@ -1,0 +1,101 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="https://example.org/ROOTMAP/SharedAttributesSchema"
+           targetNamespace="https://example.org/ROOTMAP/SharedAttributesSchema"
+           elementFormDefault="qualified">
+    <xsd:include schemaLocation="Common.xsd"/>
+
+    <xsd:element name="rootmap">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="construction" type="tns:SharedAttributes" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="SharedAttributes">
+        <xsd:sequence>
+            <xsd:element name="owner" type="xsd:string" fixed="SharedAttributeManager" />
+            <xsd:element name="attribute" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="owner" type="xsd:string" />
+                        <xsd:element name="characteristic_descriptor" type="tns:Characteristic" />
+                        <xsd:element name="storage" type="xsd:string" />
+                        <xsd:element name="variations">
+                            <xsd:simpleType>
+                                <xsd:restriction base="xsd:string">
+                                    <xsd:pattern value="([a-zA-Z]+,)*[a-zA-Z]*"/>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="defaults" type="tns:Defaults" minOccurs="0" />
+
+                        <xsd:element name="values" minOccurs="0">
+                            <xsd:simpleType>
+                                <xsd:annotation>
+                                    <xsd:documentation>Comma-separated list of per-variation default values.
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:restriction base="xsd:string">
+                                    <xsd:pattern value="([0-9]+(\.[0-9]+)?,)*[0-9]+(\.[0-9]+)?"/>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Characteristic">
+        <xsd:all>
+            <xsd:element name="minimum" type="xsd:double">
+                <xsd:annotation>
+                    <xsd:documentation>Supports scientific notation and the special values INF (infinity), -INF (negative infinity) an NaN (not a number).
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="maximum" type="xsd:double">
+                <xsd:annotation>
+                    <xsd:documentation>Supports scientific notation and the special values INF (infinity), -INF (negative infinity) an NaN (not a number).
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="default" type="xsd:double">
+                <xsd:annotation>
+                    <xsd:documentation>Supports scientific notation and the special values INF (infinity), -INF (negative infinity) an NaN (not a number).
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="name" type="xsd:string" />
+            <xsd:element name="units" type="xsd:string" />
+            <xsd:element name="visible" type="xsd:boolean" />
+            <xsd:element name="editable" type="xsd:boolean" />
+            <xsd:element name="tobesaved" type="xsd:boolean" />
+            <xsd:element name="specialperboxinfo" type="xsd:boolean" minOccurs="0" />
+            <xsd:element name="stratum" type="xsd:string" minOccurs="0" />
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="Defaults">
+        <xsd:sequence>
+            <xsd:element name="variation_name" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Must reference a variation from the variations element of this attribute.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="values">
+                <xsd:simpleType>
+                    <xsd:annotation>
+                        <xsd:documentation>Comma-separated list of per-variation default values.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:pattern value="([0-9]+(\.[0-9]+)?,)*[0-9]+(\.[0-9]+)?"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

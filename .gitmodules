@@ -1,0 +1,3 @@
+[submodule "ROOTMAP.Core"]
+	path = ROOTMAP.Core
+	url = https://github.com/ROOTMAPSimulationModel/ROOTMAP.Core.git

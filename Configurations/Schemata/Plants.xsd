@@ -1,0 +1,50 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="https://example.org/ROOTMAP/PlantsSchema"
+           targetNamespace="https://example.org/ROOTMAP/PlantsSchema"
+           elementFormDefault="qualified">
+    <xsd:include schemaLocation="Common.xsd"/>
+
+    <xsd:element name="rootmap">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="construction" type="tns:Plants" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="Plants">
+        <xsd:sequence>
+            <xsd:element name="owner" type="xsd:string" fixed="PlantCoordinator" />
+            <xsd:element name="plant" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="name" type="xsd:string" />
+                        <xsd:element name="type" type="xsd:string" />
+                        <xsd:element name="origin" type="tns:Coordinate3D" />
+                        <xsd:element name="seed_location" type="tns:Coordinate3D" />
+                        <xsd:element name="seeding_time" type="tns:PositiveDecimal">
+                            <xsd:annotation>
+                                <xsd:documentation>Seeding time is in days from time zero.
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <!-- Are seminal and/or nodal axes required? -->
+                        <xsd:element name="seminal_axis" type="tns:Axis" minOccurs="0" maxOccurs="unbounded" />
+                        <xsd:element name="nodal_axis" type="tns:Axis" minOccurs="0" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Axis">
+        <xsd:annotation>
+            <xsd:documentation>Describes a seminal or nodal axis of a plant.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="start_lag" type="xsd:decimal" maxOccurs="1" />
+            <xsd:element name="probability" type="tns:UnitInterval" maxOccurs="1" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource version="2.3.0.1" xmlns="http://www.wxwidgets.org/wxxrc">
+    <object class="wxMDIParentFrame" name="rmID_PARENT_WINDOWFRAME" subclass="RmParentFrame">
+        <style>wxDEFAULT_FRAME_STYLE|wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU|wxMINIMIZE_BOX|wxMAXIMIZE_BOX|wxCLOSE_BOX|wxNO_BORDER</style>
+        <size>1000,700</size>
+        <title>RootMap</title>
+        <object class="wxMenuBar" name="rmID_MENUBAR">
+            <object class="wxMenu">
+                <label>&amp;File</label>
+                <object class="wxMenuItem" name="wxID_NEW">
+                    <label>&amp;New Simulation\tCtrl+N</label>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenuItem" name="wxID_OPEN">
+                    <label>&amp;Open Simulation...\tCtrl+O</label>
+                </object>
+                <object class="wxMenuItem" name="wxID_CLOSE_ALL">
+                    <label>&amp;Close Simulation</label>
+                </object>
+                <object class="wxMenuItem" name="wxID_CLOSE">
+                    <label>Close &amp;Window\tCtrl+W</label>
+                </object>
+                <object class="wxMenuItem" name="wxID_SAVE">
+                    <label>&amp;Save\tCtrl+S</label>
+                </object>
+                <object class="wxMenuItem" name="wxID_SAVEAS">
+                    <label>Save &amp;As...</label>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenuItem" name="wxID_EXIT">
+                    <label>E&amp;xit\tAlt+F4</label>
+                </object>
+            </object>
+            <object class="wxMenu">
+                <label>&amp;Edit</label>
+                <enabled>0</enabled>
+                <object class="wxMenuItem" name="wxID_UNDO">
+                    <label>&amp;Undo\tCtrl+Z</label>
+                </object>
+                <object class="wxMenuItem" name="wxID_REDO">
+                    <label>&amp;Redo\tCtrl+Y</label>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenuItem" name="wxID_COPY">
+                    <label>&amp;Copy\tCtrl+C</label>
+                </object>
+                <object class="wxMenuItem" name="wxID_CUT">
+                    <label>Cu&amp;t\tCtrl+X</label>
+                </object>
+                <object class="wxMenuItem" name="wxID_PASTE">
+                    <label>&amp;Paste\tCtrl+V</label>
+                </object>
+                <object class="wxMenuItem" name="rmID_EDITMENU_PASTESPECIALITEM">
+                    <label>Paste &amp;Special...</label>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenuItem" name="wxID_SELECTALL">
+                    <label>Select &amp;All\tCtrl+A</label>
+                </object>
+            </object>
+            <object class="wxMenu">
+                <label>&amp;Run</label>
+                <enabled>0</enabled>
+                <object class="wxMenuItem" name="rmID_RUNMENU_GOITEM">
+                    <label>&amp;Go\tCtrl+G</label>
+                    <help>Starts the simulation running</help>
+                </object>
+                <object class="wxMenuItem" name="rmID_RUNMENU_STOPITEM">
+                    <label>&amp;Stop\tCtrl+E</label>
+                    <help>Stops a currently running simulation</help>
+                </object>
+                <object class="wxMenuItem" name="rmID_RUNMENU_PAUSEITEM">
+                    <label>&amp;Toggle Pause\tCtrl+.</label>
+                    <help>Pauses/Resumes a currently running simulation</help>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenuItem" name="rmID_RUNMENU_SHOWPROGRESS">
+                    <label>P&amp;rogress...</label>
+                </object>
+                <object class="wxMenuItem" name="rmID_RUNMENU_SETSTARTTIMEITEM">
+                    <label>Set Start &amp;Time...</label>
+                    <help>Invokes a dialog that allows for setting of the date and time of the start of the simulation</help>
+                </object>
+            </object>
+            <object class="wxMenu">
+                <label>&amp;View</label>
+                <enabled>0</enabled>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_NEWVIEWITEM">
+                    <label>&amp;New View\tCtrl+J</label>
+                </object>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_NEW3DVIEWITEM">
+                    <label>New 3D View</label>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_FRONTVIEWITEM">
+                    <label>&amp;Front View</label>
+                    <checkable>1</checkable>
+                </object>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_SIDEVIEWITEM">
+                    <label>&amp;Side View</label>
+                    <checkable>1</checkable>
+                </object>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_TOPVIEWITEM">
+                    <label>&amp;Top View</label>
+                    <checkable>1</checkable>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_REPEATITEM">
+                    <label>&amp;Repeat</label>
+                    <checkable>1</checkable>
+                </object>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_WRAPITEM">
+                    <label>&amp;Wrap</label>
+                    <checkable>1</checkable>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_ZOOMINITEM">
+                    <label>Zoom &amp;In\t+</label>
+                </object>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_ZOOMOUTITEM">
+                    <label>Zoom &amp;Out\t-</label>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_BOUNDARIESITEM">
+                    <label>&amp;Boundaries</label>
+                    <checkable>1</checkable>
+                </object>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_BOXESITEM">
+                    <label>Bo&amp;xes</label>
+                    <checkable>1</checkable>
+                </object>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_BOXCOLOURSITEM">
+                    <label>Box Co&amp;lours</label>
+                    <checkable>1</checkable>
+                </object>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_PROCESSESITEM">
+                    <label>&amp;Processes...</label>
+                </object>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_CHARACTERISTICSITEM">
+                    <label>&amp;Characteristics...</label>
+                </object>
+                <object class="wxMenu" name="rmID_VIEWMENU_SCOREBOARDSUBMENU">
+                    <label>Scor&amp;eboard</label>
+                    <object class="wxMenuItem" name="rmID_VIEWMENU_SCOREBOARDSUBMENU_AIRITEM">
+                        <label>Air</label>
+                        <checkable>1</checkable>
+                    </object>
+                    <object class="wxMenuItem" name="rmID_VIEWMENU_SCOREBOARDSUBMENU_LITTERITEM">
+                        <label>Litter</label>
+                        <checkable>1</checkable>
+                    </object>
+                    <object class="wxMenuItem" name="rmID_VIEWMENU_SCOREBOARDSUBMENU_SOILITEM">
+                        <label>Soil</label>
+                        <checkable>1</checkable>
+                    </object>
+                    <object class="wxMenuItem" name="rmID_VIEWMENU_SCOREBOARDSUBMENU_DRAINITEM">
+                        <label>Drain</label>
+                        <checkable>1</checkable>
+                    </object>
+                    <object class="separator">
+                    </object>
+                    <object class="wxMenuItem" name="rmID_VIEWMENU_SCOREBOARDSUBMENU_ALLITEM">
+                        <label>All</label>
+                        <checkable>1</checkable>
+                    </object>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenuItem" name="rmID_VIEWMENU_DETAILSITEM">
+                    <label>&amp;Details...</label>
+                    <enabled>0</enabled>
+                </object>
+            </object>
+            <object class="wxMenu">
+                <label>&amp;Table</label>
+                <enabled>0</enabled>
+                <object class="wxMenu" name="rmID_TABLEMENU_NEWTABLESUBMENU">
+                    <label>New Table</label>
+                    <object class="wxMenuItem" name="rmID_TABLEMENU_NEWTABLESUBMENU_AIRITEM">
+                        <label>&amp;Air\tCtrl+0</label>
+                        <enabled>0</enabled>
+                    </object>
+                    <object class="wxMenuItem" name="rmID_TABLEMENU_NEWTABLESUBMENU_LITTERITEM">
+                        <label>&amp;Litter\tCtrl+1</label>
+                        <enabled>0</enabled>
+                    </object>
+                    <object class="wxMenuItem" name="rmID_TABLEMENU_NEWTABLESUBMENU_SOILITEM">
+                        <label>&amp;Soil\tCtrl+2</label>
+                    </object>
+                    <object class="wxMenuItem" name="rmID_TABLEMENU_NEWTABLESUBMENU_DRAINITEM">
+                        <label>&amp;Drain\tCtrl+3</label>
+                        <enabled>0</enabled>
+                    </object>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenu" name="rmID_TABLEMENU_LAYERSUBMENU">
+                    <label>&amp;Layer</label>
+                    <object class="wxMenuItem" name="rmID_TABLEMENU_LAYERSUBMENU_DUMMYITEM">
+                        <label>0 -&gt; infinity</label>
+                        <checkable>1</checkable>
+                    </object>
+                </object>
+                <object class="wxMenuItem" name="rmID_TABLEMENU_PREVIOUSLAYERITEM">
+                    <label>&amp;Previous Layer</label>
+                </object>
+                <object class="wxMenuItem" name="rmID_TABLEMENU_NEXTLAYERITEM">
+                    <label>&amp;Next Layer</label>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenuItem" name="rmID_TABLEMENU_FROMFRONTITEM">
+                    <label>From &amp;Front</label>
+                    <radio>1</radio>
+                </object>
+                <object class="wxMenuItem" name="rmID_TABLEMENU_FROMSIDEITEM">
+                    <label>From &amp;Side</label>
+                    <radio>1</radio>
+                </object>
+                <object class="wxMenuItem" name="rmID_TABLEMENU_FROMTOPITEM">
+                    <label>From &amp;Top</label>
+                    <radio>1</radio>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenuItem" name="rmID_TABLEMENU_CHARACTERISTICITEM">
+                    <label>&amp;Characteristic...</label>
+                </object>
+                <object class="wxMenuItem" name="rmID_TABLEMENU_DETAILSITEM">
+                    <label>&amp;Details...</label>
+                </object>
+            </object>
+          <object class="wxMenu">
+            <label>&amp;Help</label>
+            <object class="wxMenuItem" name="wxID_HELP">
+              <label>&amp;Help</label>
+            </object>
+            <object class="separator">
+            </object>
+            <object class="wxMenuItem" name="wxID_ABOUT">
+              <label>&amp;About RootMap</label>
+            </object>
+          </object>
+        </object>
+    </object>
+    <object class="wxMDIChildFrame" name="rmID_TABLE_WINDOWFRAME" subclass="RmTableWindow">
+        <style>wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU|wxCLOSE_BOX|wxFULL_REPAINT_ON_RESIZE|wxTAB_TRAVERSAL</style>
+        <bg>#E0E0E0</bg>
+        <size>599,499</size>
+        <title>Table</title>
+        <object class="wxFlexGridSizer">
+            <cols>2</cols>
+            <rows>2</rows>
+            <vgap>0</vgap>
+            <hgap>0</hgap>
+            <growablecols>1</growablecols>
+            <growablerows>1</growablerows>
+            <object class="sizeritem">
+                <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                <border>0</border>
+                <object class="wxPanel" name="rmID_TABLE_CORNERPANEL">
+                </object>
+            </object>
+            <object class="sizeritem">
+                <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL|wxADJUST_MINSIZE</flag>
+                <border>0</border>
+                <object class="wxStaticText" name="rmID_TABLE_COLUMNLABEL_STATICTEXT">
+                    <label>The column heading - Characteristic Name, View Direction</label>
+                </object>
+            </object>
+            <object class="sizeritem">
+                <flag>wxALIGN_CENTER_HORIZONTAL|wxGROW|wxALL</flag>
+                <border>0</border>
+                <object class="wxStaticBitmap" name="rmID_TABLE_ROWLABEL_STATICBITMAP">
+                    <size>20,245</size>
+                    <bitmap>resources/AlongSideV.bmp</bitmap>
+                </object>
+            </object>
+            <object class="sizeritem">
+                <flag>wxGROW|wxEXPAND</flag>
+                <border>0</border>
+                <option>1</option>
+                <object class="wxGrid" name="rmID_TABLE_GRID">
+                    <size>400,350</size>
+                    <style>wxNO_BORDER|wxHSCROLL|wxVSCROLL</style>
+                </object>
+            </object>
+        </object>
+    </object>
+    <object class="wxMDIChildFrame" name="rmID_VIEW_WINDOWFRAME" subclass="RmViewWindow">
+        <style>wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU|wxCLOSE_BOX|wxFULL_REPAINT_ON_RESIZE|wxCLIP_CHILDREN</style>
+        <size>400,600</size>
+        <title>View</title>
+        <centered>1</centered>
+        <object class="wxScrolledWindow" name="rmID_VIEW_SCROLLEDWINDOW" subclass="RmScrolledWindow">
+            <style>wxNO_BORDER|wxWANTS_CHARS|wxFULL_REPAINT_ON_RESIZE|wxHSCROLL|wxVSCROLL</style>
+            <scrollrate>6,6</scrollrate>
+            <unitsx>0</unitsx>
+            <unitsy>0</unitsy>
+        </object>
+    </object>
+    <object class="wxDialog" name="rmID_PROGRESS_DIALOG" subclass="RmProgressWindow">
+        <style>wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX</style>
+        <exstyle>wxWS_EX_BLOCK_EVENTS</exstyle>
+        <size>300,120</size>
+        <title>Progress</title>
+        <centered>1</centered>
+        <object class="wxBoxSizer">
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+                <flag>wxGROW|wxALL</flag>
+                <border>5</border>
+                <option>2</option>
+                <object class="wxBoxSizer">
+                    <orient>wxHORIZONTAL</orient>
+                    <object class="sizeritem">
+                        <flag>wxGROW</flag>
+                        <border>2</border>
+                        <option>1</option>
+                        <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                                <flag>wxALIGN_RIGHT|wxALL|wxADJUST_MINSIZE</flag>
+                                <border>5</border>
+                                <object class="wxStaticText" name="rmID_PROGRESS_CURRENTTIMELABEL_STATIC">
+                                    <label>Current Time :</label>
+                                </object>
+                            </object>
+                            <object class="sizeritem">
+                                <flag>wxALIGN_RIGHT|wxALL|wxADJUST_MINSIZE</flag>
+                                <border>5</border>
+                                <object class="wxStaticText" name="rmID_PROGRESS_ENDTIMELABEL_STATIC">
+                                    <label>End Time :</label>
+                                </object>
+                            </object>
+                            <object class="sizeritem">
+                                <flag>wxALIGN_RIGHT|wxALL|wxADJUST_MINSIZE</flag>
+                                <border>5</border>
+                                <object class="wxStaticText" name="rmID_PROGRESS_CURRENTLYPROCESSINGLABEL_STATIC">
+                                    <label>Currently Processing :</label>
+                                </object>
+                            </object>
+                        </object>
+                    </object>
+                    <object class="sizeritem">
+                        <flag>wxGROW</flag>
+                        <border>2</border>
+                        <option>1</option>
+                        <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                                <flag>wxALIGN_LEFT|wxALL|wxADJUST_MINSIZE</flag>
+                                <border>5</border>
+                                <object class="wxStaticText" name="rmID_PROGRESS_CURRENTTIMEVALUE_STATIC">
+                                    <label>[defined by app]</label>
+                                </object>
+                            </object>
+                            <object class="sizeritem">
+                                <flag>wxALIGN_LEFT|wxALL|wxADJUST_MINSIZE</flag>
+                                <border>5</border>
+                                <object class="wxStaticText" name="rmID_PROGRESS_ENDTIMEVALUE_STATIC">
+                                    <label>[defined by app]</label>
+                                </object>
+                            </object>
+                            <object class="sizeritem">
+                                <flag>wxALIGN_LEFT|wxALL|wxADJUST_MINSIZE</flag>
+                                <border>5</border>
+                                <object class="wxStaticText" name="rmID_PROGRESS_CURRENTLYPROCESSINGVALUE_STATIC">
+                                    <label>[defined by app]</label>
+                                </object>
+                            </object>
+                        </object>
+                    </object>
+                </object>
+            </object>
+            <object class="sizeritem">
+                <flag>wxGROW</flag>
+                <border>5</border>
+                <object class="wxGauge" name="rmID_PROGRESS_GAUGE">
+                    <size>-1,15</size>
+                    <style>wxGA_HORIZONTAL|wxGA_SMOOTH|wxNO_BORDER</style>
+                    <value>1</value>
+                    <range>100</range>
+                </object>
+            </object>
+        </object>
+    </object>
+    <object class="wxDialog" name="rmID_CCSD_DIALOG" subclass="RmCharacteristicColourSelectionDialog">
+        <style>wxCAPTION|wxRESIZE_BORDER|wxCLOSE_BOX</style>
+        <exstyle>wxWS_EX_BLOCK_EVENTS</exstyle>
+        <size>600,500</size>
+        <title>Characteristic Colour Selection</title>
+        <centered>1</centered>
+        <object class="wxBoxSizer">
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+                <flag>wxGROW|wxALL</flag>
+                <border>5</border>
+                <option>10</option>
+                <object class="wxStaticBoxSizer" name="wxID_ANY">
+                    <orient>wxVERTICAL</orient>
+                    <label>Current Colour</label>
+                    <object class="sizeritem">
+                        <flag>wxGROW|wxALL</flag>
+                        <border>5</border>
+                        <option>1</option>
+                        <object class="wxBoxSizer">
+                            <orient>wxHORIZONTAL</orient>
+                            <object class="sizeritem">
+                                <flag>wxGROW|wxRIGHT</flag>
+                                <border>5</border>
+                                <option>1</option>
+                                <object class="wxBoxSizer">
+                                    <orient>wxVERTICAL</orient>
+                                    <object class="sizeritem">
+                                        <flag>wxALIGN_LEFT</flag>
+                                        <border>5</border>
+                                        <object class="wxChoice" name="rmID_CCSD_COLOUR_CHOICE">
+                                            <tooltip>Use this to choose the colour of which characteristics to modify</tooltip>
+                                            <content>
+                                                <item>Cyan</item>
+                                                <item>Magenta</item>
+                                                <item>Yellow</item>
+                                            </content>
+                                            <selection>0</selection>
+                                        </object>
+                                    </object>
+                                    <object class="sizeritem">
+                                        <flag>wxGROW|wxTOP</flag>
+                                        <border>5</border>
+                                        <option>1</option>
+                                        <object class="wxListBox" name="rmID_CCSD_CHARACTERISTIC_LISTBOX">
+                                            <tooltip>Use this to select a characteristic to be represented by the current colour</tooltip>
+                                            <style>wxLB_SINGLE|wxLB_ALWAYS_SB</style>
+                                        </object>
+                                    </object>
+                                </object>
+                            </object>
+                            <object class="sizeritem">
+                                <flag>wxGROW|wxLEFT</flag>
+                                <border>5</border>
+                                <object class="wxBoxSizer">
+                                    <orient>wxVERTICAL</orient>
+                                    <object class="sizeritem">
+                                        <flag>wxGROW|wxLEFT|wxBOTTOM</flag>
+                                        <border>5</border>
+                                        <option>1</option>
+                                        <object class="wxStaticBoxSizer" name="wxID_ANY">
+                                            <orient>wxVERTICAL</orient>
+                                            <label>Characteristic Information</label>
+                                            <object class="sizeritem">
+                                                <flag>wxGROW|wxALL</flag>
+                                                <border>5</border>
+                                                <option>1</option>
+                                                <object class="wxTextCtrl" name="rmID_CCSD_CHARACTERISTICINFORMATION_TEXTCTRL">
+                                                    <style>wxTE_MULTILINE|wxTE_READONLY</style>
+                                                </object>
+                                            </object>
+                                        </object>
+                                    </object>
+                                    <object class="sizeritem">
+                                        <flag>wxGROW|wxLEFT|wxTOP|wxBOTTOM</flag>
+                                        <border>5</border>
+                                        <object class="wxStaticBoxSizer" name="wxID_ANY">
+                                            <orient>wxHORIZONTAL</orient>
+                                            <label>Characteristic Display-Boundary Values</label>
+                                            <object class="sizeritem">
+                                                <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                                                <border>5</border>
+                                                <option>1</option>
+                                                <object class="wxBoxSizer">
+                                                    <orient>wxVERTICAL</orient>
+                                                    <object class="sizeritem">
+                                                        <flag>wxALIGN_LEFT|wxALL|wxADJUST_MINSIZE</flag>
+                                                        <border>5</border>
+                                                        <object class="wxStaticText" name="rmID_CCSD_MINIMUMVALUE_STATICTEXT">
+                                                            <label>Minimum</label>
+                                                        </object>
+                                                    </object>
+                                                    <object class="sizeritem">
+                                                        <flag>wxGROW|wxLEFT|wxRIGHT</flag>
+                                                        <border>5</border>
+                                                        <object class="wxTextCtrl" name="rmID_CCSD_MINIMUMVALUE_TEXTCTRL">
+                                                            <tooltip>Determines the value at which the minimum colour for this characteristic will be displayed</tooltip>
+                                                        </object>
+                                                    </object>
+                                                </object>
+                                            </object>
+                                            <object class="sizeritem">
+                                                <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                                                <border>5</border>
+                                                <option>1</option>
+                                                <object class="wxBoxSizer">
+                                                    <orient>wxVERTICAL</orient>
+                                                    <object class="sizeritem">
+                                                        <flag>wxALIGN_LEFT|wxALL|wxADJUST_MINSIZE</flag>
+                                                        <border>5</border>
+                                                        <object class="wxStaticText" name="rmID_CCSD_MAXIMUMVALUE_STATICTEXT">
+                                                            <label>Maximum</label>
+                                                        </object>
+                                                    </object>
+                                                    <object class="sizeritem">
+                                                        <flag>wxGROW|wxLEFT|wxRIGHT</flag>
+                                                        <border>5</border>
+                                                        <object class="wxTextCtrl" name="rmID_CCSD_MAXIMUMVALUE_TEXTCTRL">
+                                                            <tooltip>Determines the value at which the maximum colour for this characteristic will be displayed</tooltip>
+                                                        </object>
+                                                    </object>
+                                                </object>
+                                            </object>
+                                        </object>
+                                    </object>
+                                    <object class="sizeritem">
+                                        <flag>wxGROW|wxLEFT|wxTOP</flag>
+                                        <border>5</border>
+                                        <object class="wxStaticBoxSizer" name="wxID_ANY">
+                                            <orient>wxHORIZONTAL</orient>
+                                            <label>Display-Boundary Colour Values</label>
+                                            <object class="sizeritem">
+                                                <flag>wxGROW|wxALL</flag>
+                                                <border>5</border>
+                                                <option>1</option>
+                                                <object class="wxBoxSizer">
+                                                    <orient>wxVERTICAL</orient>
+                                                    <object class="sizeritem">
+                                                        <flag>wxGROW|wxALL|wxADJUST_MINSIZE</flag>
+                                                        <border>5</border>
+                                                        <object class="wxStaticText" name="rmID_CCSD_COLOURATMINIMUM_STATICTEXT">
+                                                            <label>Colour at Minimum (%)</label>
+                                                        </object>
+                                                    </object>
+                                                    <object class="sizeritem">
+                                                        <flag>wxGROW|wxLEFT|wxRIGHT|wxTOP</flag>
+                                                        <border>5</border>
+                                                        <object class="wxTextCtrl" name="rmID_CCSD_COLOURATMINIMUM_TEXTCTRL">
+                                                        </object>
+                                                    </object>
+                                                    <object class="sizeritem">
+                                                        <flag>wxALIGN_CENTER_HORIZONTAL</flag>
+                                                        <border>5</border>
+                                                        <object class="wxStaticBitmap" name="rmID_CCSD_COLOURATMINIMUM_STATICBITMAP">
+                                                            <size>32,20</size>
+                                                            <tooltip>The colour corresponding to the minimum characteristic value</tooltip>
+                                                            <style>wxSTATIC_BORDER</style>
+                                                            <bitmap>resources/white.bmp</bitmap>
+                                                        </object>
+                                                    </object>
+                                                </object>
+                                            </object>
+                                            <object class="sizeritem">
+                                                <flag>wxGROW|wxALL</flag>
+                                                <border>5</border>
+                                                <option>1</option>
+                                                <object class="wxBoxSizer">
+                                                    <orient>wxVERTICAL</orient>
+                                                    <object class="sizeritem">
+                                                        <flag>wxALIGN_CENTER_HORIZONTAL|wxALL|wxADJUST_MINSIZE</flag>
+                                                        <border>5</border>
+                                                        <object class="wxStaticText" name="rmID_CCSD_COLOURATMAXIMUM_STATICTEXT">
+                                                            <label>Colour at Maximum (%)</label>
+                                                        </object>
+                                                    </object>
+                                                    <object class="sizeritem">
+                                                        <flag>wxGROW|wxLEFT|wxRIGHT|wxTOP</flag>
+                                                        <border>5</border>
+                                                        <object class="wxTextCtrl" name="rmID_CCSD_COLOURATMAXIMUM_TEXTCTRL">
+                                                        </object>
+                                                    </object>
+                                                    <object class="sizeritem">
+                                                        <flag>wxALIGN_CENTER_HORIZONTAL</flag>
+                                                        <border>5</border>
+                                                        <object class="wxStaticBitmap" name="rmID_CCSD_COLOURATMAXIMUM_STATICBITMAP">
+                                                            <size>32,20</size>
+                                                            <tooltip>The colour corresponding to the maximum characteristic value</tooltip>
+                                                            <style>wxSTATIC_BORDER</style>
+                                                            <bitmap>resources/cyan.bmp</bitmap>
+                                                        </object>
+                                                    </object>
+                                                </object>
+                                            </object>
+                                        </object>
+                                    </object>
+                                </object>
+                            </object>
+                        </object>
+                    </object>
+                </object>
+            </object>
+            <object class="sizeritem">
+                <flag>wxGROW|wxALL</flag>
+                <border>5</border>
+                <object class="wxStaticBoxSizer">
+                    <orient>wxHORIZONTAL</orient>
+                    <label>Other Colours</label>
+                    <object class="sizeritem">
+                        <flag>wxALIGN_CENTER_VERTICAL</flag>
+                        <border>5</border>
+                        <option>1</option>
+                        <object class="wxStaticText" name="rmID_CCSD_OTHERINFO_STATIC">
+                            <label>Magenta:
+Yellow:</label>
+                        </object>
+                    </object>
+                </object>
+            </object>
+            <object class="sizeritem">
+                <flag>wxALIGN_RIGHT|wxALL</flag>
+                <border>5</border>
+                <option>1</option>
+                <object class="wxBoxSizer">
+                    <orient>wxHORIZONTAL</orient>
+                    <object class="sizeritem">
+                        <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                        <border>5</border>
+                        <object class="wxButton" name="rmID_CCSD_APPLY_BUTTON">
+                            <tooltip>Causes the current colour information to be used. This dialog will remain open</tooltip>
+                            <label>Apply</label>
+                        </object>
+                    </object>
+                    <object class="sizeritem">
+                        <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                        <border>5</border>
+                        <object class="wxButton" name="rmID_CCSD_CANCEL_BUTTON">
+                            <tooltip>Causes the current colour information to be discarded and this dialog to be closed</tooltip>
+                            <label>Cancel</label>
+                        </object>
+                    </object>
+                    <object class="sizeritem">
+                        <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                        <border>5</border>
+                        <object class="wxButton" name="rmID_CCSD_OK_BUTTON">
+                            <tooltip>Causes the current colour information to be used and this dialog to be closed</tooltip>
+                            <label>OK</label>
+                            <default>1</default>
+                        </object>
+                    </object>
+                </object>
+            </object>
+        </object>
+    </object>
+    <object class="wxDialog" name="rmID_SPLASH_DIALOG" subclass="RmSplashWindow">
+        <exstyle>wxWS_EX_BLOCK_EVENTS</exstyle>
+        <title>Splash</title>
+        <centered>1</centered>
+        <tooltip>Click in the window to dismiss</tooltip>
+        <object class="wxBoxSizer">
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+                <flag>wxALIGN_CENTER_HORIZONTAL|wxALL</flag>
+                <border>0</border>
+                <object class="wxStaticBitmap" name="rmID_SPLASH_STATICBITMAP">
+                    <size>313,235</size>
+                    <style>wxSIMPLE_BORDER</style>
+                    <bitmap>Splash.bmp</bitmap>
+                </object>
+            </object>
+        </object>
+    </object>
+    <object class="wxDialog" name="rmID_VIEWPROCESSSELECTION_DIALOG" subclass="RmViewProcessSelectionDialog">
+        <style>wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU|wxMAXIMIZE_BOX</style>
+        <exstyle>wxWS_EX_BLOCK_EVENTS</exstyle>
+        <size>300,300</size>
+        <title>View Process Selection</title>
+        <centered>1</centered>
+        <object class="wxBoxSizer">
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+                <flag>wxALIGN_LEFT|wxALL|wxADJUST_MINSIZE</flag>
+                <border>5</border>
+                <object class="wxStaticText" name="rmID_VIEWPROCESSSELECTION_STATICTEXT">
+                    <label>Select zero or more processes</label>
+                </object>
+            </object>
+            <object class="sizeritem">
+                <flag>wxGROW|wxALL</flag>
+                <border>5</border>
+                <option>1</option>
+                <object class="wxCheckListBox" name="rmID_VIEWPROCESSSELECTION_CHECKLISTBOX">
+                    <style>wxLB_SINGLE</style>
+                </object>
+            </object>
+            <object class="sizeritem">
+                <flag>wxALIGN_CENTER_HORIZONTAL|wxALL</flag>
+                <border>0</border>
+                <object class="wxBoxSizer">
+                    <orient>wxHORIZONTAL</orient>
+                    <object class="sizeritem">
+                        <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                        <border>5</border>
+                        <object class="wxButton" name="rmID_VIEWPROCESSSELECTION_BUTTON_SELECTALL">
+                            <label>All ON</label>
+                        </object>
+                    </object>
+                    <object class="sizeritem">
+                        <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                        <border>5</border>
+                        <object class="wxButton" name="rmID_VIEWPROCESSSELECTION_BUTTON_SELECTNONE">
+                            <label>All OFF</label>
+                        </object>
+                    </object>
+                </object>
+            </object>
+            <object class="sizeritem">
+                <flag>wxALIGN_RIGHT|wxLEFT|wxRIGHT|wxBOTTOM</flag>
+                <border>5</border>
+                <object class="wxBoxSizer">
+                    <orient>wxHORIZONTAL</orient>
+                    <object class="sizeritem">
+                        <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                        <border>5</border>
+                        <object class="wxButton" name="wxID_APPLY">
+                            <label>&amp;Apply</label>
+                        </object>
+                    </object>
+                    <object class="spacer">
+                        <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                        <border>5</border>
+                        <option>1</option>
+                        <size>5,5</size>
+                    </object>
+                    <object class="sizeritem">
+                        <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                        <border>5</border>
+                        <object class="wxButton" name="wxID_OK">
+                            <label>&amp;OK</label>
+                        </object>
+                    </object>
+                    <object class="sizeritem">
+                        <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                        <border>5</border>
+                        <object class="wxButton" name="wxID_CANCEL">
+                            <label>&amp;Cancel</label>
+                        </object>
+                    </object>
+                </object>
+            </object>
+        </object>
+    </object>
+    <object class="wxDialog" name="rmID_SELECTTABLECHARACTERISTIC_DIALOG" subclass="RmSelectTableCharacteristic">
+        <style>wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU|wxCLOSE_BOX</style>
+        <exstyle>wxWS_EX_BLOCK_EVENTS</exstyle>
+        <title>Select Table Characteristic</title>
+        <centered>1</centered>
+        <object class="wxBoxSizer">
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+                <flag>wxGROW|wxALL</flag>
+                <border>5</border>
+                <option>1</option>
+                <object class="wxListBox" name="rmID_SELECTTABLECHARACTERISTIC_DIALOG_LISTBOX">
+                    <size>300,300</size>
+                    <style>wxLB_SINGLE</style>
+                </object>
+            </object>
+            <object class="sizeritem">
+                <flag>wxALIGN_CENTER_HORIZONTAL|wxALL</flag>
+                <border>5</border>
+                <object class="wxBoxSizer">
+                    <orient>wxHORIZONTAL</orient>
+                    <object class="sizeritem">
+                        <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                        <border>5</border>
+                        <object class="wxButton" name="wxID_OK">
+                            <label>&amp;OK</label>
+                            <default>1</default>
+                        </object>
+                    </object>
+                    <object class="sizeritem">
+                        <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                        <border>5</border>
+                        <object class="wxButton" name="wxID_CANCEL">
+                            <label>&amp;Cancel</label>
+                        </object>
+                    </object>
+                </object>
+            </object>
+        </object>
+    </object>
+    <object class="wxMDIChildFrame" name="rmID_VIEW3D_WINDOWFRAME" subclass="RmView3D">
+        <style>wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU|wxCLOSE_BOX|wxCLIP_CHILDREN</style>
+        <size>640,480</size>
+        <title>View 3D</title>
+        <centered>0</centered>
+        <object class="wxGLCanvas" name="rmID_VIEW_GLCANVAS" subclass="RmGLCanvas">
+            <style>wxNO_BORDER</style>
+        </object>
+    </object>
+</resource>

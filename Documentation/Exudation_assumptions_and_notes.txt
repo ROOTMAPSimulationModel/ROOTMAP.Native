@@ -1,0 +1,59 @@
+---------------------------------------------------------------
+Overview
+---------------------------------------------------------------
+
+OK, so the way the exudation code is supposed to work: 
+* inside the Phosphorus module, 
+* we check if exudation is supposed to happen and if so we set up the appropriate values, pulling in 
+  what we need from the XML and running a few tweaks and calcs.
+* The per-scoreboard-box loop starts. In it, for each box:
+* the normal P absorption calculations happen without any reference to exudation.
+* then we run the exudation formula inside an "if we're doing this" loop
+* it finds the number of root tips in the box, calculates how much extra P each root tip gets, 
+  multiplies this together and then adds that to the total P uptake.
+* The exudation if-loop exits, and the normal P-rebalancing and averaging from solid to labile etc happens.
+
+Basically the only part of the process the exudation should affect is the total P uptake, all other parts of the Phosphorus module happen exactly as they would if exudation wasn't happening.
+
+
+---------------------------------------------------------------
+Assumptions and other comments
+---------------------------------------------------------------
+
+1. Exudates other than lecithin have a half life of between 0.5 and 12 hours and a diurnal release pattern, and plants have continual uptake of phosphorus. The model doesn't calculate continuously though, it does 
+phosphorus uptake in discrete calculations once every four hours (i.e. six times a day). So we're "replicating" the half life and diurnal pattern by applying the exudate modification just once a day, to the phosphorus uptake calculation that happens between 5 am and 9 am (currently coded to occur at 0859). 
+
+2. Exudates (other than lecithin) don't reach their equilibrium concentration during the time available, because of the limited release and half-life. XXXwork out a sensible assumption to make here, preferably
+one that simplifies the maths considerably
+
+3. Exudation happens only at the root tips. The model uses the number of root tips in a given soil "box" to calculate how much extra P is absorbed, assuming a standard "length" or "mass" for each tip. The actual dimensions of the tip are ignored because a) the model doesn't know anything about them and b) all we really care about is how much exudate is produced, which is assumed to be the same for each tip.
+
+4. Lecithin's an exception because it has a really long half-life and low mobility and so calculation-wise it's easiest to just assume it's always present at equilibrium and that it affects uptake across the entire root length.
+
+5. Exudates of interest to this model are lecithin, citrate, malate, oxalate (and of course "none"). Malate and oxalate may have similar properties / numbers - will check that when we get there. 
+
+6. We are making the assumption that the pH is not largely changed by the presence of the additional organic acids, and that pH effects don't have a noticeable effect on uptake.
+
+7. The model calculates Freundlich parameters as concentrations, not fixed totals.
+
+8. Vanessa's paper on lecithin exudation says she used the Baldwin model (with Michaelis-Menten kinetics) to derive solute concentration at the root surface. When she developed a rhizosphere version of ROOTMAP, she applied this model / concentration to a specific rhizosphere volume. That was defined as 1 mm thick, with an effective radius of 1.2mm including root radius. She also added the Langmuir equation into / as part of the phosphate adsorption isotherms in order to replicate appropriate rhizosphere behaviour. This material (apart from the Baldwin model) is not currently in the code and does not apply to the existing processing that occurs during the Phosphorus module call.
+
+9. Vanessa's 2006 paper also makes very clear that root architecture makes a difference as to whether exudation is cost effective or not. Wheat architecture more likely to be cost effective than lupin architecture. Currently, all working configs use lupin architecture (minus cluster roots), so need to develop a config with wheat-like architecture for testing, to magnify consequences and see if they are worth chasing into less effective architectures. 
+
+10. Competitive Langmuir adsorption seems to be what's popular in the literature that I've come across, notably the Schnepf-Leitner-Klepsch(2012). 
+
+11. I am assuming that the entire length of "root tip" (the value Zed suggested, which I think is about 2-3cm of length) is in the same scoreboard box as the coordinate of the tip itself, rather than trying to split the tip length between multiple boxes. This is for computational efficiency, but also because the size of the tip is not large compared to the size of the boxes and I believe the effect will be much of a muchness. 
+
+12. I am assuming that the response curves for how much exudate is produced by a single root tip in response to soil P levels is a hyperbola for citrate and malate. To be specific: citrate = 2.4 microMol/soil P and malate = 0.4 microMol/soil P. This is not a great fit for the values Zed guesstimated for malate, but it will do for now. These values can be tweaked inside the code but they are currently directly in the code (in the Phosphorus module) and not modifiable in the XML. This may change during final cleanup. Malate may need to be reconsidered as a non-hyperbolic curve.
+
+13. The amount of exudate produced by each root tip has an upper limit of 1 microMol. 
+
+14. The volume in which exudation takes place is 1 mm or 0.1 cm around the root tip, which is 2 cm long. This volume is calculated using the root radius in the code. If that root radius is 1 mm, the available volume in which exudation can happen is roughly 0.095 cubic cm. (The volume of exudate produced at this upper limit ranges from ~0.000075 - 0.000113 cubic cm, which is roughly 1/800th (or less!) of the exudation volume.)
+
+15. Some of these calcs come from an assumption that a root tip is going to be around about 0.04g in dry weight, as a sensible estimation more or less. Lots of possible variations to this but none that will really affect the model any more than tweaking how much citrate is produced per root tip anyhow.
+
+16. This program is assuming that only one type of exudation (one substance) is occurring at a time. This may not be a correct assumption in many cases. 
+
+17. Note that Baldwin won't work on cluster roots! Baldwin's approximation (which this model relies on) assumes that an average root density is appropriate enough. Cluster roots make the approximation not work. Check the original Baldwin paper if needed for more detail. 
+
+18. We are assuming that there is a mathematical formula that approximates the result of the competitive Langmuir, so as not to calculate this with a numerical solution. 

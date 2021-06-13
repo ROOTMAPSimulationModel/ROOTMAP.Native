@@ -1,0 +1,96 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="https://example.org/ROOTMAP/OutputRulesSchema"
+           targetNamespace="https://example.org/ROOTMAP/OutputRulesSchema"
+           elementFormDefault="qualified">
+    <xsd:include schemaLocation="Common.xsd"/>
+
+    <xsd:element name="rootmap">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="initialisation" type="tns:Initialisation" maxOccurs="1" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="Initialisation">
+        <xsd:sequence>
+            <xsd:element name="owner" type="xsd:string" minOccurs="1" maxOccurs="1" />
+            <xsd:element name="outputrule" type="tns:OutputRule" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="OutputRule">
+        <xsd:all>
+            <xsd:element name="source" type="xsd:string" minOccurs="1" />
+            <xsd:element name="type" type="xsd:string"  minOccurs="1" />
+            <xsd:element name="stratum" type="xsd:string" minOccurs="1" />
+            <xsd:element name="characteristic" type="xsd:string" minOccurs="0" >
+                <xsd:annotation>
+                    <xsd:documentation>Characteristic is meaningful for the type/source combination.
+                    If this OutputRule's type is ScoreboardData, Characteristic refers to a specific Scoreboard Characteristic.
+                    Otherwise, it is optional and may be used to as a more general descriptor.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="filename" type="xsd:string" minOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Filename accepts % formatting codes for strftime.
+                    It pre-processes URL % formatted values before passing to strftime, eg. when using %20 for trailing spaces.
+                    It pre-processes extra format specifiers:
+                        %C counter for number of outputs for this object so far (UNSUPPORTED)
+                        %R raw timestamp in seconds from T=0 (UNSUPPORTED)
+                        both of these accept the usual %d format specifiers, eg. "%.3C" produces a 3-digit leading-zero-padded.
+                    The following example produces a filename like RootLength_YYYYmmdd-HHMMSS.txt
+                    Don't confuse the lowercase and uppercase 'm'.
+           m=month, M=Minute</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="specification1" type="xsd:string" minOccurs="0" >
+                <xsd:annotation>
+                    <xsd:documentation>Specification1 is meaningful to the type.
+                    For "ScoreboardData", specification1 is the dimension order.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="specification2" type="xsd:string" minOccurs="0" >
+                <xsd:annotation>
+                    <xsd:documentation>Specification2 is meaningful to the type.
+                    For "RaytracerData", specification2 sets the method of ScoreboardBox rendering.
+                    DF3: uses POV-Ray's voxel-based density field format to represent the whole Scoreboard. Typically better for geometrically regular Scoreboard boundaries.
+                    SB: uses a rectangular prism of translucent media to represent each ScoreboardBox. Typically better for irregular Scoreboard box sizes.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="reopen" minOccurs="1" >
+                <xsd:simpleType>
+                    <xsd:annotation>
+                        <xsd:documentation>Output file reopening strategy. Row-structured output rules which write self-contained lines to a file (e.g. CSV) may use "append". All RaytracerData output rules must use "overwrite" as their file format does not support appending.</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="append" />
+                        <xsd:enumeration value="overwrite" />
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="when" type="tns:When" minOccurs="1" />
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="When">
+        <xsd:sequence>
+            <xsd:element name="count" minOccurs="1" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:annotation>
+                        <xsd:documentation>count = 0: repeat output continuously using the specified interval or frequency until the simulation completes. If no interval or frequency, no output will be produced.
+                    count > 0: if no interval or frequency, interval will be computed as (total simulation runtime)/count. Otherwise output will occur (count) times from initialtime at the specified interval or with the specified frequency, unless simulation completes earlier.</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:restriction base="xsd:int">
+                        <xsd:minInclusive value="0"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="initialtime" type="tns:YmdHMS" minOccurs="0" maxOccurs="1" />
+            <xsd:choice>
+                <xsd:element name="frequency" type="tns:YmdHMS" minOccurs="0" maxOccurs="1" />
+                <xsd:element name="interval" type="tns:YmdHMS" minOccurs="0" maxOccurs="1" />
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

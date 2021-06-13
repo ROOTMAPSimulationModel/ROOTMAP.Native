@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<!-- Simulating luping root growth in a sandy soil                          -->
+<!-- Plants file                                                            -->
+<!--                                                                        -->
+<!-- FORMAT:XML                                                             -->
+<!--                                                                        -->
+<!-- NO C-style comments                                                    -->
+<!--                                                                        -->
+<rootmap
+        xmlns="https://example.org/ROOTMAP/ProcessesSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/ProcessesSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/Processes.xsd">
+  <construction>
+
+    <owner>ProcessCoordinator</owner>
+    <process>
+      <name>PlantCoordinator</name>
+      <override>true</override>
+      <scoreboard>All</scoreboard>
+      <activitytype>Grow</activitytype>
+    </process>
+
+    <process>
+      <name>VolumeObjectCoordinator</name>
+      <override>true</override>
+      <scoreboard>Soil</scoreboard>
+      <activitytype>Misc</activitytype>
+    </process>
+
+    <process>
+      <name>ScoreboardRenderer</name>
+      <override>true</override>
+      <scoreboard>All</scoreboard>
+      <activitytype>Misc</activitytype>
+    </process>
+
+    <process>
+      <name>Ammonium</name>
+      <override>false</override>
+      <scoreboard>Soil</scoreboard>
+      <activitytype>Misc</activitytype>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>30.0</maximum>
+        <default>0.0</default>
+        <name>Ammonium</name>
+        <units>&#x3BC;g/ml</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1000.0</maximum>
+        <default>0.0</default>
+        <name>Ammonium Received Buffer</name>
+        <units>&#x3BC;g/ml</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+    </process>
+
+
+    <process>
+      <name>Extractable Aluminium</name>
+      <override>false</override>
+      <scoreboard>Soil</scoreboard>
+      <activitytype>NONE</activitytype>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>250.0</maximum>
+        <default>0.0</default>
+        <name>Extractable Aluminium</name>
+        <units>&#x3BC;M (CaCl)</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+    </process>
+
+
+    <process>
+      <name>Nitrate</name>
+      <override>true</override>
+      <scoreboard>Soil</scoreboard>
+      <activitytype>Leac</activitytype>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>40</maximum>
+        <default>1.4</default>
+        <name>Nitrate Concentration</name>
+        <units>&#x3BC;ugN/cm^3(water)</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1e6</maximum>
+        <default>0</default>
+        <name>Nitrate Leached</name>
+        <units>ugN/cm^2</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>infinity</maximum>
+        <default>0</default>
+        <name>Internal Workings</name>
+        <units>none</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1000</maximum>
+        <default>90</default>
+        <name>Nitrate Amount</name>
+        <!-- Nitrate Amount &#x3BC;ugN during the simulation, initially input as ugN/g -->
+        <units>&#x3BC;ug N</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1000.0</maximum>
+        <default>3.0</default>
+        <name>Nitrate Renew</name>
+        <units>µg/g</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1000</maximum>
+        <default>0</default>
+        <name>Nitrate Amount Check</name>
+        <units>&#x3BC;g N</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1</maximum>
+        <default>0</default>
+        <name>Fraction of Fertiliser N</name>
+        <units>NONE</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1</maximum>
+        <default>3.34</default>
+        <name>Coefficient c</name>
+        <units>NONE</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>-1000</minimum>
+        <maximum>1</maximum>
+        <default>-0.01</default>
+        <name>Coefficient d</name>
+        <units>NONE</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>100</maximum>
+        <default>3.0</default>
+        <name>Dispersivity</name>
+        <units>cm</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>10000</maximum>
+        <default>0.0</default>
+        <name>Fertiliser N</name>
+        <units>ugN</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>10000</maximum>
+        <default>0.0</default>
+        <name>Background N</name>
+        <units>ugN</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>10000</maximum>
+        <default>0.0</default>
+        <name>Added N</name>
+        <units>ugN</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>10000</maximum>
+        <default>0.0</default>
+        <name>Added N2</name>
+        <units>ugN</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>10</maximum>
+        <default>1.09e-7</default>
+        <name>Rate Constant</name>
+        <units>s-1</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>100</maximum>
+        <default>40</default>
+        <name>Rate Constant Temperature</name>
+        <units>C</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>5</maximum>
+        <default>1.8</default>
+        <name>Q10</name>
+        <units>None</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1000</maximum>
+        <default>0.0</default>
+        <name>Mineralisable N</name>
+        <units>µg/g</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1000</maximum>
+        <default>110.0</default>
+        <name>Mineralised N</name>
+        <units>µgN</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1</maximum>
+        <default>1.0</default>
+        <name>Estimate Initial Soil Temp Profile</name>
+        <units>None</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1</maximum>
+        <default>0.2</default>
+        <name>Thermal Diffusivity</name>
+        <units>cm2s-1</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1</maximum>
+        <default>3.0e-4</default>
+        <name>Other Soil Resources</name>
+        <units>µmol</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1</maximum>
+        <default>0.667</default>
+        <name>Radiation Extinction Coeff</name>
+        <units>none</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+    </process>
+
+
+    <process>
+      <name>Organic Matter</name>
+      <override>false</override>
+      <scoreboard>Soil</scoreboard>
+      <activitytype>Misc</activitytype>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>100.0</maximum>
+        <default>0</default>
+        <name>Organic Carbon</name>
+        <units>% dry weight</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>30.0</maximum>
+        <default>100.0</default>
+        <name>Organic Nitrogen</name>
+        <units>&#x3BC;g/ml</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1000.0</maximum>
+        <default>0.0</default>
+        <name>NH4 Requested</name>
+        <units>&#x3BC;g/ml/day</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1000.0</maximum>
+        <default>0.0</default>
+        <name>Organic Nitrogen Received Buffer</name>
+        <units>&#x3BC;g/ml</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1.0</maximum>
+        <default>0.1</default>
+        <name>Residue Cover</name>
+        <units>NONE</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+    </process>
+
+
+    <process>
+      <name>Penetrometer Resistance</name>
+      <override>false</override>
+      <scoreboard>Soil</scoreboard>
+      <activitytype>NONE</activitytype>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>50.0</maximum>
+        <default>0.0</default>
+        <name>Penetrometer Resistance</name>
+        <units>bars</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+    </process>
+
+
+    <process>
+      <name>Phosphorus</name>
+      <override>true</override>
+      <scoreboard>Soil</scoreboard>
+      <activitytype>Misc</activitytype>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>250.0</maximum>
+        <default>3.0</default>
+        <name>Total Labile P</name>
+        <units>µg/g</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>250.0</maximum>
+        <default>3.0</default>
+        <name>Renew Labile P</name>
+        <units>µg/g</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>5000</maximum>
+        <default>0.0</default>
+        <name>Liquid Phase P Concentration</name>
+        <units>&#x3BC;mol/cm^3(water)</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>10000</maximum>
+        <default>0.0</default>
+        <name>Liquid Phase P</name>
+        <units>&#x3BC;µgP</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>10000</maximum>
+        <default>0.0</default>
+        <name>Labile Solid Phase P</name>
+        <units>&#x3BC;µg</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>10000</maximum>
+        <default>0.0</default>
+        <name>Labile Solid Phase P Conc</name>
+        <units>&#x3BC;µg/g</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1000</maximum>
+        <default>0</default>
+        <name>Added P</name>
+        <units>µg/g</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>800</maximum>
+        <default>12.2</default>
+        <name>Buffer Index</name>
+        <units>none</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>800</maximum>
+        <default>0</default>
+        <name>Buffer Capacity</name>
+        <units>none</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1.0</maximum>
+        <default>0.0</default>
+        <name>Plus X</name>
+        <units>none</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1.0</maximum>
+        <default>0.0</default>
+        <name>Plus Y</name>
+        <units>none</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1.0</maximum>
+        <default>0.0</default>
+        <name>Plus Z</name>
+        <units>none</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1.0</maximum>
+        <default>0.0</default>
+        <name>Minus X</name>
+        <units>none</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1.0</maximum>
+        <default>0.0</default>
+        <name>Minus Y</name>
+        <units>none</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1.0</maximum>
+        <default>0.0</default>
+        <name>Minus Z</name>
+        <units>none</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>5.0</maximum>
+        <default>1.0</default>
+        <name>Apase Multiplier</name>
+        <units>none</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>400.0</maximum>
+        <default>50</default>
+        <name>Organic P</name>
+        <units>ugP/g</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1000.0</maximum>
+        <default>0</default>
+        <name>Local P Uptake</name>
+        <units>ugP</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1.0</maximum>
+        <default>0</default>
+        <name>Fraction Fertiliser Solid</name>
+        <units>none</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1.0</maximum>
+        <default>0</default>
+        <name>Fraction Fertiliser Liquid</name>
+        <units>none</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>100.0</maximum>
+        <default>0.70</default>
+        <name>Freundlich Param n</name>
+        <units>none</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>1.0</maximum>
+        <default>0.2</default>
+        <name>Recalcitrant P Fraction</name>
+        <units>none</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+    </process>
+
+
+    <process>
+      <name>pH</name>
+      <override>false</override>
+      <scoreboard>Soil</scoreboard>
+      <activitytype>NONE</activitytype>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>14</maximum>
+        <default>5.7</default>
+        <name>pH</name>
+        <units>[None]</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+    </process>
+
+
+    <process>
+      <name>Temperature</name>
+      <override>false</override>
+      <scoreboard>Soil</scoreboard>
+      <activitytype>NONE</activitytype>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>50</maximum>
+        <default>17</default>
+        <name>Temperature</name>
+        <units>&#xB0;C</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+    </process>
+
+
+    <process>
+      <name>Water</name>
+      <override>true</override>
+      <scoreboard>Soil</scoreboard>
+      <activitytype>Misc</activitytype>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>0.2</maximum>
+        <default>0.12</default>
+        <name>Water Content</name>
+        <units>cm^3(water)/cm^3(soil)</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.05</minimum>
+        <maximum>1</maximum>
+        <default>0.20</default>
+        <name>Drained Upper Limit</name>
+        <units>cm^3(water)/cm^3(soil)</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>0.2</maximum>
+        <default>0.07</default>
+        <name>Wilting Point</name>
+        <units>cm^3(water)/cm^3(soil)</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>10</maximum>
+        <default>0</default>
+        <name>Rained Amount</name>
+        <units>cm</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1</maximum>
+        <default>0</default>
+        <name>Wetting Front</name>
+        <units>cm</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1</maximum>
+        <default>0</default>
+        <name>Draw Wetting Front</name>
+        <units>none</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>100000</maximum>
+        <default>0</default>
+        <name>Water Moved</name>
+        <units>cm</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>-3</minimum>
+        <maximum>+3</maximum>
+        <default>0</default>
+        <name>Direction Moved</name>
+        <units>[None]</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>100</maximum>
+        <default>0</default>
+        <name>Rain Out Bottom</name>
+        <units>cm</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>100</maximum>
+        <default>0</default>
+        <name>Cumul Local Water Uptake</name>
+        <units>cm3 H20</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>2</maximum>
+        <default>1</default>
+        <name>Water Routine Number</name>
+        <units>NONE</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <!-- For simulations where the user wants the water content to remain at the initial value (eg field capacity)-->
+        <!-- Water uptake still occurs, but the soil doesn't dry out, useful for looking at root/nutrient interactions without the complication of water dynamics -->
+        <minimum>0</minimum>
+        <maximum>1</maximum>
+        <default>1</default>
+        <name>Maintain Initial Water Content</name>
+        <units>NONE</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1</maximum>
+        <default>0.002</default>
+        <name>Coefficient A</name>
+        <units>NONE</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>100</maximum>
+        <default>17.4</default>
+        <name>Coefficient B</name>
+        <units>NONE</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>100</maximum>
+        <default>0.5428</default>
+        <name>Alpha</name>
+        <units>NONE</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>1</maximum>
+        <default>0.593</default>
+        <name>Water Saturation</name>
+        <units>NONE</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>10</maximum>
+        <default>0.175</default>
+        <name>Coefficient m</name>
+        <units>NONE</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>10</maximum>
+        <default>1.2121</default>
+        <name>Coefficient n</name>
+        <units>NONE</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>10</maximum>
+        <default>0.0026</default>
+        <name>Saturated Hydraulic Conductivity</name>
+        <units>cm/s</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+    </process>
+
+
+
+    <process>
+      <name>Bulk Density</name>
+      <override>false</override>
+      <scoreboard>Soil</scoreboard>
+      <activitytype>NONE</activitytype>
+      <characteristic>
+        <minimum>0</minimum>
+        <maximum>2.5</maximum>
+        <default>1.55</default>
+        <name>Bulk Density</name>
+        <units>g/cm^3</units>
+        <visible>true</visible>
+        <editable>true</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+    </process>
+
+
+    <process>
+      <name>Output File Alarm</name>
+      <override>true</override>
+      <scoreboard>Soil</scoreboard>
+      <activitytype>Comm</activitytype>
+    </process>
+
+
+    <process>
+      <name>Evolved Carbon</name>
+      <override>false</override>
+      <scoreboard>Soil</scoreboard>
+      <activitytype>NONE</activitytype>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>100000.0</maximum>
+        <default>0.0</default>
+        <name>Cumulative Evolved CO2</name>
+        <units>&#x3BC;g/ml</units>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>true</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+      <characteristic>
+        <minimum>0.0</minimum>
+        <maximum>100000.0</maximum>
+        <default>0.0</default>
+        <name>CO2 Received Buffer</name>
+        <units>&#x3BC;g/ml</units>
+        <visible>false</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+      </characteristic>
+    </process>
+
+
+  </construction>
+</rootmap>

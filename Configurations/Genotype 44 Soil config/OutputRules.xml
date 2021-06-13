@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<rootmap
+        xmlns="https://example.org/ROOTMAP/OutputRulesSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/OutputRulesSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/OutputRules.xsd">
+  <initialisation>
+    <owner>DataOutputCoordinator</owner>
+    <outputrule>
+      <type>ScoreboardData</type>
+      <source>PlantCoordinator</source>
+      <!-- characteristic is meaningful for the type/source combination
+           It applies in the general non-scoreboard sense of the term
+           also, you see -->
+      <characteristic>Root Length Wrap None Plant 44</characteristic>
+      <stratum>Soil</stratum>
+      <!-- accepts % formatting codes for strftime -->
+      <!-- Pre-processes URL % formatted values before passing to strftime
+           eg. use %20 for trailing spaces -->
+      <!-- Pre-processes extra format specifiers:
+           %C counter for number of outputs for this object so far (UNSUPPORTED)
+           %R raw timestamp in seconds from T=0 (UNSUPPORTED)
+           both of these accept the usual %d format specifiers,
+           eg. "%.3C" produces a 3-digit leading-zero-padded.
+           The following example produces a filename like
+           RootLength_YYYYmmdd-HHMMSS.txt
+           PLEASE ensure you don't confuse the lowercase and uppercase 'm'.
+           m=month, M=Minute -->
+      <filename>TotalRootLength44.txt</filename>
+      <!-- specification1 and specification2 are meaningful to the type.
+           For "ScoreboardData", specification1 is the dimension order. -->
+      <specification1>X,Z,Y</specification1>
+      <!-- how to handle current contents when openning a non-empty file:
+           append|overwrite (default=overwrite) -->
+      <reopen>overwrite</reopen>
+      <when>
+        <!-- a count of zero is to repeat ad infinitum -->
+        <count>0</count>
+        <!-- For exporting "every" so often, use the initialtime and frequency tags
+             Year,Month,Day,Hour,Minute,Second -->
+        <interval>0,0,42,0,0,0</interval>
+        <initialtime>0,0,0,0,0,0</initialtime>
+      </when>
+    </outputrule>
+    <outputrule>
+      <type>ScoreboardData</type>
+      <source>PlantCoordinator</source>
+      <!-- characteristic is meaningful for the type/source combination
+           It applies in the general non-scoreboard sense of the term
+           also, you see -->
+      <characteristic>Root Length Wrap None Plant 44 RootOrder0</characteristic>
+      <stratum>Soil</stratum>
+      <!-- accepts % formatting codes for strftime -->
+      <!-- Pre-processes URL % formatted values before passing to strftime
+           eg. use %20 for trailing spaces -->
+      <!-- Pre-processes extra format specifiers:
+           %C counter for number of outputs for this object so far (UNSUPPORTED)
+           %R raw timestamp in seconds from T=0 (UNSUPPORTED)
+           both of these accept the usual %d format specifiers,
+           eg. "%.3C" produces a 3-digit leading-zero-padded.
+           The following example produces a filename like
+           RootLength_YYYYmmdd-HHMMSS.txt
+           PLEASE ensure you don't confuse the lowercase and uppercase 'm'.
+           m=month, M=Minute -->
+      <filename>TapRootLength44.txt</filename>
+      <!-- specification1 and specification2 are meaningful to the type.
+           For "ScoreboardData", specification1 is the dimension order. -->
+      <specification1>X,Z,Y</specification1>
+      <!-- how to handle current contents when openning a non-empty file:
+           append|overwrite (default=overwrite) -->
+      <reopen>overwrite</reopen>
+      <when>
+        <!-- a count of zero is to repeat ad infinitum -->
+        <count>0</count>
+        <!-- For exporting "every" so often, use the initialtime and frequency tags
+             Year,Month,Day,Hour,Minute,Second -->
+        <interval>0,0,42,0,0,0</interval>
+        <initialtime>0,0,0,0,0,0</initialtime>
+      </when>
+    </outputrule>
+    <outputrule>
+      <type>ScoreboardData</type>
+      <source>PlantCoordinator</source>
+      <!-- characteristic is meaningful for the type/source combination
+           It applies in the general non-scoreboard sense of the term
+           also, you see -->
+      <characteristic>Root Length Wrap None Plant 44 RootOrder0</characteristic>
+      <stratum>Soil</stratum>
+      <!-- accepts % formatting codes for strftime -->
+      <!-- Pre-processes URL % formatted values before passing to strftime
+           eg. use %20 for trailing spaces -->
+      <!-- Pre-processes extra format specifiers:
+           %C counter for number of outputs for this object so far (UNSUPPORTED)
+           %R raw timestamp in seconds from T=0 (UNSUPPORTED)
+           both of these accept the usual %d format specifiers,
+           eg. "%.3C" produces a 3-digit leading-zero-padded.
+           The following example produces a filename like
+           RootLength_YYYYmmdd-HHMMSS.txt
+           PLEASE ensure you don't confuse the lowercase and uppercase 'm'.
+           m=month, M=Minute -->
+      <filename>TapRootLengthwk2_44.txt</filename>
+      <!-- specification1 and specification2 are meaningful to the type.
+           For "ScoreboardData", specification1 is the dimension order. -->
+      <specification1>X,Z,Y</specification1>
+      <!-- how to handle current contents when openning a non-empty file:
+           append|overwrite (default=overwrite) -->
+      <reopen>overwrite</reopen>
+      <when>
+        <!-- a count of zero is to repeat ad infinitum -->
+        <count>1</count>
+        <!-- For exporting "every" so often, use the initialtime and frequency tags
+             Year,Month,Day,Hour,Minute,Second -->
+        <interval>0,0,14,0,0,0</interval>
+        <initialtime>0,0,0,0,0,0</initialtime>
+      </when>
+    </outputrule>
+    <outputrule>
+      <type>ScoreboardData</type>
+      <source>PlantCoordinator</source>
+      <!-- characteristic is meaningful for the type/source combination
+           It applies in the general non-scoreboard sense of the term
+           also, you see -->
+      <characteristic>Root Length Wrap None Plant 44 RootOrder0</characteristic>
+      <stratum>Soil</stratum>
+      <!-- accepts % formatting codes for strftime -->
+      <!-- Pre-processes URL % formatted values before passing to strftime
+           eg. use %20 for trailing spaces -->
+      <!-- Pre-processes extra format specifiers:
+           %C counter for number of outputs for this object so far (UNSUPPORTED)
+           %R raw timestamp in seconds from T=0 (UNSUPPORTED)
+           both of these accept the usual %d format specifiers,
+           eg. "%.3C" produces a 3-digit leading-zero-padded.
+           The following example produces a filename like
+           RootLength_YYYYmmdd-HHMMSS.txt
+           PLEASE ensure you don't confuse the lowercase and uppercase 'm'.
+           m=month, M=Minute -->
+      <filename>TapRootLengthwk4_44.txt</filename>
+      <!-- specification1 and specification2 are meaningful to the type.
+           For "ScoreboardData", specification1 is the dimension order. -->
+      <specification1>X,Z,Y</specification1>
+      <!-- how to handle current contents when openning a non-empty file:
+           append|overwrite (default=overwrite) -->
+      <reopen>overwrite</reopen>
+      <when>
+        <!-- a count of zero is to repeat ad infinitum -->
+        <count>1</count>
+        <!-- For exporting "every" so often, use the initialtime and frequency tags
+             Year,Month,Day,Hour,Minute,Second -->
+        <interval>0,0,28,0,0,0</interval>
+        <initialtime>0,0,0,0,0,0</initialtime>
+      </when>
+    </outputrule>
+    <outputrule>
+      <type>ScoreboardData</type>
+      <source>PlantCoordinator</source>
+      <!-- characteristic is meaningful for the type/source combination
+           It applies in the general non-scoreboard sense of the term
+           also, you see -->
+      <characteristic>Root Length Wrap None Plant 44 RootOrder1</characteristic>
+      <stratum>Soil</stratum>
+      <!-- accepts % formatting codes for strftime -->
+      <!-- Pre-processes URL % formatted values before passing to strftime
+           eg. use %20 for trailing spaces -->
+      <!-- Pre-processes extra format specifiers:
+           %C counter for number of outputs for this object so far (UNSUPPORTED)
+           %R raw timestamp in seconds from T=0 (UNSUPPORTED)
+           both of these accept the usual %d format specifiers,
+           eg. "%.3C" produces a 3-digit leading-zero-padded.
+           The following example produces a filename like
+           RootLength_YYYYmmdd-HHMMSS.txt
+           PLEASE ensure you don't confuse the lowercase and uppercase 'm'.
+           m=month, M=Minute -->
+      <filename>FirstRootLength44.txt</filename>
+      <!-- specification1 and specification2 are meaningful to the type.
+           For "ScoreboardData", specification1 is the dimension order. -->
+      <specification1>X,Z,Y</specification1>
+      <!-- how to handle current contents when openning a non-empty file:
+           append|overwrite (default=overwrite) -->
+      <reopen>overwrite</reopen>
+      <when>
+        <!-- a count of zero is to repeat ad infinitum -->
+        <count>0</count>
+        <!-- For exporting "every" so often, use the initialtime and frequency tags
+             Year,Month,Day,Hour,Minute,Second -->
+        <interval>0,0,42,0,0,0</interval>
+        <initialtime>0,0,0,0,0,0</initialtime>
+      </when>
+    </outputrule>
+    <outputrule>
+      <type>ScoreboardData</type>
+      <source>PlantCoordinator</source>
+      <!-- characteristic is meaningful for the type/source combination
+           It applies in the general non-scoreboard sense of the term
+           also, you see -->
+      <characteristic>Root Length Wrap None Plant 44 RootOrder2</characteristic>
+      <stratum>Soil</stratum>
+      <!-- accepts % formatting codes for strftime -->
+      <!-- Pre-processes URL % formatted values before passing to strftime
+           eg. use %20 for trailing spaces -->
+      <!-- Pre-processes extra format specifiers:
+           %C counter for number of outputs for this object so far (UNSUPPORTED)
+           %R raw timestamp in seconds from T=0 (UNSUPPORTED)
+           both of these accept the usual %d format specifiers,
+           eg. "%.3C" produces a 3-digit leading-zero-padded.
+           The following example produces a filename like
+           RootLength_YYYYmmdd-HHMMSS.txt
+           PLEASE ensure you don't confuse the lowercase and uppercase 'm'.
+           m=month, M=Minute -->
+      <filename>SecondRootLength44.txt</filename>
+      <!-- specification1 and specification2 are meaningful to the type.
+           For "ScoreboardData", specification1 is the dimension order. -->
+      <specification1>X,Z,Y</specification1>
+      <!-- how to handle current contents when openning a non-empty file:
+           append|overwrite (default=overwrite) -->
+      <reopen>overwrite</reopen>
+      <when>
+        <!-- a count of zero is to repeat ad infinitum -->
+        <count>0</count>
+        <!-- For exporting "every" so often, use the initialtime and frequency tags
+             Year,Month,Day,Hour,Minute,Second -->
+        <interval>0,0,42,0,0,0</interval>
+        <initialtime>0,0,0,0,0,0</initialtime>
+      </when>
+    </outputrule>
+    <outputrule>
+      <type>ScoreboardData</type>
+      <source>PlantCoordinator</source>
+      <!-- characteristic is meaningful for the type/source combination
+           It applies in the general non-scoreboard sense of the term
+           also, you see -->
+      <characteristic>Tip Count Wrap None Plant 44 RootOrder1</characteristic>
+      <stratum>Soil</stratum>
+      <!-- accepts % formatting codes for strftime -->
+      <!-- Pre-processes URL % formatted values before passing to strftime
+           eg. use %20 for trailing spaces -->
+      <!-- Pre-processes extra format specifiers:
+           %C counter for number of outputs for this object so far (UNSUPPORTED)
+           %R raw timestamp in seconds from T=0 (UNSUPPORTED)
+           both of these accept the usual %d format specifiers,
+           eg. "%.3C" produces a 3-digit leading-zero-padded.
+           The following example produces a filename like
+           RootLength_YYYYmmdd-HHMMSS.txt
+           PLEASE ensure you don't confuse the lowercase and uppercase 'm'.
+           m=month, M=Minute -->
+      <filename>TipCount44.txt</filename>
+      <!-- specification1 and specification2 are meaningful to the type.
+           For "ScoreboardData", specification1 is the dimension order. -->
+      <specification1>X,Z,Y</specification1>
+      <!-- how to handle current contents when openning a non-empty file:
+           append|overwrite (default=overwrite) -->
+      <reopen>overwrite</reopen>
+      <when>
+        <!-- a count of zero is to repeat ad infinitum -->
+        <count>0</count>
+        <!-- For exporting "every" so often, use the initialtime and frequency tags
+             Year,Month,Day,Hour,Minute,Second -->
+        <interval>0,0,42,0,0,0</interval>
+        <initialtime>0,0,42,0,0,0</initialtime>
+      </when>
+    </outputrule>
+  </initialisation>
+
+  <!-- NonSpatialDataOutputStrategy -->
+  <initialisation>
+    <owner>DataOutputCoordinator</owner>
+    <outputrule>
+      <source>Nitrate</source>
+      <type>NonSpatialData</type>
+      <characteristic>Cumul Plant Nitrate Uptake</characteristic>
+      <stratum>Soil</stratum>
+      <!-- Use a filename without any strftime % formatting codes -->
+      <!-- and <reopen>append</reopen> to write all data to one file, -->
+      <!-- suitable for graphing -->
+      <filename>CumulNUptake44.csv</filename>
+      <!-- <specification1> is the variation name(s), e.g. "Plant" - see files in ./shared_attributes/ -->
+      <specification1>Plant,RootOrder</specification1>
+      <!-- 	<specification2>n</specification2> specifies a data dimensionality of n, where 0<=n<=2. 
+			Use <type>ScoreboardData</type> for data that is spatially relevant.	-->
+      <specification2>csv</specification2>
+      <reopen>overwrite</reopen>
+      <when>
+        <!-- a count of zero is to repeat ad infinitum -->
+        <count>0</count>
+        <!-- For exporting "every" so often, use the initialtime and frequency tags
+			 Year,Month,Day,Hour,Minute,Second -->
+        <interval>0,0,42,0,0,0</interval>
+        <initialtime>0,0,0,0,0,0</initialtime>
+      </when>
+    </outputrule>
+    <outputrule>
+      <source>Nitrate</source>
+      <type>NonSpatialData</type>
+      <characteristic>Cumul Plant N Fixation</characteristic>
+      <stratum>Soil</stratum>
+      <!-- Use a filename without any strftime % formatting codes -->
+      <!-- and <reopen>append</reopen> to write all data to one file, -->
+      <!-- suitable for graphing -->
+      <filename>CumulNFix44.csv</filename>
+      <!-- <specification1> is the variation name(s), e.g. "Plant" - see files in ./shared_attributes/ -->
+      <specification1>Plant,RootOrder</specification1>
+      <!-- 	<specification2>n</specification2> specifies a data dimensionality of n, where 0<=n<=2. 
+			Use <type>ScoreboardData</type> for data that is spatially relevant.	-->
+      <specification2>csv</specification2>
+      <reopen>overwrite</reopen>
+      <when>
+        <!-- a count of zero is to repeat ad infinitum -->
+        <count>0</count>
+        <!-- For exporting "every" so often, use the initialtime and frequency tags
+			 Year,Month,Day,Hour,Minute,Second -->
+        <interval>0,0,42,0,0,0</interval>
+        <initialtime>0,0,0,0,0,0</initialtime>
+      </when>
+    </outputrule>
+    <outputrule>
+      <source>Nitrate</source>
+      <type>NonSpatialData</type>
+      <characteristic>Cumulative Phosphorus Uptake</characteristic>
+      <stratum>Soil</stratum>
+      <!-- Use a filename without any strftime % formatting codes -->
+      <!-- and <reopen>append</reopen> to write all data to one file, -->
+      <!-- suitable for graphing -->
+      <filename>CumulPUptake44.csv</filename>
+      <!-- <specification1> is the variation name(s), e.g. "Plant" - see files in ./shared_attributes/ -->
+      <specification1>Plant,RootOrder</specification1>
+      <!-- 	<specification2>n</specification2> specifies a data dimensionality of n, where 0<=n<=2. 
+			Use <type>ScoreboardData</type> for data that is spatially relevant.	-->
+      <specification2>csv</specification2>
+      <reopen>overwrite</reopen>
+      <when>
+        <!-- a count of zero is to repeat ad infinitum -->
+        <count>0</count>
+        <!-- For exporting "every" so often, use the initialtime and frequency tags
+			 Year,Month,Day,Hour,Minute,Second -->
+        <interval>0,0,42,0,0,0</interval>
+        <initialtime>0,0,0,0,0,0</initialtime>
+      </when>
+    </outputrule>
+  </initialisation>
+  
+</rootmap>

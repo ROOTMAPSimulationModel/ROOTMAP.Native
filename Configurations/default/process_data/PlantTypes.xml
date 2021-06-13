@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
+
+<!-- Plant Types file                                                       -->
+<!--                                                                        -->
+<!-- FORMAT:XML                                                             -->
+<!--                                                                        -->
+<!-- NO C-style comments                                                    -->
+<!--                                                                        -->
+<rootmap
+        xmlns="https://example.org/ROOTMAP/PlantTypesSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/PlantTypesSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/PlantTypes.xsd">
+    <construction>
+        <owner>PlantCoordinator</owner>
+        <planttype>
+            <name>RootMap Plant Type</name>
+            <roots_to_foliage_ratio>1.0</roots_to_foliage_ratio>
+            <vegetate_to_reproduce_ratio>1.0</vegetate_to_reproduce_ratio>
+            <structure_to_photosynthesize_ratio>1.0</structure_to_photosynthesize_ratio>
+            <initial_seminal_deflection>1.0</initial_seminal_deflection>
+            <germination_lag>1.0</germination_lag>
+            <first_seminal_probability>1.0</first_seminal_probability>
+            <temperature_of_zero_growth>7.0</temperature_of_zero_growth>
+        </planttype>
+    </construction>
+</rootmap>

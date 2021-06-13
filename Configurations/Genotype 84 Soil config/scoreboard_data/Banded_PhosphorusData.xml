@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Soil P for modelling lupin root growth in pots, simulations in soil (vertosol analogue) -->
+<rootmap
+        xmlns="https://example.org/ROOTMAP/ScoreboardDataSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/ScoreboardDataSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/ScoreboardData.xsd">
+  <initialisation>
+    <owner>Scoreboard</owner>
+    <scoreboarddata>
+      <!-- Added P µgP/g soil, top dressed fertiliser = P mixed through the top 3cm of soil -->
+      <process>Phosphorus</process>
+      <characteristic>Added P</characteristic>
+      <scheme>
+        set scoreboard value=0.0;
+        set boxes [6,4,7] [6,7,7] value=23600;
+        set boxes [7,4,7] [7,7,7] value=23600;
+        set boxes [6,5,7] [6,6,7] value=23600;
+        set boxes [7,5,7] [7,6,7] value=23600;
+        set boxes [6,5,6] [6,6,6] value=23600;
+        set boxes [7,5,6] [7,6,6] value=23600;
+        set boxes [6,4,6] [6,7,6] value=23600;
+        set boxes [7,4,6] [7,7,6] value=23600;
+      </scheme>
+    </scoreboarddata>
+  </initialisation>
+
+  <initialisation>
+    <owner>Scoreboard</owner>
+    <scoreboarddata>
+      <process>Phosphorus</process>
+      <!-- Total Labile P µgP/g in each soil cube, or µgP/mL for nutrient solution simulations-->
+      <characteristic>Total Labile P</characteristic>
+      <scheme>
+        set scoreboard value=8.0;
+      </scheme>
+    </scoreboarddata>
+  </initialisation>
+</rootmap>

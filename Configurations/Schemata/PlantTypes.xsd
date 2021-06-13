@@ -1,0 +1,34 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="https://example.org/ROOTMAP/PlantTypesSchema"
+           targetNamespace="https://example.org/ROOTMAP/PlantTypesSchema"
+           elementFormDefault="qualified">
+    <xsd:include schemaLocation="Common.xsd"/>
+
+    <xsd:element name="rootmap">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="construction" type="tns:PlantTypes" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="PlantTypes">
+        <xsd:sequence>
+            <xsd:element name="owner" type="xsd:string" fixed="PlantCoordinator" />
+            <xsd:element name="planttype" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="name" type="xsd:string" />
+                        <xsd:element name="roots_to_foliage_ratio" type="tns:PositiveDecimal" />
+                        <xsd:element name="vegetate_to_reproduce_ratio" type="tns:PositiveDecimal" />
+                        <xsd:element name="structure_to_photosynthesize_ratio" type="tns:PositiveDecimal" />
+                        <xsd:element name="initial_seminal_deflection" type="xsd:decimal" />
+                        <xsd:element name="germination_lag" type="tns:PositiveDecimal" />
+                        <xsd:element name="first_seminal_probability" type="tns:UnitInterval" />
+                        <xsd:element name="temperature_of_zero_growth" type="tns:Temperature" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rootmap
+        xmlns="https://example.org/ROOTMAP/ScoreboardDataSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/ScoreboardDataSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/ScoreboardData.xsd">
+  <initialisation>
+    <owner>Phosphorus</owner>
+    <objectdata>
+      <name>Phosphorus Uptake Plant1</name>
+      <initial_value>0.00</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Phosphorus Uptake Plant2</name>
+      <initial_value>0.00</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Phosphorus Uptake Plant3</name>
+      <initial_value>0.00</initial_value>
+    </objectdata>
+    <objectdata>
+      <name>Phosphorus Uptake Plant4</name>
+      <initial_value>0.00</initial_value>
+    </objectdata>
+  </initialisation>
+</rootmap>

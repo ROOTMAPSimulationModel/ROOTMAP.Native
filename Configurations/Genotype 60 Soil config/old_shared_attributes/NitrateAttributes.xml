@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<rootmap
+        xmlns="https://example.org/ROOTMAP/SharedAttributesSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://example.org/ROOTMAP/SharedAttributesSchema https://rootmapstorageaccount.blob.core.windows.net/rootmap-schemata-container/SharedAttributes.xsd">
+  <construction>
+    <owner>SharedAttributeManager</owner>
+
+    <attribute>
+      <owner>Nitrate</owner>
+      <characteristic_descriptor>
+        <name>Plant Nitrate Uptake</name>
+        <units>mols</units>
+        <minimum>0.0</minimum>
+        <maximum>INF</maximum>
+        <default>0.0</default>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+        <stratum>Soil</stratum>
+      </characteristic_descriptor>
+      <storage>Nitrate</storage>
+      <variations>Plant</variations>
+    </attribute>
+
+    <attribute>
+      <owner>Nitrate</owner>
+      <characteristic_descriptor>
+        <name>RO Nitrate Uptake</name>
+        <units>mols</units>
+        <minimum>0.0</minimum>
+        <maximum>INF</maximum>
+        <default>0.0</default>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+        <stratum>Soil</stratum>
+      </characteristic_descriptor>
+      <storage>Nitrate</storage>
+      <variations>RootOrder</variations>
+    </attribute>
+
+    <attribute>
+      <owner>Nitrate</owner>
+      <characteristic_descriptor>
+        <name>Total Nitrate Uptake</name>
+        <units>mols</units>
+        <minimum>0.0</minimum>
+        <maximum>INF</maximum>
+        <default>0.0</default>
+        <visible>true</visible>
+        <editable>false</editable>
+        <tobesaved>false</tobesaved>
+        <specialperboxinfo>false</specialperboxinfo>
+        <stratum>Soil</stratum>
+      </characteristic_descriptor>
+      <storage>Nitrate</storage>
+    </attribute>
+
+  </construction>
+</rootmap>
