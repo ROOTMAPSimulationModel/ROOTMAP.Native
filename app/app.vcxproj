@@ -80,9 +80,8 @@
       <OptimizeReferences>false</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Message>Stamp version number into application code. Copy wxWidgets XRC file and bitmap resources to target dir.</Message>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File version-stamp.ps1
-mkdir $(TargetDir)resources%3b
+      <Message>Copy wxWidgets XRC file and bitmap resources to target dir.</Message>
+      <Command>mkdir $(TargetDir)resources%3b
 copy $(ProjectDir)gui\MDI\resources\RootMapMDI.xrc $(TargetDir)
 copy $(ProjectDir)gui\MDI\resources\*.bmp $(TargetDir)resources</Command>
     </PreBuildEvent>
@@ -116,8 +115,8 @@ copy $(ProjectDir)gui\MDI\resources\*.bmp $(TargetDir)resources</Command>
       <LinkTimeCodeGeneration />
     </Link>
     <PreBuildEvent>
-      <Message>Stamp version number into application code. Copy wxWidgets XRC file and bitmap resources to target dir.</Message>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File version-stamp.ps1
+      <Message>Copy wxWidgets XRC file and bitmap resources to target dir.</Message>
+      <Command>
 mkdir $(TargetDir)resources%3b
 copy $(ProjectDir)gui\MDI\resources\RootMapMDI.xrc $(TargetDir)
 copy $(ProjectDir)gui\MDI\resources\*.bmp $(TargetDir)resources</Command>
@@ -129,7 +128,6 @@ copy $(ProjectDir)gui\MDI\resources\*.bmp $(TargetDir)resources</Command>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="rootmap.log.cfg" />
-    <None Include="version-stamp.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="rootmap.log.cfg">
@@ -198,7 +196,6 @@ copy $(ProjectDir)gui\MDI\resources\*.bmp $(TargetDir)resources</Command>
     <ClCompile Include="common\FilesystemUtilities.cpp" />
     <ClCompile Include="common\ProcessHelper.cpp" />
     <ClCompile Include="common\RmGetOpts.cpp" />
-    <ClCompile Include="common\RmVersion.cpp" />
     <ClCompile Include="gui\CharacteristicColourSelectionDialog\RmCharacteristicColourSelectionDialog.cpp" />
     <ClCompile Include="gui\common\GuiIdentifierUtility.cpp" />
     <ClCompile Include="gui\common\GuiSimulationEngine.cpp" />

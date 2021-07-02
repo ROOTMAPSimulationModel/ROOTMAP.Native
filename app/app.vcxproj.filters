@@ -165,9 +165,6 @@
     <ClCompile Include="gui\ViewWindow\ScoreboardDrawingIterator.cpp">
       <Filter>ViewWindow</Filter>
     </ClCompile>
-    <ClCompile Include="common\RmVersion.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
     <ClCompile Include="common\RmGetOpts.cpp">
       <Filter>common</Filter>
     </ClCompile>
@@ -346,7 +343,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="rootmap.log.cfg" />
-    <None Include="version-stamp.ps1" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include "catch.hpp"
-#include "app/common/RmVersion.cpp"
+#include "core/common/RmVersion.cpp"
 #include "app/common/FilesystemUtilities.cpp"
 #include "app/common/RmGetOpts.h"
 #include "app/common/RmGetOpts.cpp"

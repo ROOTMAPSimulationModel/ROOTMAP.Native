@@ -967,7 +967,7 @@ void RmParentFrame::OnViewMenuNew3DViewItemClick(wxCommandEvent& /* event */)
 void RmParentFrame::OnHelpMenuAboutItemClick(wxCommandEvent& event)
 {
     wxString str = "ROOTMAP v";
-    str << rootmapNativeVersion << "\nCopyright " << wxDateTime::Now().GetYear() << "\nUniversity of Tasmania /\nUniversity of Western Australia\n";
+    str << rootmapVersion << "\nCopyright " << wxDateTime::Now().GetYear() << "\nUniversity of Tasmania /\nUniversity of Western Australia\n";
     wxMessageBox(str, "About ROOTMAP");
     event.Skip();
 }

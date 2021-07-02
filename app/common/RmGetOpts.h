@@ -28,7 +28,7 @@
 #include <vector>
 #include "wx/string.h"
 
-extern const std::string rootmapNativeVersion;
+extern const std::string rootmapVersion;
 
 namespace rootmap
 {

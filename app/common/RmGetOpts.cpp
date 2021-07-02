@@ -491,9 +491,9 @@ namespace rootmap
     wxString RmGetOpts::getVersion()
     {
         // Ensure the version number we return does not start with v or V.
-        if (rootmapNativeVersion.rfind("v", 0) == 0 || rootmapNativeVersion.rfind("V", 0) == 0) {
-            return rootmapNativeVersion.substr(1);
+        if (rootmapVersion.rfind("v", 0) == 0 || rootmapVersion.rfind("V", 0) == 0) {
+            return rootmapVersion.substr(1);
         }
-        return rootmapNativeVersion;
+        return rootmapVersion;
     }
 } /* namespace rootmap */
