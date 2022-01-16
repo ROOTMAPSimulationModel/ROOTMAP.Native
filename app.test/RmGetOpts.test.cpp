@@ -11,7 +11,7 @@ using namespace rootmap;
 
 TEST_CASE("Has a valid semantic version", "[RmGetOpts]") {
     auto sut = RmGetOpts::getInstance();
-    std::string version = sut.getVersion();
+    std::string version = sut.getVersion().ToStdString();
 
     // David Fichtmueller's semver validation regex from https://github.com/semver/semver/issues/232
 

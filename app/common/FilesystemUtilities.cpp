@@ -6,7 +6,7 @@
 #pragma warning( push )
 #pragma warning( disable : 4290 )
 #pragma warning( disable : 4786 )
-#endif    // defined( WIN32 ) 
+#endif    // defined( WIN32 )
 
 namespace rootmap
 {
@@ -15,8 +15,8 @@ namespace rootmap
         if (subdirectories.empty())
         {
             return absoluteBasePath.EndsWith("\\")
-                ? absoluteBasePath
-                : (absoluteBasePath + "\\");
+                ? absoluteBasePath.ToStdString()
+                : (absoluteBasePath.ToStdString() + "\\");
         }
 
         wxString absolutePath = absoluteBasePath + "\\" << subdirectories.front();
