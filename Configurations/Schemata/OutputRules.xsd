@@ -28,7 +28,7 @@
                 <xsd:annotation>
                     <xsd:documentation>Characteristic is meaningful for the type/source combination.
                     If this OutputRule's type is ScoreboardData, Characteristic refers to a specific Scoreboard Characteristic.
-                    Otherwise, it is optional and may be used to as a more general descriptor.</xsd:documentation>
+                    Otherwise, it is optional and may be used as a more general descriptor.</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
             <xsd:element name="filename" type="xsd:string" minOccurs="1">
