@@ -850,7 +850,7 @@
         <units>none</units>
         <minimum>0.0</minimum>
         <maximum>500</maximum>
-        <!-- target raio of N:P resources in the plant tissue lupin = 15.0 -->
+        <!-- target ratio of N:P resources in the plant tissue lupin = 15.0 -->
         <default>15.0</default>
         <visible>false</visible>
         <editable>false</editable>
